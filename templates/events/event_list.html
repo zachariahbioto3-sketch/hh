@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Events — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="wrap">
+  <section class="section about-hero">
+    <div class="eyebrow">Calendar</div>
+    <h1 class="about-title">Meetings, workshops <em>and outreach camps.</em></h1>
+    <p class="about-lede">Everything KAFUOSA has planned — and everything we've already done.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2>Upcoming</h2>
+    </div>
+    {% if upcoming %}
+      {% for event in upcoming %}
+        <a href="{% url 'event_detail' event.slug %}" class="event-row-link">
+          <div class="event-row">
+            <div class="event-date mono">{{ event.start_datetime|date:"M d, Y" }}</div>
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-venue">{{ event.venue }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p class="about-body">No upcoming events yet — check back soon.</p>
+    {% endif %}
+  </section>
+</div>
+
+{% if outreach %}
+<div class="team-band">
+  <div class="wrap section">
+    <div class="section-head">
+      <h2>Outreach camps</h2>
+      <p>Free eye screenings run across the region.</p>
+    </div>
+    <div class="focus-grid">
+      {% for event in outreach %}
+        <a href="{% url 'event_detail' event.slug %}" class="focus-card">
+          {% if event.cover_image %}
+            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+          {% endif %}
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.venue }} — {{ event.start_datetime|date:"M Y" }}</p>
+          {% if event.people_screened %}
+            <p><strong>{{ event.people_screened }}</strong> screened
+            {% if event.glasses_donated %} · <strong>{{ event.glasses_donated }}</strong> glasses donated{% endif %}
+            </p>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2>Past events</h2>
+    </div>
+    {% if past %}
+      {% for event in past %}
+        <a href="{% url 'event_detail' event.slug %}" class="event-row-link">
+          <div class="event-row">
+            <div class="event-date mono">{{ event.start_datetime|date:"M d, Y" }}</div>
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-venue">{{ event.venue }}</div>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p class="about-body">No past events recorded yet.</p>
+    {% endif %}
+  </section>
+</div>
+
+{% endblock %}

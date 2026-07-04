@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}News — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="wrap">
+  <section class="section about-hero">
+    <div class="eyebrow">News &amp; Announcements</div>
+    <h1 class="about-title">What's happening <em>in the department.</em></h1>
+    <p class="about-lede">Academic highlights, outreach recaps, and member achievements.</p>
+
+    <div class="news-filters">
+      <a href="{% url 'post_list' %}" class="{% if not active_category %}active{% endif %}">All</a>
+      {% for value, label in categories %}
+        <a href="?category={{ value }}" class="{% if active_category == value %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    {% if posts %}
+      <div class="news-grid">
+        {% for post in posts %}
+          <a href="{% url 'post_detail' post.slug %}" class="news-card">
+            {% if post.cover_image %}
+              <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+            {% else %}
+              <div class="news-card-placeholder"></div>
+            {% endif %}
+            <div class="news-card-body">
+              <div class="tag mono">{{ post.get_category_display }} · {{ post.published_at|date:"M d, Y" }}</div>
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt|default:post.body|truncatewords:20 }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="about-body">No news posted yet — check back soon.</p>
+    {% endif %}
+  </section>
+</div>
+
+{% endblock %}

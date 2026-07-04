@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Kaimosi Friends University · Optometry &amp; Vision Science</div>
+      <h1>Eyes to the <em>future</em>,<br>focus on the now.</h1>
+      <p>KAFUOSA unites students of Optometry and Vision Science in clinical training, research, and outreach — bringing eye care to the communities that need it most.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary">Join KAFUOSA</a>
+        <a href="#" class="btn-secondary">Our Mission</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="chart">
+        <div>K F U</div>
+        <div>O S A</div>
+        <div>E Y E S</div>
+        <div>V I S I O N</div>
+        <div>· · · 6 / 6 · · ·</div>
+      </div>
+      <div class="badge">
+        <span>Snellen acuity chart</span>
+        <span class="gold">6/6</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="stats-band">
+  <div class="wrap stats-inner">
+    <div class="stat">
+      <b>1,200<sup>+</sup></b>
+      <span>People screened at outreach camps</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <b>340<sup>+</sup></b>
+      <span>Glasses donated to date</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <b>150<sup>+</sup></b>
+      <span>Registered members</span>
+    </div>
+    <div class="stats-note">
+      Placeholder figures — update these once real outreach numbers are available. <a href="#">See our impact →</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2>What we do, in and out of the clinic.</h2>
+      <p>From department representation to free community screenings, KAFUOSA's work spans the classroom and the field.</p>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Community Outreach</h3>
+        <p>Free eye screening camps across the region, distributing glasses and referring patients for further care.</p>
+        <div class="link">View outreach camps →</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h3>Academic Development</h3>
+        <p>Study resources, past papers and CPD workshop materials to support students through the programme.</p>
+        <div class="link">Browse resources →</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3-5.5-3-5.5 3 1-6.3L3 8.9 9 8z"/></svg>
+        </div>
+        <h3>Department Representation</h3>
+        <p>Liaising between students and faculty, and welcoming each new cohort into the department.</p>
+        <div class="link">Meet the council →</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="team-band">
+  <div class="wrap section">
+    <div class="section-head">
+      <h2>Meet the executive council.</h2>
+      <p>Elected each academic year by KAFUOSA's registered members.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-feature">
+        <div>
+          <div class="tag">2025 / 26 Council</div>
+          <h3>Seven elected officers, one mission.</h3>
+        </div>
+        <p>Chairperson · Vice Chairperson · Secretary General · Organizing Secretary · Treasurer · Academic Rep · Class Reps</p>
+      </div>
+      <div class="team-photo"><div class="who"><b>Chairperson</b><span>Name TBD</span></div></div>
+      <div class="team-photo"><div class="who"><b>Secretary General</b><span>Name TBD</span></div></div>
+      <div class="team-photo"><div class="who"><b>Treasurer</b><span>Name TBD</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    <div class="section-head">
+      <h2>Upcoming on the calendar.</h2>
+      <p>Meetings, workshops and outreach camps.</p>
+    </div>
+    <div>
+      {% if upcoming_events %}
+        {% for event in upcoming_events %}
+          <a href="{% url 'event_detail' event.slug %}" class="event-row-link">
+            <div class="event-row">
+              <div class="event-date mono">{{ event.start_datetime|date:"M d, Y" }}</div>
+              <div class="event-title">{{ event.title }}</div>
+              <div class="event-venue">{{ event.venue }}</div>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="about-body">No upcoming events yet — check back soon.</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+{% endblock %}

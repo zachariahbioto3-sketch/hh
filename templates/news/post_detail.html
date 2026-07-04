@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="wrap">
+  <section class="section about-hero">
+    <div class="eyebrow">{{ post.get_category_display }} · {{ post.published_at|date:"l, F j, Y" }}</div>
+    <h1 class="about-title">{{ post.title }}</h1>
+
+    {% if post.cover_image %}
+      <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" style="width:100%;border-radius:18px;margin-top:32px;max-height:420px;object-fit:cover;">
+    {% endif %}
+
+    <div class="about-body" style="margin-top:32px;white-space:pre-line;">{{ post.body }}</div>
+
+    <div class="hero-cta">
+      <a href="{% url 'post_list' %}" class="btn-secondary">← Back to all news</a>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

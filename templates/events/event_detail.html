@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ event.title }} — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="wrap">
+  <section class="section about-hero">
+    <div class="eyebrow">{{ event.start_datetime|date:"l, F j, Y" }} · {{ event.venue }}</div>
+    <h1 class="about-title">{{ event.title }}</h1>
+    {% if event.cover_image %}
+      <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" style="width:100%;border-radius:18px;margin-top:32px;max-height:420px;object-fit:cover;">
+    {% endif %}
+    <p class="about-lede">{{ event.description }}</p>
+
+    {% if event.is_outreach %}
+      <div class="about-grid" style="grid-template-columns:repeat(2,1fr);padding-top:40px;">
+        {% if event.people_screened %}
+          <div class="about-card">
+            <div class="tag mono">People screened</div>
+            <h3>{{ event.people_screened }}</h3>
+          </div>
+        {% endif %}
+        {% if event.glasses_donated %}
+          <div class="about-card">
+            <div class="tag mono">Glasses donated</div>
+            <h3>{{ event.glasses_donated }}</h3>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="hero-cta">
+      <a href="{% url 'event_list' %}" class="btn-secondary">← Back to all events</a>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

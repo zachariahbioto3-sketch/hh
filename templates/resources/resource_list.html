@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Resources — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="wrap">
+  <section class="section about-hero">
+    <div class="eyebrow">Resources</div>
+    <h1 class="about-title">Study materials, <em>made accessible.</em></h1>
+    <p class="about-lede">Past papers, clinical guidelines, and CPD workshop materials for KAFUOSA members.</p>
+
+    <div class="news-filters">
+      <a href="{% url 'resource_list' %}" class="{% if not active_category %}active{% endif %}">All</a>
+      {% for value, label in categories %}
+        <a href="?category={{ value }}" class="{% if active_category == value %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="section">
+    {% if resources %}
+      <div>
+        {% for resource in resources %}
+          <a href="{{ resource.file.url }}" target="_blank" class="event-row-link">
+            <div class="event-row">
+              <div class="event-date mono">{{ resource.get_category_display }}</div>
+              <div class="event-title">{{ resource.title }}</div>
+              <div class="event-venue">Download ↓</div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="about-body">No resources uploaded yet — check back soon.</p>
+    {% endif %}
+  </section>
+</div>
+
+{% endblock %}
