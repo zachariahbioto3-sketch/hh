@@ -2,53 +2,51 @@
 {% block title %}Events — KAFUOSA{% endblock %}
 {% block content %}
 
-<div class="wrap">
-  <section class="section about-hero">
-    <div class="eyebrow">Calendar</div>
-    <h1 class="about-title">Meetings, workshops <em>and outreach camps.</em></h1>
-    <p class="about-lede">Everything KAFUOSA has planned — and everything we've already done.</p>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Calendar</div>
+    <h1 class="font-display text-4xl md:text-6xl leading-tight max-w-3xl text-ink">Meetings, workshops <em class="italic text-teal">and outreach camps.</em></h1>
+    <p class="mt-5 max-w-xl text-base text-muted leading-relaxed">Everything KAFUOSA has planned — and everything we've already done.</p>
   </section>
 </div>
 
-<div class="wrap">
-  <section class="section">
-    <div class="section-head">
-      <h2>Upcoming</h2>
-    </div>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="py-20">
+    <h2 class="font-display text-3xl text-ink mb-10">Upcoming</h2>
     {% if upcoming %}
       {% for event in upcoming %}
-        <a href="{% url 'event_detail' event.slug %}" class="event-row-link">
-          <div class="event-row">
-            <div class="event-date mono">{{ event.start_datetime|date:"M d, Y" }}</div>
-            <div class="event-title">{{ event.title }}</div>
-            <div class="event-venue">{{ event.venue }}</div>
+        <a href="{% url 'event_detail' event.slug %}" class="block group">
+          <div class="flex justify-between items-center py-6 border-b border-paperdim first:border-t">
+            <div class="font-mono text-sm text-teal w-32 shrink-0">{{ event.start_datetime|date:"M d, Y" }}</div>
+            <div class="font-display text-xl text-ink flex-1 group-hover:text-teal transition">{{ event.title }}</div>
+            <div class="text-sm text-muted w-44 text-right">{{ event.venue }}</div>
           </div>
         </a>
       {% endfor %}
     {% else %}
-      <p class="about-body">No upcoming events yet — check back soon.</p>
+      <p class="text-muted">No upcoming events yet — check back soon.</p>
     {% endif %}
   </section>
 </div>
 
 {% if outreach %}
-<div class="team-band">
-  <div class="wrap section">
-    <div class="section-head">
-      <h2>Outreach camps</h2>
-      <p>Free eye screenings run across the region.</p>
+<div class="bg-paperdim">
+  <div class="max-w-6xl mx-auto px-8 py-20">
+    <div class="mb-10">
+      <h2 class="font-display text-3xl text-ink">Outreach camps</h2>
+      <p class="text-muted text-sm mt-2">Free eye screenings run across the region.</p>
     </div>
-    <div class="focus-grid">
+    <div class="grid md:grid-cols-3 gap-7">
       {% for event in outreach %}
-        <a href="{% url 'event_detail' event.slug %}" class="focus-card">
+        <a href="{% url 'event_detail' event.slug %}" class="bg-white border border-paperdim rounded-2xl p-7 block hover:-translate-y-1 hover:shadow-xl transition">
           {% if event.cover_image %}
-            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" class="w-full h-40 object-cover rounded-xl mb-4">
           {% endif %}
-          <h3>{{ event.title }}</h3>
-          <p>{{ event.venue }} — {{ event.start_datetime|date:"M Y" }}</p>
+          <h3 class="text-lg text-ink font-display mb-2">{{ event.title }}</h3>
+          <p class="text-sm text-muted">{{ event.venue }} — {{ event.start_datetime|date:"M Y" }}</p>
           {% if event.people_screened %}
-            <p><strong>{{ event.people_screened }}</strong> screened
-            {% if event.glasses_donated %} · <strong>{{ event.glasses_donated }}</strong> glasses donated{% endif %}
+            <p class="text-sm text-muted mt-2"><strong class="text-ink">{{ event.people_screened }}</strong> screened
+            {% if event.glasses_donated %} · <strong class="text-ink">{{ event.glasses_donated }}</strong> glasses donated{% endif %}
             </p>
           {% endif %}
         </a>
@@ -58,23 +56,21 @@
 </div>
 {% endif %}
 
-<div class="wrap">
-  <section class="section">
-    <div class="section-head">
-      <h2>Past events</h2>
-    </div>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="py-20">
+    <h2 class="font-display text-3xl text-ink mb-10">Past events</h2>
     {% if past %}
       {% for event in past %}
-        <a href="{% url 'event_detail' event.slug %}" class="event-row-link">
-          <div class="event-row">
-            <div class="event-date mono">{{ event.start_datetime|date:"M d, Y" }}</div>
-            <div class="event-title">{{ event.title }}</div>
-            <div class="event-venue">{{ event.venue }}</div>
+        <a href="{% url 'event_detail' event.slug %}" class="block group">
+          <div class="flex justify-between items-center py-6 border-b border-paperdim first:border-t">
+            <div class="font-mono text-sm text-teal w-32 shrink-0">{{ event.start_datetime|date:"M d, Y" }}</div>
+            <div class="font-display text-xl text-ink flex-1 group-hover:text-teal transition">{{ event.title }}</div>
+            <div class="text-sm text-muted w-44 text-right">{{ event.venue }}</div>
           </div>
         </a>
       {% endfor %}
     {% else %}
-      <p class="about-body">No past events recorded yet.</p>
+      <p class="text-muted">No past events recorded yet.</p>
     {% endif %}
   </section>
 </div>

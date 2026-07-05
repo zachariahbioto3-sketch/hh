@@ -2,48 +2,48 @@
 {% block title %}Contact — KAFUOSA{% endblock %}
 {% block content %}
 
-<div class="wrap">
-  <section class="section about-hero">
-    <div class="eyebrow">Get in touch</div>
-    <h1 class="about-title">Questions, ideas, <em>partnerships.</em></h1>
-    <p class="about-lede">Reach out and a member of the executive council will get back to you.</p>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Get in touch</div>
+    <h1 class="font-display text-4xl md:text-6xl leading-tight max-w-3xl text-ink">Questions, ideas, <em class="italic text-teal">partnerships.</em></h1>
+    <p class="mt-5 max-w-xl text-base text-muted leading-relaxed">Reach out and a member of the executive council will get back to you.</p>
   </section>
 </div>
 
-<div class="wrap">
-  <section class="section contact-grid">
-    <div class="contact-info">
-      <div class="about-card" style="background:var(--ink-soft);">
-        <div class="tag mono">Location</div>
-        <h3>Department of Optometry &amp; Vision Science, Kaimosi Friends University</h3>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="py-20 grid md:grid-cols-2 gap-10 items-start">
+    <div>
+      <div class="bg-inksoft rounded-2xl p-7">
+        <div class="text-gold text-xs tracking-widest uppercase mb-3.5 font-mono">Location</div>
+        <h3 class="text-paper text-lg leading-relaxed font-medium font-display">Department of Optometry &amp; Vision Science, Kaimosi Friends University</h3>
       </div>
-      <div class="about-card" style="background:var(--ink-soft);margin-top:20px;">
-        <div class="tag mono">Email</div>
-        <h3>kafuoptometry@gmail.com</h3>
+      <div class="bg-inksoft rounded-2xl p-7 mt-5">
+        <div class="text-gold text-xs tracking-widest uppercase mb-3.5 font-mono">Email</div>
+        <h3 class="text-paper text-lg leading-relaxed font-medium font-display">kafuoptometry@gmail.com</h3>
       </div>
     </div>
 
-    <form method="post" class="contact-form">
+    <form method="post" class="flex flex-col gap-4.5">
       {% csrf_token %}
       {% if messages %}
         {% for message in messages %}
-          <div class="form-success">{{ message }}</div>
+          <div class="bg-teal text-white px-4 py-3 rounded-xl text-sm">{{ message }}</div>
         {% endfor %}
       {% endif %}
 
-      <label>Name
+      <label class="text-sm text-muted flex flex-col gap-2">Name
         {{ form.name }}
       </label>
-      <label>Email
+      <label class="text-sm text-muted flex flex-col gap-2">Email
         {{ form.email }}
       </label>
-      <label>Subject
+      <label class="text-sm text-muted flex flex-col gap-2">Subject
         {{ form.subject }}
       </label>
-      <label>Message
+      <label class="text-sm text-muted flex flex-col gap-2">Message
         {{ form.message }}
       </label>
-      <button type="submit" class="btn-primary" style="border:none;cursor:pointer;">Send message</button>
+      <button type="submit" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium border-none cursor-pointer w-fit">Send message</button>
     </form>
   </section>
 </div>

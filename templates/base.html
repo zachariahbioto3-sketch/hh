@@ -7,68 +7,97 @@
 <title>{% block title %}KAFUOSA — Eyes To The Future{% endblock %}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#101B33',
+          inksoft: '#1B2A4A',
+          paper: '#F3F4EF',
+          paperdim: '#E8E9E1',
+          gold: '#D9A441',
+          teal: '#2F6F6B',
+          muted: '#8892A6',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans: ['Space Grotesk', 'sans-serif'],
+          mono: ['IBM Plex Mono', 'monospace'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background: #F3F4EF; }
+  @keyframes sharpen {
+    0% { filter: blur(9px); opacity: 0; transform: translateY(6px); }
+    100% { filter: blur(0); opacity: 1; transform: translateY(0); }
+  }
+  .hero-sharpen { animation: sharpen 1.5s cubic-bezier(.2,.7,.3,1) 0.15s forwards; filter: blur(9px); opacity: 0; }
+</style>
 </head>
-<body>
+<body class="font-sans text-ink">
 
-<div class="wrap">
-  <nav>
-    <div class="logo">
-      <img src="{% static 'images/kafuosa-logo.jpeg' %}" alt="KAFUOSA logo" class="logo-mark">
-      <div class="logo-text">KAFUOSA<span>.</span></div>
+<div class="max-w-6xl mx-auto px-8">
+  <nav class="flex items-center justify-between py-7">
+    <div class="flex items-center gap-2.5">
+      <img src="{% static 'images/kafuosa-logo.jpeg' %}" alt="KAFUOSA logo" class="w-10 h-10 rounded-full object-cover">
+      <div class="font-display font-bold text-lg tracking-tight">KAFUOSA<span class="text-gold">.</span></div>
     </div>
-    <div class="nav-links">
-      <a href="{% url 'about' %}">About</a>
-      <a href="{% url 'event_list' %}">Events</a>
-      <a href="{% url 'post_list' %}">News</a>
-      <a href="{% url 'resource_list' %}">Resources</a>
-      <a href="{% url 'contact' %}">Contact</a>
+    <div class="hidden md:flex gap-9 text-sm text-inksoft">
+      <a href="{% url 'about' %}" class="opacity-75 hover:opacity-100 transition">About</a>
+      <a href="{% url 'event_list' %}" class="opacity-75 hover:opacity-100 transition">Events</a>
+      <a href="{% url 'post_list' %}" class="opacity-75 hover:opacity-100 transition">News</a>
+      <a href="{% url 'resource_list' %}" class="opacity-75 hover:opacity-100 transition">Resources</a>
+      <a href="{% url 'contact' %}" class="opacity-75 hover:opacity-100 transition">Contact</a>
     </div>
-    <a href="#" class="nav-cta">Member Login →</a>
+    <a href="#" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">Member Login →</a>
   </nav>
 </div>
 
 {% block content %}{% endblock %}
 
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-motto">
-        <span class="mono">KAFUOSA</span>
-        <h2>Eyes to the future.</h2>
+<footer class="bg-ink text-paper pt-16 pb-8 mt-16">
+  <div class="max-w-6xl mx-auto px-8">
+    <div class="flex flex-wrap justify-between gap-10 pb-12 border-b border-white/10">
+      <div>
+        <span class="text-gold text-xs tracking-widest uppercase mb-3 block font-mono">KAFUOSA</span>
+        <h2 class="font-display text-3xl md:text-4xl max-w-md leading-tight">Eyes to the future.</h2>
       </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <a href="{% url 'about' %}">About</a>
-          <a href="{% url 'event_list' %}">Events</a>
-          <a href="{% url 'post_list' %}">News</a>
-          <a href="{% url 'resource_list' %}">Resources</a>
+      <div class="flex gap-16 flex-wrap">
+        <div>
+          <h4 class="text-gold text-sm mb-3 font-medium">Explore</h4>
+          <a href="{% url 'about' %}" class="block text-sm text-muted mb-2.5">About</a>
+          <a href="{% url 'event_list' %}" class="block text-sm text-muted mb-2.5">Events</a>
+          <a href="{% url 'post_list' %}" class="block text-sm text-muted mb-2.5">News</a>
+          <a href="{% url 'resource_list' %}" class="block text-sm text-muted mb-2.5">Resources</a>
         </div>
-        <div class="footer-col">
-          <h4>Association</h4>
-          <a href="#">Membership</a>
-          <a href="#">Executive Council</a>
-          <a href="{% url 'contact' %}">Contact</a>
+        <div>
+          <h4 class="text-gold text-sm mb-3 font-medium">Association</h4>
+          <a href="#" class="block text-sm text-muted mb-2.5">Membership</a>
+          <a href="{% url 'about' %}" class="block text-sm text-muted mb-2.5">Executive Council</a>
+          <a href="{% url 'contact' %}" class="block text-sm text-muted mb-2.5">Contact</a>
         </div>
       </div>
     </div>
-    <div class="footer-social">
-      <a href="https://www.facebook.com/share/1a8nm4U5GJ/
-                 follow by clicking on the link" target="_blank" rel="noopener" aria-label="Facebook">
+    <div class="flex gap-4 pt-6">
+      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-gold hover:border-gold hover:text-ink transition">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
       </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-gold hover:border-gold hover:text-ink transition">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       </a>
-      <a href="https://x.com" target="_blank" rel="noopener" aria-label="X (Twitter)">
+      <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-gold hover:border-gold hover:text-ink transition">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.4 22H1.3l8.2-9.3L1 2h7l4.9 6.3L18.9 2z"/></svg>
       </a>
-      <a href="https://chat.whatsapp.com/HpD7uCEWbFV8Tr6QfChbOB?s=cl&p=a&ilr=4" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <a href="https://wa.me/254700000000" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-gold hover:border-gold hover:text-ink transition">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.1-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.9 2.3 1 2.4c.1.2 1.7 2.6 4.1 3.6.6.3 1 .4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
       </a>
     </div>
-    <div class="footer-bottom">
+    <div class="flex flex-wrap justify-between pt-6 text-xs text-muted">
       <span>© 2026 Kaimosi Friends University Optometry Students' Association</span>
       <span>Department of Optometry &amp; Vision Science</span>
     </div>

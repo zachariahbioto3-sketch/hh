@@ -2,34 +2,35 @@
 {% block title %}{{ event.title }} — KAFUOSA{% endblock %}
 {% block content %}
 
-<div class="wrap">
-  <section class="section about-hero">
-    <div class="eyebrow">{{ event.start_datetime|date:"l, F j, Y" }} · {{ event.venue }}</div>
-    <h1 class="about-title">{{ event.title }}</h1>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">{{ event.start_datetime|date:"l, F j, Y" }} · {{ event.venue }}</div>
+    <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-3xl text-ink">{{ event.title }}</h1>
+    <p class="mt-5 max-w-xl text-base text-muted leading-relaxed">{{ event.description }}</p>
+
     {% if event.cover_image %}
-      <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" style="width:100%;border-radius:18px;margin-top:32px;max-height:420px;object-fit:cover;">
+      <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" class="w-full rounded-2xl mt-8 max-h-[420px] object-cover">
     {% endif %}
-    <p class="about-lede">{{ event.description }}</p>
 
     {% if event.is_outreach %}
-      <div class="about-grid" style="grid-template-columns:repeat(2,1fr);padding-top:40px;">
+      <div class="grid md:grid-cols-2 gap-5 mt-10">
         {% if event.people_screened %}
-          <div class="about-card">
-            <div class="tag mono">People screened</div>
-            <h3>{{ event.people_screened }}</h3>
+          <div class="bg-inksoft rounded-2xl p-7">
+            <div class="text-gold text-xs tracking-widest uppercase mb-3.5 font-mono">People screened</div>
+            <h3 class="text-paper text-2xl font-display">{{ event.people_screened }}</h3>
           </div>
         {% endif %}
         {% if event.glasses_donated %}
-          <div class="about-card">
-            <div class="tag mono">Glasses donated</div>
-            <h3>{{ event.glasses_donated }}</h3>
+          <div class="bg-inksoft rounded-2xl p-7">
+            <div class="text-gold text-xs tracking-widest uppercase mb-3.5 font-mono">Glasses donated</div>
+            <h3 class="text-paper text-2xl font-display">{{ event.glasses_donated }}</h3>
           </div>
         {% endif %}
       </div>
     {% endif %}
 
-    <div class="hero-cta">
-      <a href="{% url 'event_list' %}" class="btn-secondary">← Back to all events</a>
+    <div class="mt-9">
+      <a href="{% url 'event_list' %}" class="border border-inksoft text-ink px-7 py-4 rounded-full text-sm font-medium inline-block">← Back to all events</a>
     </div>
   </section>
 </div>

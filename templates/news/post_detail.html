@@ -2,19 +2,42 @@
 {% block title %}{{ post.title }} — KAFUOSA{% endblock %}
 {% block content %}
 
-<div class="wrap">
-  <section class="section about-hero">
-    <div class="eyebrow">{{ post.get_category_display }} · {{ post.published_at|date:"l, F j, Y" }}</div>
-    <h1 class="about-title">{{ post.title }}</h1>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">{{ post.get_category_display }} · {{ post.published_at|date:"l, F j, Y" }}</div>
+    <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-3xl text-ink">{{ post.title }}</h1>
 
     {% if post.cover_image %}
-      <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" style="width:100%;border-radius:18px;margin-top:32px;max-height:420px;object-fit:cover;">
+      <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full rounded-2xl mt-8 max-h-[420px] object-cover">
     {% endif %}
 
-    <div class="about-body" style="margin-top:32px;white-space:pre-line;">{{ post.body }}</div>
+    <div class="max-w-3xl text-base leading-relaxed text-inksoft mt-8 whitespace-pre-line">{{ post.body }}</div>
 
-    <div class="hero-cta">
-      <a href="{% url 'post_list' %}" class="btn-secondary">← Back to all news</a>
+    <div class="mt-9">
+      <a href="{% url 'post_list' %}" class="border border-inksoft text-ink px-7 py-4 rounded-full text-sm font-medium inline-block">← Back to all news</a>
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+EOFcat > templates/news/post_detail.html << 'EOF'
+{% extends "base.html" %}
+{% block title %}{{ post.title }} — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">{{ post.get_category_display }} · {{ post.published_at|date:"l, F j, Y" }}</div>
+    <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-3xl text-ink">{{ post.title }}</h1>
+
+    {% if post.cover_image %}
+      <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full rounded-2xl mt-8 max-h-[420px] object-cover">
+    {% endif %}
+
+    <div class="max-w-3xl text-base leading-relaxed text-inksoft mt-8 whitespace-pre-line">{{ post.body }}</div>
+
+    <div class="mt-9">
+      <a href="{% url 'post_list' %}" class="border border-inksoft text-ink px-7 py-4 rounded-full text-sm font-medium inline-block">← Back to all news</a>
     </div>
   </section>
 </div>

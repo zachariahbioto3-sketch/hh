@@ -2,37 +2,37 @@
 {% block title %}Resources — KAFUOSA{% endblock %}
 {% block content %}
 
-<div class="wrap">
-  <section class="section about-hero">
-    <div class="eyebrow">Resources</div>
-    <h1 class="about-title">Study materials, <em>made accessible.</em></h1>
-    <p class="about-lede">Past papers, clinical guidelines, and CPD workshop materials for KAFUOSA members.</p>
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Resources</div>
+    <h1 class="font-display text-4xl md:text-6xl leading-tight max-w-3xl text-ink">Study materials, <em class="italic text-teal">made accessible.</em></h1>
+    <p class="mt-5 max-w-xl text-base text-muted leading-relaxed">Past papers, clinical guidelines, and CPD workshop materials for KAFUOSA members.</p>
 
-    <div class="news-filters">
-      <a href="{% url 'resource_list' %}" class="{% if not active_category %}active{% endif %}">All</a>
+    <div class="flex gap-2.5 mt-8 flex-wrap">
+      <a href="{% url 'resource_list' %}" class="text-sm px-4 py-2 rounded-full border {% if not active_category %}bg-ink text-paper border-ink{% else %}border-paperdim text-muted{% endif %}">All</a>
       {% for value, label in categories %}
-        <a href="?category={{ value }}" class="{% if active_category == value %}active{% endif %}">{{ label }}</a>
+        <a href="?category={{ value }}" class="text-sm px-4 py-2 rounded-full border {% if active_category == value %}bg-ink text-paper border-ink{% else %}border-paperdim text-muted{% endif %}">{{ label }}</a>
       {% endfor %}
     </div>
   </section>
 </div>
 
-<div class="wrap">
-  <section class="section">
+<div class="max-w-6xl mx-auto px-8">
+  <section class="py-20">
     {% if resources %}
       <div>
         {% for resource in resources %}
-          <a href="{{ resource.file.url }}" target="_blank" class="event-row-link">
-            <div class="event-row">
-              <div class="event-date mono">{{ resource.get_category_display }}</div>
-              <div class="event-title">{{ resource.title }}</div>
-              <div class="event-venue">Download ↓</div>
+          <a href="{{ resource.file.url }}" target="_blank" class="block group">
+            <div class="flex justify-between items-center py-6 border-b border-paperdim first:border-t">
+              <div class="font-mono text-sm text-teal w-40 shrink-0">{{ resource.get_category_display }}</div>
+              <div class="font-display text-xl text-ink flex-1 group-hover:text-teal transition">{{ resource.title }}</div>
+              <div class="text-sm text-muted">Download ↓</div>
             </div>
           </a>
         {% endfor %}
       </div>
     {% else %}
-      <p class="about-body">No resources uploaded yet — check back soon.</p>
+      <p class="text-muted">No resources uploaded yet — check back soon.</p>
     {% endif %}
   </section>
 </div>
