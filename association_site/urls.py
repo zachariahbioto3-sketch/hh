@@ -9,6 +9,7 @@ urlpatterns = [
     path("events/", include("events.urls")),
     path("news/", include("news.urls")),
     path("resources/", include("resources.urls")),
+    path("members/", include("members.urls")),
 ]
 
 if settings.DEBUG:

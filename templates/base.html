@@ -54,7 +54,11 @@
       <a href="{% url 'resource_list' %}" class="opacity-75 hover:opacity-100 transition">Resources</a>
       <a href="{% url 'contact' %}" class="opacity-75 hover:opacity-100 transition">Contact</a>
     </div>
-    <a href="#" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">Member Login →</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'member_profile' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">My Profile →</a>
+    {% else %}
+      <a href="{% url 'member_login' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">Member Login →</a>
+    {% endif %}
   </nav>
 </div>
 

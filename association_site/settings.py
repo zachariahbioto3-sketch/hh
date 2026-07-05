@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "news",
     "resources",
     "gallery",
+    "members",
 
 ]
 
@@ -80,12 +81,6 @@ WSGI_APPLICATION = "association_site.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 
 
 # Password validation
@@ -140,11 +135,7 @@ DEFAULT_FROM_EMAIL = 'noreply@kafuosa.org'
 CONTACT_RECIPIENT_EMAIL = 'kafuoptometry@gmail.com'
 
 
-# Production database (Render Postgres) — falls back to sqlite locally
-DATABASES['default'] = dj_database_url.config(
-    default=config('DATABASE_URL', default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
-    conn_max_age=600,
-)
+
 
 # Static files via whitenoise
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -158,3 +149,22 @@ CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
     default='https://*.app.github.dev,https://*.onrender.com'
 ).split(',')
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR}/db.sqlite3',
+        conn_max_age=600,
+    )
+}
+
+LOGIN_URL = 'member_login'
+LOGIN_REDIRECT_URL = 'member_profile'
+LOGOUT_REDIRECT_URL = 'home'
