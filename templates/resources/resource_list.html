@@ -22,7 +22,7 @@
     {% if resources %}
       <div>
         {% for resource in resources %}
-          <a href="{{ resource.file.url }}" target="_blank" class="block group">
+          <a href="{% url 'resource_detail' resource.pk %}" class="block group">
             <div class="flex justify-between items-center py-6 border-b border-paperdim first:border-t">
               <div class="font-mono text-sm text-teal w-40 shrink-0">{{ resource.get_category_display }}</div>
               <div class="font-display text-xl text-ink flex-1 group-hover:text-teal transition">{{ resource.title }}</div>

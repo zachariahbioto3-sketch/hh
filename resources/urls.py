@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.resource_list, name="resource_list"),
+    path("<int:pk>/", views.resource_detail, name="resource_detail"),
 ]

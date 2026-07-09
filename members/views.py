@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
+from .models import Member
 
 
 def signup(request):
@@ -38,5 +39,8 @@ def member_logout(request):
 
 @login_required
 def member_profile(request):
-    member = request.user.member_profile
+    member, created = Member.objects.get_or_create(
+        user=request.user,
+        defaults={"status": "approved" if request.user.is_superuser else "pending"},
+    )
     return render(request, "members/profile.html", {"member": member})

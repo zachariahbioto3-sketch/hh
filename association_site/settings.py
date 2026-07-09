@@ -45,11 +45,14 @@ INSTALLED_APPS = [
     "resources",
     "gallery",
     "members",
+    "cloudinary_storage",
+    "cloudinary",
 
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -80,7 +83,12 @@ WSGI_APPLICATION = "association_site.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR}/db.sqlite3',
+        conn_max_age=600,
+    )
+}
 
 
 # Password validation
@@ -121,9 +129,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.app.github.dev',
-]
 
 
 MEDIA_URL = '/media/'
@@ -137,34 +142,33 @@ CONTACT_RECIPIENT_EMAIL = 'kafuoptometry@gmail.com'
 
 
 
-# Static files via whitenoise
+# Static files via whitenoise + media via Cloudinary
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-CSRF_TRUSTED_ORIGINS = config(
-    'CSRF_TRUSTED_ORIGINS',
-    default='https://*.app.github.dev,https://*.onrender.com'
-).split(',')
-
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
     'API_KEY': config('CLOUDINARY_API_KEY', default=''),
     'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
 }
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR}/db.sqlite3',
-        conn_max_age=600,
-    )
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
 }
 
 LOGIN_URL = 'member_login'
 LOGIN_REDIRECT_URL = 'member_profile'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='https://*.app.github.dev,https://*.onrender.com,https://localhost:8000,http://localhost:8000'
+).split(',')
