@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}{{ event.title }} — KAFUOSA{% endblock %}
 {% block content %}
 
@@ -29,8 +29,50 @@
       </div>
     {% endif %}
 
+    {% if messages %}
+      {% for message in messages %}
+        <div class="bg-teal text-white px-4 py-3 rounded-xl text-sm mt-8">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="mt-9 bg-paperdim rounded-2xl p-8">
+      {% if not event.is_past %}
+        {% if user.is_authenticated %}
+          {% if user_rsvp %}
+            <p class="text-ink font-medium mb-4">You're going! Show this QR code at check-in:</p>
+            <img src="{% url 'rsvp_qr' event.slug %}" alt="RSVP QR code" class="w-48 h-48 rounded-xl bg-white p-3">
+            <form method="post" action="{% url 'rsvp_toggle' event.slug %}" class="mt-5">
+              {% csrf_token %}
+              <button type="submit" class="border border-inksoft text-ink px-6 py-3 rounded-full text-sm font-medium cursor-pointer">Cancel RSVP</button>
+            </form>
+          {% else %}
+            {% if spots_left == 0 %}
+              <p class="text-ink font-medium">This event is at full capacity.</p>
+            {% else %}
+              <form method="post" action="{% url 'rsvp_toggle' event.slug %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium cursor-pointer">RSVP to this event</button>
+              </form>
+              {% if spots_left %}
+                <p class="text-sm text-muted mt-3">{{ spots_left }} spot{{ spots_left|pluralize }} left</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <p class="text-ink">
+            <a href="{% url 'member_login' %}" class="text-teal font-medium">Log in</a> as an approved member to RSVP.
+          </p>
+        {% endif %}
+      {% else %}
+        <p class="text-muted">This event has already taken place.</p>
+      {% endif %}
+    </div>
+
     <div class="mt-9">
       <a href="{% url 'event_list' %}" class="border border-inksoft text-ink px-7 py-4 rounded-full text-sm font-medium inline-block">← Back to all events</a>
+      {% if user.is_staff %}
+        <a href="{% url 'checkin_dashboard' event.slug %}" class="bg-gold text-ink px-7 py-4 rounded-full text-sm font-medium inline-block ml-3">Check-in dashboard →</a>
+      {% endif %}
     </div>
   </section>
 </div>

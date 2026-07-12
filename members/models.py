@@ -1,4 +1,4 @@
-from django.db import models
+﻿from django.db import models
 from django.contrib.auth.models import User
 
 
@@ -18,7 +18,7 @@ class Member(models.Model):
     year_of_study = models.CharField(max_length=20, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default="student")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="approved")
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="members/", blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -26,3 +26,4 @@ class Member(models.Model):
 
     def __str__(self):
         return f"{self.user.get_full_name() or self.user.username} ({self.get_tier_display()})"
+

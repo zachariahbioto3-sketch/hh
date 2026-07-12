@@ -1,22 +1,12 @@
-from django.shortcuts import render, redirect
+﻿from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
-from .models import Member
 
 
 def signup(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Welcome to KAFUOSA! Your membership is pending approval.")
-            return redirect("member_profile")
-    else:
-        form = SignUpForm()
-    return render(request, "members/signup.html", {"form": form})
+    return render(request, "members/signup_closed.html")
 
 
 def member_login(request):
@@ -39,6 +29,7 @@ def member_logout(request):
 
 @login_required
 def member_profile(request):
+    from .models import Member
     member, created = Member.objects.get_or_create(
         user=request.user,
         defaults={"status": "approved" if request.user.is_superuser else "pending"},

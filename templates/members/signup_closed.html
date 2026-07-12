@@ -1,0 +1,30 @@
+﻿{% extends "base.html" %}
+{% block title %}Membership — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto px-8 py-16">
+  <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Membership</div>
+  <h1 class="font-display text-4xl text-ink mb-8">Join KAFUOSA</h1>
+
+  <div class="bg-paperdim rounded-2xl p-8">
+    <p class="text-ink mb-4">Membership is managed by the KAFUOSA executive council.</p>
+    <p class="text-muted mb-6">To join or inquire about membership, please contact us directly:</p>
+    
+    <div class="flex flex-col gap-3">
+      <a href="{% url 'contact' %}" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium inline-block text-center">Contact us</a>
+      <p class="text-sm text-muted">Or email: <strong>kafuoptometry@gmail.com</strong></p>
+    </div>
+  </div>
+
+  {% if user.is_authenticated %}
+    <div class="mt-8">
+      <a href="{% url 'member_profile' %}" class="text-teal font-medium">← Back to my profile</a>
+    </div>
+  {% else %}
+    <div class="mt-8">
+      <a href="{% url 'member_login' %}" class="text-teal font-medium">← Back to login</a>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
