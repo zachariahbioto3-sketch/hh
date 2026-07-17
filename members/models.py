@@ -17,6 +17,7 @@ class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="member_profile")
     year_of_study = models.CharField(max_length=20, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
+    registration_number = models.CharField(max_length=50, unique=True, blank=True, null=True, help_text="Auto-generated or manually assigned member ID")
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default="student")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="approved")
     bio = models.TextField(blank=True)
@@ -26,4 +27,5 @@ class Member(models.Model):
 
     def __str__(self):
         return f"{self.user.get_full_name() or self.user.username} ({self.get_tier_display()})"
+
 

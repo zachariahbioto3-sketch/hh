@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block title %}My Profile — KAFUOSA{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}My Profile â€” KAFUOSA{% endblock %}
 {% block content %}
 
 <div class="max-w-3xl mx-auto px-8 py-16">
@@ -31,9 +31,10 @@
     </div>
   </div>
 
-  {% if member.status == "approved" %}
+path("members/", include("members.urls")),
+    path("dashboard/", include("dashboard.urls")),
     <div class="mt-8">
-      <a href="{% url 'resource_list' %}" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium inline-block">Browse Resources →</a>
+      <a href="{% url 'resource_list' %}" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium inline-block">Browse Resources â†’</a>
     </div>
   {% endif %}
 
@@ -44,3 +45,7 @@
 </div>
 
 {% endblock %}
+
+
+
+

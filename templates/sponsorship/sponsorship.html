@@ -1,0 +1,84 @@
+﻿{% extends "base.html" %}
+{% block title %}Partner With Us — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto px-8">
+  <section class="pt-6">
+    <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Partnerships</div>
+    <h1 class="font-display text-4xl md:text-6xl leading-tight max-w-3xl text-ink">Partner with KAFUOSA</h1>
+    <p class="mt-5 max-w-xl text-base text-muted leading-relaxed">Support eye health education and community outreach. Become a sponsor and align your brand with KAFUOSA's mission.</p>
+  </section>
+</div>
+
+<!-- Sponsorship Tiers -->
+<div class="bg-paperdim py-20 mt-12">
+  <div class="max-w-6xl mx-auto px-8">
+    <h2 class="font-display text-3xl text-ink mb-12">Sponsorship Tiers</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      {% for tier in tiers %}
+        <div class="bg-white border-2 {% if forloop.counter == 2 %}border-gold{% else %}border-paperdim{% endif %} rounded-2xl p-8 {% if forloop.counter == 2 %}transform scale-105{% endif %}">
+          <h3 class="font-display text-2xl text-ink mb-2">{{ tier.name }}</h3>
+          <div class="text-3xl text-gold font-display mb-4">Ksh {{ tier.price|floatformat:0 }}</div>
+          <p class="text-sm text-muted mb-6">{{ tier.description }}</p>
+          <ul class="space-y-2 mb-8">
+            {% for benefit in tier.get_benefits_list %}
+              <li class="flex items-start gap-2 text-sm">
+                <span class="text-teal mt-1">✓</span>
+                <span class="text-ink">{{ benefit }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+          <button class="w-full border-2 {% if forloop.counter == 2 %}bg-gold text-ink border-gold{% else %}border-ink text-ink{% endif %} px-6 py-3 rounded-full text-sm font-medium cursor-pointer" onclick="document.querySelector('#inquiry-form').scrollIntoView({behavior: 'smooth'}); document.querySelector('select[name=interested_tier]').value={{ tier.id }};">Get Started</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Current Sponsors -->
+{% if sponsors %}
+<div class="max-w-6xl mx-auto px-8 py-20">
+  <h2 class="font-display text-3xl text-ink mb-12">Our Partners</h2>
+  <div class="grid md:grid-cols-4 gap-8">
+    {% for sponsor in sponsors %}
+      <div class="text-center">
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="h-24 object-contain mx-auto mb-4">
+        <h3 class="font-display text-lg text-ink">{{ sponsor.name }}</h3>
+        {% if sponsor.website %}
+          <a href="{{ sponsor.website }}" target="_blank" class="text-teal text-sm font-medium">Visit website →</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- Inquiry Form -->
+<div class="bg-paperdim py-20">
+  <div class="max-w-2xl mx-auto px-8" id="inquiry-form">
+    <h2 class="font-display text-3xl text-ink mb-2">Get in Touch</h2>
+    <p class="text-muted mb-8">Interested in partnering? Tell us about your company.</p>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="bg-teal text-white px-4 py-3 rounded-xl text-sm mb-6">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col gap-4">
+      {% csrf_token %}
+      {% for field in form %}
+        <label class="text-sm text-muted flex flex-col gap-2">
+          {{ field.label }}
+          {{ field }}
+          {% if field.errors %}
+            <span class="text-red-600 text-xs">{{ field.errors|striptags }}</span>
+          {% endif %}
+        </label>
+      {% endfor %}
+      <button type="submit" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium cursor-pointer">Send Inquiry</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

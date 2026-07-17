@@ -1,0 +1,105 @@
+﻿{% extends "base.html" %}
+{% block title %}Admin Dashboard — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-8 py-16">
+  <div class="flex justify-between items-end mb-12">
+    <div>
+      <div class="font-mono text-xs tracking-widest text-teal uppercase mb-2">Admin</div>
+      <h1 class="font-display text-4xl text-ink">Dashboard</h1>
+    </div>
+    <div class="flex gap-2">
+      <a href="{% url 'export_members' %}" class="bg-ink text-paper px-5 py-2.5 rounded-full text-sm font-medium">Export Members</a>
+      <a href="{% url 'export_rsvps' %}" class="bg-ink text-paper px-5 py-2.5 rounded-full text-sm font-medium">Export RSVPs</a>
+      <a href="{% url 'export_contacts' %}" class="bg-ink text-paper px-5 py-2.5 rounded-full text-sm font-medium">Export Messages</a>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid md:grid-cols-4 gap-5 mb-12">
+    <div class="bg-white border border-paperdim rounded-2xl p-6">
+      <div class="font-mono text-xs text-teal uppercase mb-2">Members</div>
+      <div class="font-display text-3xl text-ink">{{ total_members }}</div>
+      <p class="text-xs text-muted mt-1">{{ approved_members }} approved · {{ pending_members }} pending</p>
+    </div>
+    
+    <div class="bg-white border border-paperdim rounded-2xl p-6">
+      <div class="font-mono text-xs text-teal uppercase mb-2">Events</div>
+      <div class="font-display text-3xl text-ink">{{ total_events }}</div>
+      <p class="text-xs text-muted mt-1">{{ upcoming_events }} upcoming · {{ past_events }} past</p>
+    </div>
+    
+    <div class="bg-white border border-paperdim rounded-2xl p-6">
+      <div class="font-mono text-xs text-teal uppercase mb-2">RSVPs</div>
+      <div class="font-display text-3xl text-ink">{{ total_rsvps }}</div>
+      <p class="text-xs text-muted mt-1">{{ checked_in }} checked in</p>
+    </div>
+    
+    <div class="bg-white border border-paperdim rounded-2xl p-6">
+      <div class="font-mono text-xs text-teal uppercase mb-2">Contact Forms</div>
+      <div class="font-display text-3xl text-ink">{{ contact_messages }}</div>
+      <p class="text-xs text-muted mt-1">Messages received</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <!-- Recent Members -->
+    <div>
+      <h2 class="font-display text-2xl text-ink mb-4">Recent Members</h2>
+      <div class="bg-white border border-paperdim rounded-2xl overflow-hidden">
+        {% for member in recent_members %}
+          <div class="flex justify-between items-center px-6 py-4 border-b border-paperdim last:border-b-0">
+            <div>
+              <p class="font-medium text-ink">{{ member.user.get_full_name|default:member.user.username }}</p>
+              <p class="text-xs text-muted">{{ member.registration_number }}</p>
+            </div>
+            <span class="text-xs font-medium {% if member.status == 'approved' %}text-teal{% elif member.status == 'pending' %}text-gold{% else %}text-red-600{% endif %}">
+              {{ member.get_status_display }}
+            </span>
+          </div>
+        {% empty %}
+          <p class="px-6 py-4 text-muted">No members yet</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Upcoming Events -->
+    <div>
+      <h2 class="font-display text-2xl text-ink mb-4">Upcoming Events</h2>
+      <div class="bg-white border border-paperdim rounded-2xl overflow-hidden">
+        {% for event in upcoming %}
+          <div class="px-6 py-4 border-b border-paperdim last:border-b-0">
+            <p class="font-medium text-ink">{{ event.title }}</p>
+            <p class="text-xs text-muted">{{ event.start_datetime|date:"M d, Y H:i" }}</p>
+            <p class="text-xs text-teal mt-1">{{ event.rsvps.count }} RSVPs</p>
+          </div>
+        {% empty %}
+          <p class="px-6 py-4 text-muted">No upcoming events</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Contact Messages -->
+  <div class="mt-8">
+    <h2 class="font-display text-2xl text-ink mb-4">Recent Contact Form Submissions</h2>
+    <div class="bg-white border border-paperdim rounded-2xl overflow-hidden">
+      {% for msg in recent_contacts %}
+        <div class="px-6 py-4 border-b border-paperdim last:border-b-0">
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <p class="font-medium text-ink">{{ msg.name }}</p>
+              <p class="text-sm text-muted">{{ msg.email }} · {{ msg.submitted_at|date:"M d, Y" }}</p>
+              <p class="text-sm text-ink mt-2"><strong>{{ msg.subject }}</strong></p>
+              <p class="text-sm text-muted mt-1">{{ msg.message|truncatewords:20 }}</p>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="px-6 py-4 text-muted">No messages yet</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

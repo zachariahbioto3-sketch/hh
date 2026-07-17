@@ -1,10 +1,10 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}KAFUOSA — Eyes To The Future{% endblock %}</title>
+<title>{% block title %}KAFUOSA â€” Eyes To The Future{% endblock %}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -55,9 +55,9 @@
       <a href="{% url 'contact' %}" class="opacity-75 hover:opacity-100 transition">Contact</a>
     </div>
     {% if user.is_authenticated %}
-      <a href="{% url 'member_profile' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">My Profile →</a>
+      <a href="{% url 'member_profile' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">My Profile â†’</a>
     {% else %}
-      <a href="{% url 'member_login' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">Member Login →</a>
+      <a href="{% url 'member_login' %}" class="bg-ink text-paper px-6 py-2.5 rounded-full text-sm font-medium">Member Login â†’</a>
     {% endif %}
   </nav>
 </div>
@@ -102,7 +102,7 @@
       </a>
     </div>
     <div class="flex flex-wrap justify-between pt-6 text-xs text-muted">
-      <span>© 2026 Kaimosi Friends University Optometry Students' Association</span>
+      <span>Â© 2026 Kaimosi Friends University Optometry Students' Association</span>
       <span>Department of Optometry &amp; Vision Science</span>
     </div>
   </div>
@@ -110,3 +110,5 @@
 
 </body>
 </html>
+
+
