@@ -1,33 +1,76 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Join KAFUOSA{% endblock %}
 {% block content %}
+<div class="max-w-lg mx-auto py-20 px-4">
 
-<div class="max-w-xl mx-auto px-8 py-16">
-  <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Membership</div>
-  <h1 class="font-display text-4xl text-ink mb-3">Join KAFUOSA</h1>
-  <p class="text-muted mb-8">Registration is Ksh 200, with a Ksh 100 yearly subscription. Your membership will be reviewed by the executive council.</p>
+  <div class="mb-10">
+    <p class="font-mono text-xs tracking-widest text-teal uppercase mb-3">Membership</p>
+    <h1 class="font-display text-4xl font-semibold text-ink mb-3">Join KAFUOSA</h1>
+    <p class="text-muted text-sm leading-relaxed">Create your account to access events, resources, and the member community.</p>
+  </div>
 
-  {% if messages %}
-    {% for message in messages %}
-      <div class="bg-teal text-white px-4 py-3 rounded-xl text-sm mb-4">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-
-  <form method="post" class="flex flex-col gap-4">
+  <form method="post" class="space-y-4">
     {% csrf_token %}
-    {% for field in form %}
-      <label class="text-sm text-muted flex flex-col gap-2">
-        {{ field.label }}
-        {{ field }}
-        {% if field.errors %}
-          <span class="text-red-600 text-xs">{{ field.errors|striptags }}</span>
-        {% endif %}
-      </label>
-    {% endfor %}
-    <button type="submit" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium border-none cursor-pointer mt-2">Create account</button>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-ink mb-1.5">First Name</label>
+        {{ form.first_name }}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-ink mb-1.5">Last Name</label>
+        {{ form.last_name }}
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5">Username</label>
+      {{ form.username }}
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5">Email</label>
+      {{ form.email }}
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-ink mb-1.5">Year of Study</label>
+        {{ form.year_of_study }}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-ink mb-1.5">Phone Number</label>
+        {{ form.phone_number }}
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5">Password</label>
+      {{ form.password1 }}
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-ink mb-1.5">Confirm Password</label>
+      {{ form.password2 }}
+    </div>
+
+    {% if form.errors %}
+    <div class="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
+      {% for field in form %}
+        {% for error in field.errors %}<p>{{ field.label }}: {{ error }}</p>{% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+    </div>
+    {% endif %}
+
+    <button type="submit" class="w-full bg-ink text-paper py-3.5 rounded-full text-sm font-medium mt-2 hover:opacity-90 transition">
+      Create Account ?
+    </button>
+
+    <p class="text-center text-sm text-muted pt-2">
+      Already a member? <a href="{% url 'member_login' %}" class="text-teal font-medium hover:underline">Sign in</a>
+    </p>
+
   </form>
-
-  <p class="text-sm text-muted mt-6">Already a member? <a href="{% url 'member_login' %}" class="text-teal font-medium">Log in</a></p>
 </div>
-
 {% endblock %}
