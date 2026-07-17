@@ -1,0 +1,62 @@
+﻿{% extends "base.html" %}
+{% block title %}My Alumni Profile — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto px-8 py-16">
+  <div class="font-mono text-xs tracking-widest text-teal uppercase mb-5">Alumni</div>
+  <h1 class="font-display text-3xl text-ink mb-8">My Profile</h1>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="bg-teal text-white px-4 py-3 rounded-xl text-sm mb-6">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" class="bg-white border border-paperdim rounded-2xl p-8 flex flex-col gap-4">
+    {% csrf_token %}
+    {% for field in form %}
+      <label class="text-sm text-muted flex flex-col gap-2">
+        {{ field.label }}
+        {{ field }}
+        {% if field.errors %}
+          <span class="text-red-600 text-xs">{{ field.errors|striptags }}</span>
+        {% endif %}
+      </label>
+    {% endfor %}
+    <button type="submit" class="bg-ink text-paper px-7 py-4 rounded-full text-sm font-medium cursor-pointer">Save Profile</button>
+  </form>
+
+  {% if alumni_profile.available_for_mentoring %}
+    <div class="mt-8">
+      <h2 class="font-display text-xl text-ink mb-4">Your Mentees</h2>
+      {% if mentees %}
+        <div class="space-y-3">
+          {% for match in mentees %}
+            <div class="bg-white border border-paperdim rounded-lg p-4">
+              <p class="font-medium text-ink">{{ match.mentee.user.get_full_name }}</p>
+              <p class="text-sm text-muted">{{ match.mentee.year_of_study }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">No mentees yet.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if mentors %}
+    <div class="mt-8">
+      <h2 class="font-display text-xl text-ink mb-4">Your Mentors</h2>
+      <div class="space-y-3">
+        {% for match in mentors %}
+          <div class="bg-white border border-paperdim rounded-lg p-4">
+            <p class="font-medium text-ink">{{ match.mentor.member.user.get_full_name }}</p>
+            <p class="text-sm text-muted">{{ match.mentor.job_title }} @ {{ match.mentor.current_employer }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

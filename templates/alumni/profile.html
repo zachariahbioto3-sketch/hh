@@ -1,0 +1,30 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ profile.member.user.get_full_name }} — Alumni{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto px-8 py-16">
+  <div class="bg-white border border-paperdim rounded-2xl p-8">
+    <h1 class="font-display text-3xl text-ink">{{ profile.member.user.get_full_name }}</h1>
+    <p class="text-teal font-medium mt-2">{{ profile.job_title }} @ {{ profile.current_employer }}</p>
+    <p class="text-sm text-muted mt-1">Graduated {{ profile.graduation_year }}</p>
+
+    {% if profile.bio %}
+      <p class="text-ink mt-6 leading-relaxed">{{ profile.bio }}</p>
+    {% endif %}
+
+    <div class="mt-8 flex gap-3">
+      {% if profile.linkedin %}
+        <a href="{{ profile.linkedin }}" target="_blank" class="bg-ink text-paper px-5 py-2.5 rounded-full text-sm font-medium">LinkedIn</a>
+      {% endif %}
+      {% if user.is_authenticated and profile.available_for_mentoring %}
+        <a href="{% url 'request_mentorship' profile.pk %}" class="bg-teal text-white px-5 py-2.5 rounded-full text-sm font-medium">Request Mentorship</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <a href="{% url 'alumni_directory' %}" class="text-teal font-medium">← Back to alumni directory</a>
+  </div>
+</div>
+
+{% endblock %}
