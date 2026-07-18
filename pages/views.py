@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+﻿from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
 from events.models import Event
 from .forms import ContactForm
+from .models import Executive
 
 
 def home(request):
@@ -12,13 +13,17 @@ def home(request):
         start_datetime__gte=timezone.now()
     ).order_by("start_datetime")[:3]
 
+    executives = Executive.objects.filter(is_active=True).order_by("order", "name")
+
     return render(request, "pages/home.html", {
         "upcoming_events": upcoming_events,
+        "executives": executives,
     })
 
 
 def about(request):
-    return render(request, "pages/about.html")
+    executives = Executive.objects.filter(is_active=True).order_by("order", "name")
+    return render(request, "pages/about.html", {"executives": executives})
 
 
 def contact(request):
@@ -36,7 +41,7 @@ def contact(request):
                 )
             except Exception:
                 pass
-            messages.success(request, "Thanks — your message has been sent.")
+            messages.success(request, "Thanks - your message has been sent.")
             return redirect("contact")
     else:
         form = ContactForm()
