@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}{{ resource.title }}{% endblock %}{% block content %}<div class="max-w-2xl mx-auto px-4 py-16"><h1 class="section-heading">{{ resource.title }}</h1><p class="text-gray-500 mt-2">{{ resource.description }}</p><a href="{{ resource.file.url }}" class="btn-primary mt-6">Download File</a></div>{% endblock %}
