@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+{% block title %}Gallery{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20">
+  <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Our Gallery</span></h1>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+    {% for album in albums %}
+    <a href="/gallery/{{ album.pk }}/" class="block group">
+      <div class="bg-gray-200 h-56 w-full mb-4 overflow-hidden relative">
+        <div class="w-full h-full bg-gray-100 flex items-center justify-center border border-gray-200 group-hover:border-[#e8a020] transition-colors">
+          <span class="text-gray-300 text-4xl">📸</span>
+        </div>
+      </div>
+      <h3 class="font-bold text-[#1e1e1e] group-hover:text-[#e8a020] transition-colors">{{ album.title }}</h3>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">{{ album.photos.count }} photo{{ album.photos.count|pluralize }}</p>
+    </a>
+    {% empty %}
+    <p class="text-gray-500 col-span-3 text-center py-8">No albums yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

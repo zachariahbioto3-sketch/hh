@@ -1,1 +1,23 @@
-{% extends "base.html" %}{% block title %}News{% endblock %}{% block content %}<div class="max-w-7xl mx-auto px-4 py-16"><h1 class="section-heading mb-8">News</h1><div class="grid grid-cols-1 md:grid-cols-3 gap-6">{% for p in posts %}<a href="/news/{{ p.slug }}/" class="card block bg-white border"><div class="p-5"><span class="text-xs text-[#e8a020] font-semibold uppercase">{{ p.get_category_display }}</span><h3 class="font-bold text-lg mt-1">{{ p.title }}</h3><p class="text-sm text-gray-500 mt-2">{{ p.excerpt }}</p></div></a>{% empty %}<p class="text-gray-500">No posts yet.</p>{% endfor %}</div></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}News{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20 text-center">
+  <h1 class="text-2xl text-gray-500 mb-12">Checkout whats going on. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Latest News</span></h1>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+    {% for p in posts %}
+    <div class="bg-white">
+      <div class="pt-5 pb-4 border-b border-gray-100">
+        <h3 class="font-bold text-lg text-[#1e1e1e] mb-2">{{ p.title }}</h3>
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-3">{{ p.published_at|date:"d M Y" }} &nbsp;|&nbsp; POSTED IN: {{ p.get_category_display }}</p>
+        <p class="text-sm text-gray-500 line-clamp-3">{{ p.excerpt }}</p>
+      </div>
+      <div class="pt-4 pb-2">
+        <a href="/news/{{ p.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-4 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Read More</a>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-3 text-center py-8">No posts yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

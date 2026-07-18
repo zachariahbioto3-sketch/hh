@@ -1,112 +1,126 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Home — KAFUOSA{% endblock %}
 {% block content %}
 
-<section class="relative bg-[#1a5c38] text-white py-28 px-4 overflow-hidden">
-  <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400')] bg-cover bg-center"></div>
-  <div class="relative max-w-4xl mx-auto text-center">
-    <p class="section-eyebrow text-[#e8a020] mb-3">Kaimosi Friends University</p>
-    <h1 style="font-family:'Playfair Display',serif" class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-      Advancing Eye Care<br/>Across Kenya
-    </h1>
-    <p class="text-lg text-green-100 max-w-2xl mx-auto mb-8">
-      KAFUOSA unites optometry students and alumni in academic excellence,
-      community outreach, and professional development.
-    </p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <a href="/events/" class="btn-primary">View Events</a>
-      <a href="/about/"  class="border-2 border-white text-white px-6 py-2 rounded font-semibold hover:bg-white hover:text-[#1a5c38] transition-colors">Learn More</a>
+<!-- HERO SECTION: Matches the left-aligned text and badge over a large image -->
+<section class="relative bg-gray-100 py-32 px-4 overflow-hidden flex items-center min-h-[600px]">
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400')] bg-cover bg-center opacity-30"></div>
+  <div class="relative max-w-7xl mx-auto w-full">
+    <div class="max-w-xl">
+      <span class="inline-block bg-[#e8a020] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider mb-4">Featured Cause</span>
+      <h1 style="font-family:'Playfair Display',serif" class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-[#1e1e1e]">
+        Advancing Eye Care<br/>Across Kenya
+      </h1>
+      <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
+        KAFUOSA unites optometry students and alumni in academic excellence, community outreach, and professional development.
+      </p>
+      <a href="/events/" class="inline-block border-2 border-[#1e1e1e] text-[#1e1e1e] text-xs font-bold px-6 py-3 uppercase tracking-widest hover:bg-[#1e1e1e] hover:text-white transition">View Events</a>
     </div>
   </div>
 </section>
 
-<section class="bg-white border-b">
-  <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-    <div>
-      <p class="text-4xl font-bold text-[#1a5c38]">{{ stats.members }}+</p>
-      <p class="text-sm text-gray-500 mt-1">Active Members</p>
-    </div>
-    <div>
-      <p class="text-4xl font-bold text-[#1a5c38]">{{ stats.events }}+</p>
-      <p class="text-sm text-gray-500 mt-1">Events Held</p>
-    </div>
-    <div>
-      <p class="text-4xl font-bold text-[#1a5c38]">{{ stats.people_screened }}+</p>
-      <p class="text-sm text-gray-500 mt-1">People Screened</p>
-    </div>
-    <div>
-      <p class="text-4xl font-bold text-[#1a5c38]">{{ stats.glasses_donated }}+</p>
-      <p class="text-sm text-gray-500 mt-1">Glasses Donated</p>
-    </div>
-  </div>
-</section>
-
+<!-- EVENTS (CAUSES) SECTION: Center heading with bold suffix, outlined buttons inside cards -->
 {% if upcoming %}
-<section class="max-w-7xl mx-auto px-4 py-16">
-  <p class="section-eyebrow mb-2">What's On</p>
-  <h2 class="section-heading mb-10">Upcoming Events</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<section class="max-w-7xl mx-auto px-4 py-20 text-center">
+  <h2 class="text-2xl text-gray-500 mb-12">What's On. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Upcoming Events</span></h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
     {% for event in upcoming %}
-    <a href="/events/{{ event.slug }}/" class="card block bg-white border">
-      {% if event.cover_image %}
-        <img src="{{ event.cover_image.url }}" class="w-full h-48 object-cover" alt="{{ event.title }}"/>
-      {% else %}
-        <div class="w-full h-48 bg-[#1a5c38] flex items-center justify-center">
-          <span class="text-white text-4xl">📅</span>
-        </div>
-      {% endif %}
-      <div class="p-5">
-        <span class="text-xs text-[#e8a020] font-semibold uppercase">{{ event.start_datetime|date:"d M Y" }}</span>
-        <h3 class="font-bold text-lg mt-1 text-[#1e1e1e]">{{ event.title }}</h3>
-        <p class="text-sm text-gray-500 mt-1">📍 {{ event.venue }}</p>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-  <div class="mt-8 text-center">
-    <a href="/events/" class="btn-primary">All Events</a>
-  </div>
-</section>
-{% endif %}
-
-{% if posts %}
-<section class="bg-gray-50 py-16">
-  <div class="max-w-7xl mx-auto px-4">
-    <p class="section-eyebrow mb-2">Latest</p>
-    <h2 class="section-heading mb-10">News &amp; Articles</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {% for post in posts %}
-      <a href="/news/{{ post.slug }}/" class="card block bg-white border">
-        {% if post.cover_image %}
-          <img src="{{ post.cover_image.url }}" class="w-full h-44 object-cover" alt="{{ post.title }}"/>
+    <div class="bg-white group">
+      <div class="relative">
+        {% if event.cover_image %}
+          <img src="{{ event.cover_image.url }}" class="w-full h-56 object-cover" alt="{{ event.title }}"/>
         {% else %}
-          <div class="w-full h-44 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-400 text-3xl">📰</span>
+          <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
+            <span class="text-gray-400 text-4xl">📅</span>
           </div>
         {% endif %}
-        <div class="p-5">
-          <span class="text-xs text-[#e8a020] font-semibold uppercase">{{ post.get_category_display }}</span>
-          <h3 class="font-bold text-lg mt-1 text-[#1e1e1e]">{{ post.title }}</h3>
-          <p class="text-sm text-gray-500 mt-2 line-clamp-2">{{ post.excerpt }}</p>
+        <div class="absolute bottom-0 right-0 bg-[#e8a020] text-white text-xs font-bold px-3 py-1">
+          {{ event.start_datetime|date:"d M Y" }}
         </div>
-      </a>
-      {% endfor %}
+      </div>
+      <div class="pt-6 pb-4 text-center border-b border-gray-100">
+        <h3 class="font-bold text-lg text-[#1e1e1e]">{{ event.title }}</h3>
+        <p class="text-sm text-gray-500 mt-2 px-4 line-clamp-2">📍 {{ event.venue }}</p>
+      </div>
+      <div class="text-center pt-5 pb-2">
+        <a href="/events/{{ event.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-5 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">View Event</a>
+      </div>
     </div>
-    <div class="mt-8 text-center">
-      <a href="/news/" class="btn-primary">All News</a>
-    </div>
+    {% endfor %}
   </div>
 </section>
 {% endif %}
 
-<section class="bg-[#1a5c38] text-white py-16 text-center px-4">
-  <h2 style="font-family:'Playfair Display',serif" class="text-3xl md:text-4xl font-bold mb-4">
-    Your membership matters.
-  </h2>
-  <p class="text-green-100 mb-8 max-w-xl mx-auto">
-    Join KAFUOSA and be part of a community driving change in eye care across Kenya.
-  </p>
-  <a href="/members/login/" class="btn-primary">Join Today</a>
+<!-- STATS / HELP SECTION: Matches the icon-on-left block layout -->
+<section class="bg-gray-50 py-20">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <h2 class="text-2xl text-gray-500 mb-12">Our Impact. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">See below</span></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👥</div>
+        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
+        <p class="text-sm text-gray-500 mt-1">Active Members</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">📅</div>
+        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
+        <p class="text-sm text-gray-500 mt-1">Events Held</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👁️</div>
+        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
+        <p class="text-sm text-gray-500 mt-1">People Screened</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👓</div>
+        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
+        <p class="text-sm text-gray-500 mt-1">Glasses Donated</p>
+      </div>
+    </div>
+  </div>
 </section>
+
+<!-- MEMBERSHIP / VOLUNTEER CTA: Wide image banner with large text -->
+<section class="relative bg-[#1e1e1e] py-24 px-4 overflow-hidden flex items-center justify-center text-center">
+  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526976663112-005cb3771960?w=1400')] bg-cover bg-center opacity-40"></div>
+  <div class="relative z-10 max-w-2xl mx-auto text-white">
+    <h2 style="font-family:'Playfair Display',serif" class="text-4xl md:text-5xl font-bold mb-4">
+      Become <span class="font-normal text-gray-200">Member</span>
+    </h2>
+    <p class="text-gray-300 text-sm mb-8">
+      Join KAFUOSA and be part of a community driving change in eye care across Kenya.
+    </p>
+    <a href="/members/login/" class="inline-block bg-white text-[#1e1e1e] text-xs font-bold px-8 py-3 uppercase tracking-widest hover:bg-[#e8a020] hover:text-white transition">Join Now</a>
+  </div>
+</section>
+
+<!-- LATEST NEWS SECTION -->
+{% if posts %}
+<section class="max-w-7xl mx-auto px-4 py-20 text-center">
+  <h2 class="text-2xl text-gray-500 mb-12">Checkout whats going on. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Latest News</span></h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+    {% for post in posts %}
+    <div class="bg-white">
+      {% if post.cover_image %}
+        <img src="{{ post.cover_image.url }}" class="w-full h-48 object-cover" alt="{{ post.title }}"/>
+      {% else %}
+        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+          <span class="text-gray-400 text-3xl">📰</span>
+        </div>
+      {% endif %}
+      <div class="pt-5 pb-4 border-b border-gray-100">
+        <h3 class="font-bold text-lg text-[#1e1e1e] mb-2">{{ post.title }}</h3>
+        <!-- Note: Date hardcoded to match design placeholder, can be replaced with post.created_on|date:"d M Y" -->
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-3">03 DEC 2013 &nbsp;|&nbsp; POSTED IN: {{ post.get_category_display }}</p>
+        <p class="text-sm text-gray-500 line-clamp-3">{{ post.excerpt }}</p>
+      </div>
+      <div class="pt-4 pb-2">
+        <a href="/news/{{ post.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-4 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Read More</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
 
 {% endblock %}

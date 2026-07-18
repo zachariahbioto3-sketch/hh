@@ -1,1 +1,16 @@
-{% extends "base.html" %}{% block title %}My Profile{% endblock %}{% block content %}<div class="max-w-2xl mx-auto px-4 py-16"><h1 class="section-heading mb-4">My Profile</h1>{% if member %}<p class="text-gray-600">Status: <strong class="text-[#1a5c38]">{{ member.get_status_display }}</strong></p><p class="text-gray-600 mt-2">Tier: {{ member.get_tier_display }}</p>{% else %}<p class="text-gray-500">No member profile linked to your account.</p>{% endif %}<a href="/members/logout/" class="btn-primary mt-8 inline-block">Logout</a></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-20 text-center">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-8">My Profile</h1>
+  <div class="bg-gray-50 border border-gray-100 p-8 inline-block text-left min-w-[320px]">
+    {% if member %}
+    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Status: <strong class="text-[#e8a020]">{{ member.get_status_display }}</strong></p>
+    <p class="text-sm text-gray-500 uppercase tracking-widest mb-8">Tier: <strong class="text-[#1e1e1e]">{{ member.get_tier_display }}</strong></p>
+    {% else %}
+    <p class="text-gray-500 mb-8">No member profile linked to your account.</p>
+    {% endif %}
+    <a href="/members/logout/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition text-center w-full">Logout</a>
+  </div>
+</div>
+{% endblock %}

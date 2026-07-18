@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -17,10 +17,6 @@
   </script>
   <style>
     body{font-family:'Inter',sans-serif;}
-    .nav-link{color:white;font-size:.875rem;font-weight:500;letter-spacing:.05em;transition:color .2s;}
-    .nav-link:hover{color:#e8a020;}
-    .btn-primary{background:#e8a020;color:white;font-weight:600;padding:.5rem 1.5rem;border-radius:.25rem;transition:background .2s;display:inline-block;}
-    .btn-primary:hover{background:#ca8a04;}
     .section-eyebrow{color:#e8a020;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;}
     .section-heading{font-family:'Playfair Display',serif;color:#1e1e1e;font-size:2.25rem;font-weight:700;line-height:1.2;}
     .card{border-radius:.5rem;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform .3s,box-shadow .3s;}
@@ -28,48 +24,78 @@
   </style>
   {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
-<nav class="bg-[#1a5c38] sticky top-0 z-50 shadow-md">
+<!-- Top Bar (Dark): Mimics the top dark bar with logo, socials, and the action button -->
+<div class="bg-[#1e1e1e] text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <a href="/" style="font-family:'Playfair Display',serif" class="text-white font-bold text-xl">
-        KAF<span style="color:#e8a020">UOSA</span>
+    <div class="flex items-center justify-between h-14">
+      <a href="/" style="font-family:'Playfair Display',serif" class="font-bold text-2xl tracking-wider">
+        KAF<span class="text-[#e8a020]">UOSA</span>
       </a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="/"          class="nav-link">Home</a>
-        <a href="/about/"    class="nav-link">About</a>
-        <a href="/events/"   class="nav-link">Events</a>
-        <a href="/news/"     class="nav-link">News</a>
-        <a href="/gallery/"  class="nav-link">Gallery</a>
-        <a href="/alumni/"   class="nav-link">Alumni</a>
-        <a href="/contact/"  class="nav-link">Contact</a>
-      </div>
-      <div class="hidden md:block">
+      <div class="hidden md:flex items-center space-x-6">
+        <div class="flex space-x-3 text-gray-400 text-sm">
+          <a href="#" class="hover:text-white transition">f</a>
+          <a href="#" class="hover:text-white transition">g+</a>
+          <a href="#" class="hover:text-white transition">in</a>
+          <a href="#" class="hover:text-white transition">v</a>
+        </div>
         {% if user.is_authenticated %}
-          <a href="/members/profile/" class="btn-primary text-sm">My Profile</a>
+          <a href="/members/profile/" class="border border-[#e8a020] text-[#e8a020] text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-[#e8a020] hover:text-[#1e1e1e] transition">My Profile</a>
         {% else %}
-          <a href="/members/login/"   class="btn-primary text-sm">Join / Login</a>
+          <a href="/members/login/" class="border border-white text-white text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-white hover:text-[#1e1e1e] transition">Become Member</a>
         {% endif %}
       </div>
-      <button id="nav-toggle" class="md:hidden text-white">
+    </div>
+  </div>
+</div>
+
+<!-- Main Nav (Gold): Mimics the secondary bright yellow navigation bar -->
+<nav class="bg-[#e8a020] sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14">
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Home</a>
+        <a href="/about/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">About</a>
+        <a href="/events/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Events</a>
+        <a href="/news/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">News</a>
+        <a href="/gallery/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Gallery</a>
+        <a href="/alumni/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Alumni</a>
+        <a href="/contact/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Contact Us</a>
+      </div>
+      
+      <!-- Search Input -->
+      <div class="hidden md:flex items-center border-b border-[#1e1e1e] pb-1">
+        <input type="text" placeholder="Search Here" class="bg-transparent border-none text-[#1e1e1e] placeholder-[#1e1e1e] focus:outline-none focus:ring-0 text-sm px-2 w-48">
+        <button type="submit" class="text-[#1e1e1e] hover:text-white transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="nav-toggle" class="md:hidden text-[#1e1e1e] p-2 focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
-      <a href="/"         class="block nav-link py-1">Home</a>
-      <a href="/about/"   class="block nav-link py-1">About</a>
-      <a href="/events/"  class="block nav-link py-1">Events</a>
-      <a href="/news/"    class="block nav-link py-1">News</a>
-      <a href="/gallery/" class="block nav-link py-1">Gallery</a>
-      <a href="/alumni/"  class="block nav-link py-1">Alumni</a>
-      <a href="/contact/" class="block nav-link py-1">Contact</a>
+  </div>
+  
+  <!-- Mobile Dropdown -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#ca8a04] px-4 pb-4 space-y-2 shadow-inner">
+    <a href="/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Home</a>
+    <a href="/about/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">About</a>
+    <a href="/events/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Events</a>
+    <a href="/news/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">News</a>
+    <a href="/gallery/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Gallery</a>
+    <a href="/alumni/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Alumni</a>
+    <a href="/contact/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2">Contact Us</a>
+    <div class="mt-4 pt-4 border-t border-[#1e1e1e]">
       {% if user.is_authenticated %}
-        <a href="/members/profile/" class="btn-primary text-sm mt-2">My Profile</a>
+        <a href="/members/profile/" class="inline-block bg-[#1e1e1e] text-white text-xs px-4 py-2 uppercase tracking-wide">My Profile</a>
       {% else %}
-        <a href="/members/login/"   class="btn-primary text-sm mt-2">Join / Login</a>
+        <a href="/members/login/" class="inline-block bg-[#1e1e1e] text-white text-xs px-4 py-2 uppercase tracking-wide">Become Member</a>
       {% endif %}
     </div>
   </div>
@@ -86,58 +112,72 @@
 </div>
 {% endif %}
 
-<main>{% block content %}{% endblock %}</main>
+<main class="flex-grow">{% block content %}{% endblock %}</main>
 
-<footer class="bg-[#1e1e1e] text-gray-300 pt-12 pb-6 mt-16">
+<footer class="bg-[#1e1e1e] text-gray-400 pt-16 pb-8 mt-16 border-t-[6px] border-[#e8a020]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <!-- Charity Brand / Info -->
       <div>
-        <span style="font-family:'Playfair Display',serif" class="text-white text-2xl font-bold">
+        <a href="/" style="font-family:'Playfair Display',serif" class="text-white text-2xl font-bold block mb-4">
           KAF<span style="color:#e8a020">UOSA</span>
-        </span>
-        <p class="mt-3 text-sm text-gray-400 leading-relaxed">
-          Kaimosi Friends University Optometry Students Association —
-          advancing eye care education and community outreach in Kenya.
+        </a>
+        <p class="text-sm leading-relaxed mb-4">
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
         </p>
-      </div>
-      <div>
-        <h4 class="text-white font-semibold text-sm uppercase tracking-widest mb-4">Quick Links</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="/about/"     class="hover:text-[#e8a020] transition-colors">About Us</a></li>
-          <li><a href="/events/"    class="hover:text-[#e8a020] transition-colors">Events</a></li>
-          <li><a href="/news/"      class="hover:text-[#e8a020] transition-colors">News</a></li>
-          <li><a href="/resources/" class="hover:text-[#e8a020] transition-colors">Resources</a></li>
-          <li><a href="/gallery/"   class="hover:text-[#e8a020] transition-colors">Gallery</a></li>
+          <li class="flex items-center"><span class="mr-2 text-[#e8a020]">🏠</span> Kaimosi Friends University</li>
+          <li class="flex items-center"><span class="mr-2 text-[#e8a020]">📞</span> 1800-222-222</li>
+          <li class="flex items-center"><span class="mr-2 text-[#e8a020]">✉️</span> contact@kafuosa.org</li>
         </ul>
       </div>
+      <!-- Twitter Feed / Updates (Placeholder based on design) -->
       <div>
-        <h4 class="text-white font-semibold text-sm uppercase tracking-widest mb-4">Community</h4>
+        <h4 class="text-white font-bold text-sm uppercase mb-4">Updates Feed</h4>
+        <div class="space-y-4 text-sm">
+          <p><span class="text-[#e8a020]">@kafuosa</span> Various versions have evolved over the years, sometimes by accident. <br><span class="text-xs text-gray-500">2 hours ago</span></p>
+          <p><span class="text-[#e8a020]">@kafuosa</span> Various versions have evolved over the years, sometimes by purpose. <br><span class="text-xs text-gray-500">5 hours ago</span></p>
+        </div>
+      </div>
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-white font-bold text-sm uppercase mb-4">Quick Links</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="/alumni/"      class="hover:text-[#e8a020] transition-colors">Alumni Network</a></li>
+          <li><a href="/about/" class="hover:text-[#e8a020] transition-colors">About Us</a></li>
+          <li><a href="/events/" class="hover:text-[#e8a020] transition-colors">Events</a></li>
+          <li><a href="/news/" class="hover:text-[#e8a020] transition-colors">News</a></li>
+          <li><a href="/alumni/" class="hover:text-[#e8a020] transition-colors">Alumni Network</a></li>
           <li><a href="/sponsorship/" class="hover:text-[#e8a020] transition-colors">Sponsorship</a></li>
-          <li><a href="/contact/"     class="hover:text-[#e8a020] transition-colors">Contact Us</a></li>
         </ul>
       </div>
+      <!-- Newsletter Signup -->
       <div>
-        <h4 class="text-white font-semibold text-sm uppercase tracking-widest mb-4">Newsletter</h4>
-        <p class="text-sm text-gray-400 mb-3">Stay updated with KAFUOSA news.</p>
-        <form action="/newsletter/subscribe/" method="post" class="flex gap-2">
+        <h4 class="text-white font-bold text-sm uppercase mb-4">Newsletter Signup</h4>
+        <p class="text-sm mb-4">Variations of passages of Lorem Ipsum available, but the majority.</p>
+        <form action="/newsletter/subscribe/" method="post" class="flex items-stretch">
           {% csrf_token %}
-          <input type="email" name="email" placeholder="Your email"
-                 class="flex-1 bg-gray-700 text-white text-sm px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-[#e8a020] placeholder-gray-500"/>
-          <button type="submit" class="btn-primary text-sm px-4 py-2">Go</button>
+          <input type="email" name="email" placeholder="Email" class="flex-1 bg-transparent border border-gray-600 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#e8a020]">
+          <button type="submit" class="border border-gray-600 border-l-0 text-[#e8a020] text-xs font-bold px-4 py-2 hover:bg-[#e8a020] hover:text-[#1e1e1e] transition">SUBMIT</button>
         </form>
+        <div class="mt-6">
+          <h4 class="text-white font-bold text-sm uppercase mb-3">Follow us</h4>
+          <div class="flex space-x-3 text-gray-400">
+            <a href="#" class="hover:text-white transition">f</a>
+            <a href="#" class="hover:text-white transition">g+</a>
+            <a href="#" class="hover:text-white transition">in</a>
+            <a href="#" class="hover:text-white transition">v</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-500">
-      <p>&copy; {% now "Y" %} KAFUOSA. All rights reserved.</p>
-      <p>Kaimosi Friends University, Kenya</p>
+    <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+      <p>&copy; Copyright {% now "Y" %}, All Rights Reserved by KAFUOSA Theme.</p>
     </div>
   </div>
 </footer>
 
 <script>
-  document.getElementById('nav-toggle').addEventListener('click',()=>{
+  document.getElementById('nav-toggle').addEventListener('click', () => {
     document.getElementById('mobile-menu').classList.toggle('hidden');
   });
 </script>

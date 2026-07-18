@@ -1,1 +1,17 @@
-{% extends "base.html" %}{% block title %}{{ post.title }}{% endblock %}{% block content %}<div class="max-w-3xl mx-auto px-4 py-16">{% if post.cover_image %}<img src="{{ post.cover_image.url }}" class="w-full h-64 object-cover rounded-lg mb-8"/>{% endif %}<span class="section-eyebrow">{{ post.get_category_display }}</span><h1 class="section-heading mt-2">{{ post.title }}</h1><p class="text-gray-400 text-sm mt-2">{{ post.published_at|date:"d M Y" }}</p><div class="mt-8 prose max-w-none text-gray-700">{{ post.body }}</div></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-20">
+  {% if post.cover_image %}
+  <img src="{{ post.cover_image.url }}" class="w-full h-80 object-cover mb-10"/>
+  {% endif %}
+  <div class="text-center mb-10 border-b border-gray-100 pb-10">
+    <span class="text-xs text-[#e8a020] font-bold uppercase tracking-widest">{{ post.get_category_display }}</span>
+    <h1 class="font-[Playfair_Display] text-4xl md:text-5xl font-bold text-[#1e1e1e] mt-4 mb-4">{{ post.title }}</h1>
+    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide">{{ post.published_at|date:"d M Y" }}</p>
+  </div>
+  <div class="prose max-w-none text-gray-600 leading-relaxed">
+    {{ post.body }}
+  </div>
+</div>
+{% endblock %}

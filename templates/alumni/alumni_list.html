@@ -1,0 +1,23 @@
+﻿{% extends "base.html" %}
+{% block title %}Alumni{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20">
+  <h1 class="text-2xl text-gray-500 mb-12 text-center">Our Network. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Alumni Directory</span></h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for p in profiles %}
+    <a href="/alumni/profile/{{ p.pk }}/" class="flex items-center justify-between border border-gray-200 bg-white p-6 hover:border-[#1e1e1e] transition-colors group">
+      <div>
+        <p class="font-bold text-[#1e1e1e] text-lg group-hover:text-[#e8a020] transition-colors">{{ p.member }}</p>
+        <p class="text-sm text-gray-500 mt-1">{{ p.job_title }}{% if p.current_employer %} at {{ p.current_employer }}{% endif %}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs text-gray-400 uppercase tracking-widest">Class of</p>
+        <p class="text-[#e8a020] font-bold font-[Playfair_Display] text-xl">{{ p.graduation_year }}</p>
+      </div>
+    </a>
+    {% empty %}
+    <p class="text-gray-500 col-span-2 text-center py-8">No alumni profiles yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

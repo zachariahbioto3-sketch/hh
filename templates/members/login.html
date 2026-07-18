@@ -1,1 +1,13 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}{% block content %}<div class="max-w-sm mx-auto px-4 py-20"><h1 class="section-heading mb-8 text-center">Member Login</h1><form method="post" class="space-y-4 bg-white border rounded-lg p-8 shadow-sm">{% csrf_token %}<input name="username" placeholder="Username" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"/><input name="password" type="password" placeholder="Password" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"/><button type="submit" class="btn-primary w-full text-center">Login</button></form></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="max-w-sm mx-auto px-4 py-24">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-10 text-center">Member Login</h1>
+  <form method="post" class="space-y-6 bg-gray-50 border border-gray-100 p-8 shadow-sm">
+    {% csrf_token %}
+    <input name="username" placeholder="Username" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"/>
+    <input name="password" type="password" placeholder="Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"/>
+    <button type="submit" class="w-full bg-[#e8a020] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Login</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,1 +1,41 @@
-{% extends "base.html" %}{% block title %}Staff Dashboard{% endblock %}{% block content %}<div class="max-w-7xl mx-auto px-4 py-16"><h1 class="section-heading mb-8">Staff Dashboard</h1><div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10"><div class="bg-[#1a5c38] text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ total_members }}</p><p class="text-sm mt-1 opacity-75">Total Members</p></div><div class="bg-[#2d8653] text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ approved }}</p><p class="text-sm mt-1 opacity-75">Approved</p></div><div class="bg-[#e8a020] text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ pending }}</p><p class="text-sm mt-1 opacity-75">Pending</p></div><div class="bg-gray-700 text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ total_events }}</p><p class="text-sm mt-1 opacity-75">Events</p></div><div class="bg-gray-600 text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ total_rsvps }}</p><p class="text-sm mt-1 opacity-75">RSVPs</p></div><div class="bg-red-700 text-white rounded-lg p-6 text-center"><p class="text-4xl font-bold">{{ unread_messages }}</p><p class="text-sm mt-1 opacity-75">Unread Messages</p></div></div><div class="flex gap-4 flex-wrap"><a href="/dashboard/export/members/"  class="btn-primary">Export Members CSV</a><a href="/dashboard/export/rsvps/"    class="btn-primary">Export RSVPs CSV</a><a href="/dashboard/export/contacts/" class="btn-primary">Export Contacts CSV</a></div></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-12">Staff Dashboard</h1>
+  
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+    <!-- Stat Cards utilizing the charcoal/gold palette -->
+    <div class="bg-[#1e1e1e] text-white p-8 text-center border-b-4 border-[#e8a020]">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ total_members }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 text-gray-400">Total Members</p>
+    </div>
+    <div class="bg-gray-100 text-[#1e1e1e] p-8 text-center border border-gray-200">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ approved }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 text-gray-500">Approved</p>
+    </div>
+    <div class="bg-[#e8a020] text-[#1e1e1e] p-8 text-center">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ pending }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 opacity-80 font-bold">Pending</p>
+    </div>
+    <div class="bg-gray-800 text-white p-8 text-center">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ total_events }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 text-gray-400">Events</p>
+    </div>
+    <div class="bg-gray-700 text-white p-8 text-center">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ total_rsvps }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 text-gray-400">RSVPs</p>
+    </div>
+    <div class="bg-red-50 text-red-900 border border-red-200 p-8 text-center">
+      <p class="text-5xl font-bold font-[Playfair_Display]">{{ unread_messages }}</p>
+      <p class="text-xs uppercase tracking-widest mt-3 text-red-700">Unread Messages</p>
+    </div>
+  </div>
+
+  <div class="flex gap-4 flex-wrap justify-center border-t border-gray-200 pt-10">
+    <a href="/dashboard/export/members/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Export Members CSV</a>
+    <a href="/dashboard/export/rsvps/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Export RSVPs CSV</a>
+    <a href="/dashboard/export/contacts/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Export Contacts CSV</a>
+  </div>
+</div>
+{% endblock %}

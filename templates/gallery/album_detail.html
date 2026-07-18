@@ -1,0 +1,19 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ album.title }}{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-12 text-center">{{ album.title }}</h1>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+    {% for photo in album.photos.all %}
+    <div class="group relative overflow-hidden bg-white shadow-sm border border-gray-100">
+      <img src="{{ photo.image.url }}" alt="{{ photo.caption }}" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"/>
+      {% if photo.caption %}
+      <div class="absolute bottom-0 left-0 right-0 bg-[#1e1e1e] bg-opacity-90 p-4 transform translate-y-full group-hover:translate-y-0 transition duration-300">
+        <p class="text-xs text-white">{{ photo.caption }}</p>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

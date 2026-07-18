@@ -1,1 +1,18 @@
-{% extends "base.html" %}{% block title %}Events{% endblock %}{% block content %}<div class="max-w-7xl mx-auto px-4 py-16"><h1 class="section-heading mb-8">Events</h1><div class="grid grid-cols-1 md:grid-cols-3 gap-6">{% for e in events %}<a href="/events/{{ e.slug }}/" class="card block bg-white border p-5"><p class="text-xs text-[#e8a020] font-semibold">{{ e.start_datetime|date:"d M Y" }}</p><h3 class="font-bold text-lg mt-1">{{ e.title }}</h3><p class="text-sm text-gray-500 mt-1">{{ e.venue }}</p></a>{% empty %}<p class="text-gray-500 col-span-3">No events yet.</p>{% endfor %}</div></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-20 text-center">
+  <h1 class="text-2xl text-gray-500 mb-12">What's On. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Events Calendar</span></h1>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+    {% for e in events %}
+    <a href="/events/{{ e.slug }}/" class="block bg-white border border-gray-200 p-6 group hover:border-[#1e1e1e] transition-colors">
+      <p class="text-xs text-[#e8a020] font-bold uppercase tracking-widest">{{ e.start_datetime|date:"d M Y" }}</p>
+      <h3 class="font-bold text-[#1e1e1e] text-xl mt-3 mb-2 group-hover:text-[#e8a020] transition-colors">{{ e.title }}</h3>
+      <p class="text-sm text-gray-500">📍 {{ e.venue }}</p>
+    </a>
+    {% empty %}
+    <p class="text-gray-500 col-span-3 text-center py-8">No events yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

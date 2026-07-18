@@ -1,1 +1,27 @@
-{% extends "base.html" %}{% block title %}{{ event.title }}{% endblock %}{% block content %}<div class="max-w-4xl mx-auto px-4 py-16">{% if event.cover_image %}<img src="{{ event.cover_image.url }}" class="w-full h-64 object-cover rounded-lg mb-8"/>{% endif %}<h1 class="section-heading">{{ event.title }}</h1><p class="text-gray-500 mt-2">{{ event.venue }} &mdash; {{ event.start_datetime|date:"d M Y, H:i" }}</p><div class="mt-8 prose max-w-none text-gray-700">{{ event.description }}</div>{% if user.is_authenticated %}<form method="post" action="/events/{{ event.slug }}/rsvp/">{% csrf_token %}<button type="submit" class="btn-primary mt-8">{% if user_rsvp %}Cancel RSVP{% else %}RSVP Now{% endif %}</button></form>{% endif %}</div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-20">
+  {% if event.cover_image %}
+  <img src="{{ event.cover_image.url }}" class="w-full h-80 object-cover mb-10 shadow-sm"/>
+  {% endif %}
+  <div class="text-center mb-10 border-b border-gray-100 pb-10">
+    <p class="text-xs text-[#e8a020] font-bold uppercase tracking-widest mb-3">{{ event.start_datetime|date:"d M Y, H:i" }}</p>
+    <h1 class="font-[Playfair_Display] text-4xl md:text-5xl font-bold text-[#1e1e1e] mb-4">{{ event.title }}</h1>
+    <p class="text-sm text-gray-500 uppercase tracking-widest">📍 {{ event.venue }}</p>
+  </div>
+  <div class="prose max-w-none text-gray-600 leading-relaxed mb-12">
+    {{ event.description }}
+  </div>
+  {% if user.is_authenticated %}
+  <div class="text-center border-t border-gray-100 pt-10">
+    <form method="post" action="/events/{{ event.slug }}/rsvp/">
+      {% csrf_token %}
+      <button type="submit" class="inline-block {% if user_rsvp %}bg-[#1e1e1e] text-white hover:bg-red-700{% else %}bg-[#e8a020] text-white hover:bg-[#1e1e1e]{% endif %} text-xs font-bold px-10 py-4 uppercase tracking-widest transition">
+        {% if user_rsvp %}Cancel RSVP{% else %}RSVP Now{% endif %}
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

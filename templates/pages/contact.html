@@ -1,1 +1,17 @@
-{% extends "base.html" %}{% block title %}Contact Us{% endblock %}{% block content %}<div class="max-w-2xl mx-auto px-4 py-16"><h1 class="section-heading mb-8">Contact Us</h1><form method="post" class="space-y-4">{% csrf_token %}<input name="name" placeholder="Your Name" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"/><input name="email" type="email" placeholder="Email" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"/><input name="subject" placeholder="Subject" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"/><textarea name="message" rows="5" placeholder="Message" class="w-full border px-4 py-3 rounded focus:ring-2 focus:ring-[#1a5c38] focus:outline-none"></textarea><button type="submit" class="btn-primary">Send Message</button></form></div>{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-20">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-10 text-center">Contact Us</h1>
+  <form method="post" class="space-y-6">
+    {% csrf_token %}
+    <input name="name" placeholder="Your Name" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"/>
+    <input name="email" type="email" placeholder="Email" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"/>
+    <input name="subject" placeholder="Subject" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"/>
+    <textarea name="message" rows="6" placeholder="Message" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:ring-1 focus:ring-[#e8a020] focus:outline-none transition"></textarea>
+    <div class="text-center">
+      <button type="submit" class="inline-block bg-[#e8a020] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Send Message</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
