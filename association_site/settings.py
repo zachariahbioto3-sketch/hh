@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     "resources",
     "gallery",
     "members",
-"dashboard",
+    "dashboard",
+    "alumni",
+    "sponsorship",
+    "newsletter",
 ]
 
 MIDDLEWARE = [
@@ -175,7 +178,5 @@ CSRF_TRUSTED_ORIGINS = config(
 
 
 
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
