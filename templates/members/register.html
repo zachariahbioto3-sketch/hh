@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="max-w-sm mx-auto px-4 py-24">
+  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-10 text-center">Join KAFUOSA</h1>
+  {% if form.errors %}
+  <div class="bg-red-100 text-red-800 text-sm px-4 py-3 rounded mb-6">
+    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+    {% for field in form %}{% for error in field.errors %}<p>{{ field.label }}: {{ error }}</p>{% endfor %}{% endfor %}
+  </div>
+  {% endif %}
+  <form method="post" class="space-y-4 bg-gray-50 border border-gray-100 p-8 shadow-sm">
+    {% csrf_token %}
+    <input name="first_name" placeholder="First Name" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="last_name" placeholder="Last Name" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="email" type="email" placeholder="Email" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="username" placeholder="Username" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="registration_number" placeholder="Registration Number" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="phone_number" placeholder="Phone Number (optional)" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="year_of_study" type="number" placeholder="Year of Study (optional)" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="password" type="password" placeholder="Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <input name="confirm_password" type="password" placeholder="Confirm Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#e8a020] focus:outline-none transition"/>
+    <button type="submit" class="w-full bg-[#e8a020] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Register</button>
+    <p class="text-center text-xs text-gray-500 mt-4">Already a member? <a href="/members/login/" class="text-[#e8a020] font-bold">Login</a></p>
+  </form>
+</div>
+{% endblock %}

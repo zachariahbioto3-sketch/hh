@@ -1,5 +1,5 @@
-﻿{% extends "base.html" %}
-{% block title %}Home — KAFUOSA{% endblock %}
+{% extends "base.html" %}
+{% block title %}Home � KAFUOSA{% endblock %}
 {% block content %}
 
 <!-- HERO SECTION: Matches the left-aligned text and badge over a large image -->
@@ -31,7 +31,7 @@
           <img src="{{ event.cover_image.url }}" class="w-full h-56 object-cover" alt="{{ event.title }}"/>
         {% else %}
           <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-400 text-4xl">📅</span>
+            <span class="text-gray-400 text-4xl">??</span>
           </div>
         {% endif %}
         <div class="absolute bottom-0 right-0 bg-[#e8a020] text-white text-xs font-bold px-3 py-1">
@@ -40,7 +40,7 @@
       </div>
       <div class="pt-6 pb-4 text-center border-b border-gray-100">
         <h3 class="font-bold text-lg text-[#1e1e1e]">{{ event.title }}</h3>
-        <p class="text-sm text-gray-500 mt-2 px-4 line-clamp-2">📍 {{ event.venue }}</p>
+        <p class="text-sm text-gray-500 mt-2 px-4 line-clamp-2">?? {{ event.venue }}</p>
       </div>
       <div class="text-center pt-5 pb-2">
         <a href="/events/{{ event.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-5 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">View Event</a>
@@ -57,22 +57,22 @@
     <h2 class="text-2xl text-gray-500 mb-12">Our Impact. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">See below</span></h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👥</div>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
         <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
         <p class="text-sm text-gray-500 mt-1">Active Members</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">📅</div>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
         <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
         <p class="text-sm text-gray-500 mt-1">Events Held</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👁️</div>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">???</div>
         <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
         <p class="text-sm text-gray-500 mt-1">People Screened</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">👓</div>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
         <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
         <p class="text-sm text-gray-500 mt-1">Glasses Donated</p>
       </div>
@@ -105,13 +105,13 @@
         <img src="{{ post.cover_image.url }}" class="w-full h-48 object-cover" alt="{{ post.title }}"/>
       {% else %}
         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-          <span class="text-gray-400 text-3xl">📰</span>
+          <span class="text-gray-400 text-3xl">??</span>
         </div>
       {% endif %}
       <div class="pt-5 pb-4 border-b border-gray-100">
         <h3 class="font-bold text-lg text-[#1e1e1e] mb-2">{{ post.title }}</h3>
         <!-- Note: Date hardcoded to match design placeholder, can be replaced with post.created_on|date:"d M Y" -->
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-3">03 DEC 2013 &nbsp;|&nbsp; POSTED IN: {{ post.get_category_display }}</p>
+        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-3">{{ post.published_at|date:"d M Y" }} &nbsp;|&nbsp; POSTED IN: {{ post.get_category_display }}</p>
         <p class="text-sm text-gray-500 line-clamp-3">{{ post.excerpt }}</p>
       </div>
       <div class="pt-4 pb-2">

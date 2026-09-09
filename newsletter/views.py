@@ -15,7 +15,22 @@ def subscribe(request):
             messages.success(request, 'Subscribed successfully!')
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
-def unsubscribe(request, email):
+
+    try:
+        sub = NewsletterSubscriber.objects.get(email=email)
+        sub.subscribed      = False
+        sub.unsubscribed_at = timezone.now()
+        sub.save()
+    except NewsletterSubscriber.DoesNotExist:
+        pass
+    return redirect('/')
+
+from django.http import HttpResponseBadRequest
+from .tokens import make_token, check_token
+
+def unsubscribe(request, email, token):
+    if not check_token(email, token):
+        return HttpResponseBadRequest("Invalid unsubscribe link.")
     try:
         sub = NewsletterSubscriber.objects.get(email=email)
         sub.subscribed      = False

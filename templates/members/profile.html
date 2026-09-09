@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% block title %}My Profile{% endblock %}
 {% block content %}
 <div class="max-w-2xl mx-auto px-4 py-20 text-center">
@@ -10,7 +10,7 @@
     {% else %}
     <p class="text-gray-500 mb-8">No member profile linked to your account.</p>
     {% endif %}
-    <a href="/members/logout/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition text-center w-full">Logout</a>
+    <form method="post" action="/members/logout/">{% csrf_token %}<button type="submit" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition w-full">Logout</button></form>
   </div>
 </div>
 {% endblock %}
