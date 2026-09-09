@@ -8,7 +8,7 @@
   <div class="text-center mb-10 border-b border-gray-100 pb-10">
     <p class="text-xs text-[#e8a020] font-bold uppercase tracking-widest mb-3">{{ event.start_datetime|date:"d M Y, H:i" }}</p>
     <h1 class="font-[Playfair_Display] text-4xl md:text-5xl font-bold text-[#1e1e1e] mb-4">{{ event.title }}</h1>
-    <p class="text-sm text-gray-500 uppercase tracking-widest">📍 {{ event.venue }}</p>
+    <p class="text-sm text-gray-500 uppercase tracking-widest"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> {{ event.venue }}</p>
   </div>
   <div class="prose max-w-none text-gray-600 leading-relaxed mb-12">
     {{ event.description }}

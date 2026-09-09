@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Home � KAFUOSA{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Home — KAFUOSA{% endblock %}
 {% block content %}
 
 <!-- HERO SECTION: Matches the left-aligned text and badge over a large image -->
@@ -31,7 +31,7 @@
           <img src="{{ event.cover_image.url }}" class="w-full h-56 object-cover" alt="{{ event.title }}"/>
         {% else %}
           <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-400 text-4xl">??</span>
+            <span class="text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
           </div>
         {% endif %}
         <div class="absolute bottom-0 right-0 bg-[#e8a020] text-white text-xs font-bold px-3 py-1">
@@ -40,7 +40,7 @@
       </div>
       <div class="pt-6 pb-4 text-center border-b border-gray-100">
         <h3 class="font-bold text-lg text-[#1e1e1e]">{{ event.title }}</h3>
-        <p class="text-sm text-gray-500 mt-2 px-4 line-clamp-2">?? {{ event.venue }}</p>
+        <p class="text-sm text-gray-500 mt-2 px-4 line-clamp-2"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> {{ event.venue }}</p>
       </div>
       <div class="text-center pt-5 pb-2">
         <a href="/events/{{ event.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-5 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">View Event</a>
@@ -57,23 +57,19 @@
     <h2 class="text-2xl text-gray-500 mb-12">Our Impact. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">See below</span></h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
-        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
         <p class="text-sm text-gray-500 mt-1">Active Members</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
-        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
         <p class="text-sm text-gray-500 mt-1">Events Held</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">???</div>
-        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
         <p class="text-sm text-gray-500 mt-1">People Screened</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4 text-2xl">??</div>
-        <p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
+        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v2c0 .55.45 1 1 1h.5c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5H21c.55 0 1-.45 1-1V9c0-1.1-.9-2-2-2z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
         <p class="text-sm text-gray-500 mt-1">Glasses Donated</p>
       </div>
     </div>
@@ -105,7 +101,7 @@
         <img src="{{ post.cover_image.url }}" class="w-full h-48 object-cover" alt="{{ post.title }}"/>
       {% else %}
         <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-          <span class="text-gray-400 text-3xl">??</span>
+          <span class="text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 4v6h6M9 13h6M9 17h6"/></svg></span>
         </div>
       {% endif %}
       <div class="pt-5 pb-4 border-b border-gray-100">
