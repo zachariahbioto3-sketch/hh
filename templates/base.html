@@ -1,16 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}KAFUOSA{% endblock %}</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'images/favicon.jpg' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: { extend: {
-        colors: { forest:'#1a5c38', leaf:'#2d8653', gold:'#e8a020', charcoal:'#1e1e1e' },
+        colors: { forest:'#1B1A4F', leaf:'#8080B8', gold:'#AEAED0', charcoal:'#1B1A4F', navy:'#1B1A4F', purple:'#8080B8', lavender:'#AEAED0' },
         fontFamily: { display:['"Playfair Display"','serif'], body:['Inter','sans-serif'] }
       }}
     }
@@ -23,14 +25,15 @@
     .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
   </style>
   {% block extra_head %}{% endblock %}
+
 </head>
 <body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
 <!-- Top Bar (Dark): Mimics the top dark bar with logo, socials, and the action button -->
-<div class="bg-[#1e1e1e] text-white">
+<div class="bg-[#1B1A4F] text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14">
-      <a href="/" style="font-family:'Playfair Display',serif" class="font-bold text-2xl tracking-wider">
+      <a href="/" style="font-family:'Playfair Display',serif" class="font-bold text-2xl tracking-wider flex items-center gap-3"><img src="{% static 'images/kafuosa-logo.jpg' %}" alt="KAFUOSA Logo" style="height:45px;width:45px;border-radius:50%;object-fit:cover;">
         KAF<span class="text-[#e8a020]">UOSA</span>
       </a>
       <div class="hidden md:flex items-center space-x-6">
@@ -41,7 +44,7 @@
           <a href="#" class="hover:text-white transition">v</a>
         </div>
         {% if user.is_authenticated %}
-          <a href="/members/profile/" class="border border-[#e8a020] text-[#e8a020] text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-[#e8a020] hover:text-[#1e1e1e] transition">My Profile</a>
+          <a href="/members/profile/" class="border border-[#AEAED0] text-[#AEAED0] text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-[#8080B8] hover:text-white transition">My Profile</a>
         {% else %}
           <a href="/members/register/" class="border border-white text-white text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-white hover:text-[#1e1e1e] transition">Become Member</a>
         {% endif %}
@@ -51,24 +54,24 @@
 </div>
 
 <!-- Main Nav (Gold): Mimics the secondary bright yellow navigation bar -->
-<nav class="bg-[#e8a020] sticky top-0 z-50 shadow-md">
+<nav class="bg-[#1B1A4F] sticky top-0 z-50 shadow-md">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14">
       <!-- Desktop Links -->
       <div class="hidden md:flex items-center space-x-8">
-        <a href="/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Home</a>
-        <a href="/about/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">About</a>
-        <a href="/events/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Events</a>
-        <a href="/news/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">News</a>
-        <a href="/gallery/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Gallery</a>
-        <a href="/alumni/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Alumni</a>
-        <a href="/contact/" class="text-[#1e1e1e] font-bold text-xs uppercase tracking-widest hover:text-white transition">Contact Us</a>
+        <a href="/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Home</a>
+        <a href="/about/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">About</a>
+        <a href="/events/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Events</a>
+        <a href="/news/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">News</a>
+        <a href="/gallery/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Gallery</a>
+        <a href="/alumni/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Alumni</a>
+        <a href="/contact/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Contact Us</a>
       </div>
       
       <!-- Search Input -->
-      <div class="hidden md:flex items-center border-b border-[#1e1e1e] pb-1">
-        <input type="text" placeholder="Search Here" class="bg-transparent border-none text-[#1e1e1e] placeholder-[#1e1e1e] focus:outline-none focus:ring-0 text-sm px-2 w-48">
-        <button type="submit" class="text-[#1e1e1e] hover:text-white transition">
+      <div class="hidden md:flex items-center border-b border-white pb-1">
+        <input type="text" placeholder="Search Here" class="bg-transparent border-none text-white placeholder-white focus:outline-none focus:ring-0 text-sm px-2 w-48">
+        <button type="submit" class="text-white hover:text-[#AEAED0] transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
       </div>
@@ -93,9 +96,9 @@
     <a href="/contact/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2">Contact Us</a>
     <div class="mt-4 pt-4 border-t border-[#1e1e1e]">
       {% if user.is_authenticated %}
-        <a href="/members/profile/" class="inline-block bg-[#1e1e1e] text-white text-xs px-4 py-2 uppercase tracking-wide">My Profile</a>
+        <a href="/members/profile/" class="inline-block bg-[#1B1A4F] text-white text-xs px-4 py-2 uppercase tracking-wide">My Profile</a>
       {% else %}
-        <a href="/members/register/" class="inline-block bg-[#1e1e1e] text-white text-xs px-4 py-2 uppercase tracking-wide">Become Member</a>
+        <a href="/members/register/" class="inline-block bg-[#1B1A4F] text-white text-xs px-4 py-2 uppercase tracking-wide">Become Member</a>
       {% endif %}
     </div>
   </div>
@@ -114,7 +117,7 @@
 
 <main class="flex-grow">{% block content %}{% endblock %}</main>
 
-<footer class="bg-[#1e1e1e] text-gray-400 pt-16 pb-8 mt-16 border-t-[6px] border-[#e8a020]">
+<footer class="bg-[#1B1A4F] text-gray-400 pt-16 pb-8 mt-16 border-t-[6px] border-[#e8a020]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
       <!-- Charity Brand / Info -->
@@ -149,7 +152,7 @@
         <form action="/newsletter/subscribe/" method="post" class="flex items-stretch">
           {% csrf_token %}
           <input type="email" name="email" placeholder="Email" class="flex-1 bg-transparent border border-gray-600 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#e8a020]">
-          <button type="submit" class="border border-gray-600 border-l-0 text-[#e8a020] text-xs font-bold px-4 py-2 hover:bg-[#e8a020] hover:text-[#1e1e1e] transition">SUBMIT</button></form>
+          <button type="submit" class="border border-gray-600 border-l-0 text-[#e8a020] text-xs font-bold px-4 py-2 hover:bg-[#8080B8] hover:text-white transition">SUBMIT</button></form>
         </form>
         <div class="mt-6">
           <h4 class="text-white font-bold text-sm uppercase mb-3">Follow us</h4>
