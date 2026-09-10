@@ -7,9 +7,10 @@ python manage.py shell -c "
 from django.contrib.auth import get_user_model
 import os
 User = get_user_model()
+print('Total users:', User.objects.count())
 if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser('admin', 'admin@kafuosa.com', os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
-    print('Superuser created')
+    print('Superuser created successfully')
 else:
-    print('Superuser already exists')
+    print('Admin already exists')
 "
