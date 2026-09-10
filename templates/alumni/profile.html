@@ -5,7 +5,7 @@
   <div class="mb-10 pb-10 border-b border-gray-100">
     <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">Class of {{ profile.graduation_year }}</p>
     <h1 class="font-[Playfair_Display] text-4xl md:text-5xl font-bold text-[#1e1e1e] mb-4">{{ profile.member }}</h1>
-    <p class="text-[#e8a020] font-bold text-sm uppercase tracking-widest">{{ profile.job_title }}{% if profile.current_employer %} at {{ profile.current_employer }}{% endif %}</p>
+    <p class="text-[#8080B8] font-bold text-sm uppercase tracking-widest">{{ profile.job_title }}{% if profile.current_employer %} at {{ profile.current_employer }}{% endif %}</p>
   </div>
   
   {% if profile.bio %}
@@ -16,7 +16,7 @@
   
   {% if user.is_authenticated %}
   <div class="mt-8">
-    <a href="/alumni/request-mentorship/{{ profile.pk }}/" class="inline-block bg-[#e8a020] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Request Mentorship</a>
+    <a href="/alumni/request-mentorship/{{ profile.pk }}/" class="inline-block bg-[#8080B8] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Request Mentorship</a>
   </div>
   {% endif %}
 </div>

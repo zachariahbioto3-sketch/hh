@@ -2,27 +2,82 @@
 {% block title %}Home — KAFUOSA{% endblock %}
 {% block content %}
 
-<!-- HERO SECTION: Matches the left-aligned text and badge over a large image -->
-<section class="relative bg-gray-100 py-32 px-4 overflow-hidden flex items-center min-h-[600px]">
-  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400')] bg-cover bg-center opacity-30"></div>
-  <div class="relative max-w-7xl mx-auto w-full">
-    <div class="max-w-xl">
-      <span class="inline-block bg-[#e8a020] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider mb-4">Featured Cause</span>
-      <h1 style="font-family:'Playfair Display',serif" class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-[#1e1e1e]">
-        Advancing Eye Care<br/>Across Kenya
-      </h1>
-      <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
-        KAFUOSA unites optometry students and alumni in academic excellence, community outreach, and professional development.
-      </p>
-      <a href="/events/" class="inline-block border-2 border-[#1e1e1e] text-[#1e1e1e] text-xs font-bold px-6 py-3 uppercase tracking-widest hover:bg-[#1e1e1e] hover:text-white transition">View Events</a>
+<!-- HERO SLIDER -->
+<section class="relative overflow-hidden min-h-[600px]" id="hero-slider">
+  <!-- Slides -->
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('/static/images/hero-group.jpg')">
+      <div class="hero-overlay">
+        <span class="hero-badge">Community Outreach</span>
+        <h1 class="hero-title">Advancing Eye Care<br/>Across Kenya</h1>
+        <p class="hero-desc">KAFUOSA unites optometry students and alumni in academic excellence, community outreach, and professional development.</p>
+        <a href="/events/" class="hero-btn">View Events</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('/static/images/hero-outreach.jpg')">
+      <div class="hero-overlay">
+        <span class="hero-badge">Eye Screening</span>
+        <h1 class="hero-title">Free Eye Screening<br/>For All Communities</h1>
+        <p class="hero-desc">Our students conduct free eye screening camps, donating glasses to underserved communities across Kenya.</p>
+        <a href="/about/" class="hero-btn">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('/static/images/hero-clinic.jpg')">
+      <div class="hero-overlay">
+        <span class="hero-badge">Clinical Training</span>
+        <h1 class="hero-title">Hands-On Clinical<br/>Excellence</h1>
+        <p class="hero-desc">KAFUOSA students gain real-world experience through supervised clinical outreach in rural and urban Kenya.</p>
+        <a href="/members/register/" class="hero-btn">Join Us</a>
+      </div>
     </div>
   </div>
+  <!-- Dots -->
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+    <button class="hero-dot" onclick="goToSlide(1)"></button>
+    <button class="hero-dot" onclick="goToSlide(2)"></button>
+  </div>
+  <!-- Arrows -->
+  <button class="hero-arrow hero-prev" onclick="changeSlide(-1)">&#10094;</button>
+  <button class="hero-arrow hero-next" onclick="changeSlide(1)">&#10095;</button>
 </section>
+<style>
+.hero-slides { position:relative; width:100%; min-height:600px; }
+.hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 0.8s ease; min-height:600px; display:flex; align-items:center; }
+.hero-slide.active { opacity:1; position:relative; }
+.hero-overlay { position:relative; z-index:2; max-width:80rem; margin:0 auto; padding:8rem 1rem; width:100%; background:linear-gradient(to right, rgba(27,26,79,0.75) 40%, transparent 100%); }
+.hero-badge { display:inline-block; background:#8080B8; color:white; font-size:.65rem; font-weight:700; padding:.25rem .75rem; text-transform:uppercase; letter-spacing:.15em; margin-bottom:1rem; }
+.hero-title { font-family:"Playfair Display",serif; font-size:2.75rem; font-weight:700; line-height:1.2; color:white; margin-bottom:1rem; }
+.hero-desc { color:rgba(255,255,255,0.85); font-size:.95rem; margin-bottom:2rem; max-width:28rem; line-height:1.7; }
+.hero-btn { display:inline-block; border:2px solid white; color:white; font-size:.7rem; font-weight:700; padding:.75rem 1.5rem; text-transform:uppercase; letter-spacing:.1em; transition:all .3s; }
+.hero-btn:hover { background:white; color:#1B1A4F; }
+.hero-dots { position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%); display:flex; gap:.5rem; z-index:10; }
+.hero-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.4); border:none; cursor:pointer; transition:background .3s; }
+.hero-dot.active { background:white; }
+.hero-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:10; background:rgba(27,26,79,0.5); color:white; border:none; font-size:1.25rem; padding:.6rem 1rem; cursor:pointer; transition:background .3s; }
+.hero-arrow:hover { background:rgba(27,26,79,0.9); }
+.hero-prev { left:1rem; }
+.hero-next { right:1rem; }
+</style>
+<script>
+let current = 0;
+const slides = document.querySelectorAll(".hero-slide");
+const dots = document.querySelectorAll(".hero-dot");
+function goToSlide(n) {
+  slides[current].classList.remove("active");
+  dots[current].classList.remove("active");
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add("active");
+  dots[current].classList.add("active");
+}
+function changeSlide(dir) { goToSlide(current + dir); }
+setInterval(() => changeSlide(1), 5000);
+</script>
 
 <!-- EVENTS (CAUSES) SECTION: Center heading with bold suffix, outlined buttons inside cards -->
 {% if upcoming %}
 <section class="max-w-7xl mx-auto px-4 py-20 text-center">
-  <h2 class="text-2xl text-gray-500 mb-12">What's On. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Upcoming Events</span></h2>
+  <h2 class="text-2xl text-gray-500 mb-12">What's On. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#8080B8] pb-1">Upcoming Events</span></h2>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
     {% for event in upcoming %}
     <div class="bg-white group">
@@ -34,7 +89,7 @@
             <span class="text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
           </div>
         {% endif %}
-        <div class="absolute bottom-0 right-0 bg-[#e8a020] text-white text-xs font-bold px-3 py-1">
+        <div class="absolute bottom-0 right-0 bg-[#8080B8] text-white text-xs font-bold px-3 py-1">
           {{ event.start_datetime|date:"d M Y" }}
         </div>
       </div>
@@ -54,22 +109,22 @@
 <!-- STATS / HELP SECTION: Matches the icon-on-left block layout -->
 <section class="bg-gray-50 py-20">
   <div class="max-w-7xl mx-auto px-4 text-center">
-    <h2 class="text-2xl text-gray-500 mb-12">Our Impact. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">See below</span></h2>
+    <h2 class="text-2xl text-gray-500 mb-12">Our Impact. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#8080B8] pb-1">See below</span></h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
+        <div class="w-16 h-16 bg-[#8080B8] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.members }}+</p>
         <p class="text-sm text-gray-500 mt-1">Active Members</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
+        <div class="w-16 h-16 bg-[#8080B8] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.events }}+</p>
         <p class="text-sm text-gray-500 mt-1">Events Held</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
+        <div class="w-16 h-16 bg-[#8080B8] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.people_screened }}+</p>
         <p class="text-sm text-gray-500 mt-1">People Screened</p>
       </div>
       <div class="flex flex-col items-center">
-        <div class="w-16 h-16 bg-[#e8a020] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v2c0 .55.45 1 1 1h.5c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5H21c.55 0 1-.45 1-1V9c0-1.1-.9-2-2-2z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
+        <div class="w-16 h-16 bg-[#8080B8] text-white flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20 7H4c-1.1 0-2 .9-2 2v2c0 .55.45 1 1 1h.5c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5v.5c0 1.66 1.34 3 3 3s3-1.34 3-3v-.5c0-.28.22-.5.5-.5H21c.55 0 1-.45 1-1V9c0-1.1-.9-2-2-2z"/></svg></div><p class="text-3xl font-bold text-[#1e1e1e]">{{ stats.glasses_donated }}+</p>
         <p class="text-sm text-gray-500 mt-1">Glasses Donated</p>
       </div>
     </div>
@@ -86,14 +141,14 @@
     <p class="text-gray-300 text-sm mb-8">
       Join KAFUOSA and be part of a community driving change in eye care across Kenya.
     </p>
-    <a href="/members/login/" class="inline-block bg-white text-[#1e1e1e] text-xs font-bold px-8 py-3 uppercase tracking-widest hover:bg-[#e8a020] hover:text-white transition">Join Now</a>
+    <a href="/members/login/" class="inline-block bg-white text-[#1e1e1e] text-xs font-bold px-8 py-3 uppercase tracking-widest hover:bg-[#8080B8] hover:text-white transition">Join Now</a>
   </div>
 </section>
 
 <!-- LATEST NEWS SECTION -->
 {% if posts %}
 <section class="max-w-7xl mx-auto px-4 py-20 text-center">
-  <h2 class="text-2xl text-gray-500 mb-12">Checkout whats going on. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Latest News</span></h2>
+  <h2 class="text-2xl text-gray-500 mb-12">Checkout whats going on. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#8080B8] pb-1">Latest News</span></h2>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
     {% for post in posts %}
     <div class="bg-white">

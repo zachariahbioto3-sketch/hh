@@ -2,16 +2,16 @@
 {% block title %}Gallery{% endblock %}
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 py-20">
-  <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#e8a020] pb-1">Our Gallery</span></h1>
+  <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#8080B8] pb-1">Our Gallery</span></h1>
   <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
     {% for album in albums %}
     <a href="/gallery/{{ album.pk }}/" class="block group">
       <div class="bg-gray-200 h-56 w-full mb-4 overflow-hidden relative">
-        <div class="w-full h-full bg-gray-100 flex items-center justify-center border border-gray-200 group-hover:border-[#e8a020] transition-colors">
+        <div class="w-full h-full bg-gray-100 flex items-center justify-center border border-gray-200 group-hover:border-[#8080B8] transition-colors">
           <span class="text-gray-300 text-4xl"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-10 h-10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15.2A3.2 3.2 0 1 1 15.2 12 3.2 3.2 0 0 1 12 15.2ZM20 4h-3.17L15 2H9L7.17 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg></span>
         </div>
       </div>
-      <h3 class="font-bold text-[#1e1e1e] group-hover:text-[#e8a020] transition-colors">{{ album.title }}</h3>
+      <h3 class="font-bold text-[#1e1e1e] group-hover:text-[#8080B8] transition-colors">{{ album.title }}</h3>
       <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">{{ album.photos.count }} photo{{ album.photos.count|pluralize }}</p>
     </a>
     {% empty %}
