@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Gallery — KAFUOSA{% endblock %}
+{% block content %}
+<section class="max-w-7xl mx-auto px-4 py-20">
+  <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1B1A4F] border-b-2 border-[#8080B8] pb-1">Our Gallery</span></h1>
+  {% for album in albums %}
+  <div class="mb-16">
+    <h2 class="text-xl font-bold text-[#1B1A4F] mb-6 border-l-4 border-[#8080B8] pl-4">{{ album.title }}</h2>
+    {% if album.description %}<p class="text-gray-500 text-sm mb-6">{{ album.description }}</p>{% endif %}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for photo in album.galleryphoto_set.all %}
+      <div class="relative group cursor-pointer overflow-hidden rounded shadow"
+           onclick="openLightbox('{{ photo.image.url }}', '{{ photo.caption }}', {{ forloop.counter0 }}, '{{ album.pk }}')">
+        <img src="{{ photo.image.url }}" alt="{{ photo.caption }}"
+             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+        <div class="absolute inset-0 bg-[#1B1A4F] bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+          <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+          </svg>
+        </div>
+        {% if photo.caption %}<p class="text-xs text-gray-500 mt-1 px-1 truncate">{{ photo.caption }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-center text-gray-400">No albums yet.</p>
+  {% endfor %}
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90" onclick="closeLightbox(event)">
+  <button onclick="closeLightbox()" class="absolute top-4 right-6 text-white text-4xl font-bold z-50">&times;</button>
+  <button onclick="prevImage(event)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-50 bg-[#1B1A4F] bg-opacity-60 px-4 py-2 rounded">&#10094;</button>
+  <div class="flex flex-col items-center max-w-4xl w-full px-4" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="" class="max-h-[80vh] max-w-full rounded shadow-2xl object-contain"/>
+    <p id="lightbox-caption" class="text-white text-sm mt-4 text-center"></p>
+    <p id="lightbox-counter" class="text-gray-400 text-xs mt-1"></p>
+  </div>
+  <button onclick="nextImage(event)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-50 bg-[#1B1A4F] bg-opacity-60 px-4 py-2 rounded">&#10095;</button>
+</div>
+
+<script>
+const albumData = {
+  {% for album in albums %}
+  "{{ album.pk }}": [
+    {% for photo in album.galleryphoto_set.all %}
+    { url: "{{ photo.image.url }}", caption: "{{ photo.caption|escapejs }}" },
+    {% endfor %}
+  ],
+  {% endfor %}
+};
+let currentAlbum = null;
+let currentIndex = 0;
+
+function openLightbox(url, caption, index, albumPk) {
+  currentAlbum = albumPk;
+  currentIndex = index;
+  showSlide();
+  document.getElementById("lightbox").classList.remove("hidden");
+  document.getElementById("lightbox").classList.add("flex");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById("lightbox")) return;
+  document.getElementById("lightbox").classList.add("hidden");
+  document.getElementById("lightbox").classList.remove("flex");
+  document.body.style.overflow = "";
+}
+function showSlide() {
+  const photos = albumData[currentAlbum];
+  const photo = photos[currentIndex];
+  document.getElementById("lightbox-img").src = photo.url;
+  document.getElementById("lightbox-caption").textContent = photo.caption;
+  document.getElementById("lightbox-counter").textContent = (currentIndex + 1) + " / " + photos.length;
+}
+function nextImage(e) { e.stopPropagation(); const photos = albumData[currentAlbum]; currentIndex = (currentIndex + 1) % photos.length; showSlide(); }
+function prevImage(e) { e.stopPropagation(); const photos = albumData[currentAlbum]; currentIndex = (currentIndex - 1 + photos.length) % photos.length; showSlide(); }
+document.addEventListener("keydown", function(e) {
+  const lb = document.getElementById("lightbox");
+  if (lb.classList.contains("hidden")) return;
+  if (e.key === "ArrowRight") nextImage(e);
+  if (e.key === "ArrowLeft") prevImage(e);
+  if (e.key === "Escape") { lb.classList.add("hidden"); lb.classList.remove("flex"); document.body.style.overflow = ""; }
+});
+</script>
+{% endblock %}
