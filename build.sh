@@ -15,5 +15,9 @@ else:
 u = User.objects.get(username='admin')
 u.set_password(os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
 u.save()
+print('Password reset done')
+u = User.objects.get(username='admin')
+u.set_password(os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
+u.save()
 print('Password reset to env value')
 "
