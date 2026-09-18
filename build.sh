@@ -11,13 +11,5 @@ if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser('admin', 'admin@kafuosa.com', os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
     print('Superuser created')
 else:
-    print('Admin already exists')
-u = User.objects.get(username='admin')
-u.set_password(os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
-u.save()
-print('Password reset done')
-u = User.objects.get(username='admin')
-u.set_password(os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
-u.save()
-print('Password reset to env value')
+    print('Admin already exists - skipping password reset')
 "

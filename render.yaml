@@ -1,4 +1,4 @@
-﻿services:
+services:
   - type: web
     name: kafuosa
     runtime: python
@@ -6,7 +6,7 @@
     startCommand: "gunicorn hh.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: SECRET_KEY
-        generateValue: true
+        sync: false
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
@@ -26,4 +26,6 @@
 
 databases:
   - name: kafuosa-db
-    plan: free
+    plan: starter
+
+
