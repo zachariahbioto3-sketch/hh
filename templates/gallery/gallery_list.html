@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Gallery â€” KAFUOSA{% endblock %}
+{% block title %}Gallery — KAFUOSA{% endblock %}
 {% block content %}
 <section class="max-w-7xl mx-auto px-4 py-20">
   <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1B1A4F] border-b-2 border-[#8080B8] pb-1">Our Gallery</span></h1>
@@ -8,11 +8,17 @@
     <h2 class="text-xl font-bold text-[#1B1A4F] mb-6 border-l-4 border-[#8080B8] pl-4">{{ album.title }}</h2>
     {% if album.description %}<p class="text-gray-500 text-sm mb-6">{{ album.description }}</p>{% endif %}
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {% for photo in album.galleryphoto_set.all %}
+      {% for photo in album.photos.all %}
       <div class="relative group cursor-pointer overflow-hidden rounded shadow"
            onclick="openLightbox('{{ photo.image.url }}', '{{ photo.caption }}', {{ forloop.counter0 }}, '{{ album.pk }}')">
+        {% if photo.image %}
         <img src="{{ photo.image.url }}" alt="{{ photo.caption }}"
              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+        {% else %}
+        <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+          <span class="text-gray-300 text-4xl">No Image</span>
+        </div>
+        {% endif %}
         <div class="absolute inset-0 bg-[#1B1A4F] bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
           <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
@@ -20,6 +26,8 @@
         </div>
         {% if photo.caption %}<p class="text-xs text-gray-500 mt-1 px-1 truncate">{{ photo.caption }}</p>{% endif %}
       </div>
+      {% empty %}
+      <p class="text-gray-400 col-span-4 text-center py-8">No photos in this album yet.</p>
       {% endfor %}
     </div>
   </div>
@@ -44,8 +52,8 @@
 const albumData = {
   {% for album in albums %}
   "{{ album.pk }}": [
-    {% for photo in album.galleryphoto_set.all %}
-    { url: "{{ photo.image.url }}", caption: "{{ photo.caption|escapejs }}" },
+    {% for photo in album.photos.all %}
+    {% if photo.image %}{ url: "{{ photo.image.url }}", caption: "{{ photo.caption|escapejs }}" },{% endif %}
     {% endfor %}
   ],
   {% endfor %}
