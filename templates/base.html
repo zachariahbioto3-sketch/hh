@@ -5,18 +5,11 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}KAFUOSA{% endblock %}</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/YOUR_CLOUD/image/upload/favicon.png">
+    <link rel="icon" type="image/png" href="{% static 'images/kafuosa-logo.jpg' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: {
-        colors: { forest:'#1B1A4F', leaf:'#8080B8', gold:'#AEAED0', charcoal:'#1B1A4F', navy:'#1B1A4F', purple:'#8080B8', lavender:'#AEAED0' },
-        fontFamily: { display:['"Playfair Display"','serif'], body:['Inter','sans-serif'] }
-      }}
-    }
-  </script>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  
   <style>
     body{font-family:'Inter',sans-serif;}
     .section-eyebrow{color:#8080B8;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;}
@@ -179,4 +172,6 @@
 {% block extra_js %}{% endblock %}
 </body>
 </html>
+
+
 

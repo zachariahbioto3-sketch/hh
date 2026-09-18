@@ -1,9 +1,9 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% block title %}{{ event.title }}{% endblock %}
 {% block content %}
 <div class="max-w-4xl mx-auto px-4 py-20">
   {% if event.cover_image %}
-  <img src="{{ event.cover_image.url }}" class="w-full h-80 object-cover mb-10 shadow-sm"/>
+  {% if event.cover_image %}<img src="{{ event.cover_image.url }}" class="w-full h-80 object-cover mb-10 shadow-sm"/>{% endif %}
   {% endif %}
   <div class="text-center mb-10 border-b border-gray-100 pb-10">
     <p class="text-xs text-[#8080B8] font-bold uppercase tracking-widest mb-3">{{ event.start_datetime|date:"d M Y, H:i" }}</p>
@@ -25,3 +25,4 @@
   {% endif %}
 </div>
 {% endblock %}
+

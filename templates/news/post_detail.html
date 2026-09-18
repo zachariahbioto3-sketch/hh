@@ -3,7 +3,7 @@
 {% block content %}
 <div class="max-w-3xl mx-auto px-4 py-20">
   {% if post.cover_image %}
-  <img src="{{ post.cover_image.url }}" class="w-full h-80 object-cover mb-10"/>
+  {% if post.cover_image %}<img src="{{ post.cover_image.url }}" class="w-full h-80 object-cover mb-10"/>{% endif %}
   {% endif %}
   <div class="text-center mb-10 border-b border-gray-100 pb-10">
     <span class="text-xs text-[#8080B8] font-bold uppercase tracking-widest">{{ post.get_category_display }}</span>
@@ -15,3 +15,4 @@
   </div>
 </div>
 {% endblock %}
+
