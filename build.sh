@@ -8,8 +8,8 @@ from django.contrib.auth import get_user_model
 import os
 User = get_user_model()
 if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'admin@kafuosa.com', os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'changeme'))
+    User.objects.create_superuser('admin', 'admin@kafuosa.com', os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'AdminKafuosa2024'))
     print('Superuser created')
 else:
-    print('Admin already exists - skipping password reset')
+    print('Admin already exists - skipping')
 "
