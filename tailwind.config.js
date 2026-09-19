@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+﻿/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './templates/**/*.html',
@@ -7,19 +7,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        forest: '#1B1A4F',
-        leaf: '#8080B8',
-        gold: '#AEAED0',
-        charcoal: '#1B1A4F',
-        navy: '#1B1A4F',
-        purple: '#8080B8',
-        lavender: '#AEAED0'
+        primary: {
+          DEFAULT: '#522888',
+          dark: '#3b1a6b',
+          light: '#7c4dbb',
+        },
+        accent: '#ffffff',
+        dark: '#0b0b0b',
+        muted: '#6b7280',
+        card: '#f9f9f9',
+        border: '#e5e7eb',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        body: ['Inter', 'sans-serif']
-      }
-    }
+        sans: ['Inter', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

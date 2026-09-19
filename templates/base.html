@@ -1,177 +1,162 @@
-{% load static %}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}KAFUOSA{% endblock %}</title>
-    <link rel="icon" type="image/png" href="{% static 'images/kafuosa-logo.jpg' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="{% static 'css/output.css' %}">
-  
-  <style>
-    body{font-family:'Inter',sans-serif;}
-    .section-eyebrow{color:#8080B8;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;}
-    .section-heading{font-family:'Playfair Display',serif;color:#1e1e1e;font-size:2.25rem;font-weight:700;line-height:1.2;}
-    .card{border-radius:.5rem;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform .3s,box-shadow .3s;}
-    .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
-  </style>
+  <link rel="stylesheet" href="{% load static %}{% static 'css/output.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
   {% block extra_head %}{% endblock %}
-
 </head>
-<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+<body class="bg-white text-dark font-sans">
 
-<!-- Top Bar (Dark): Mimics the top dark bar with logo, socials, and the action button -->
-<div class="bg-[#1B1A4F] text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-14">
-      <a href="/" style="font-family:'Playfair Display',serif" class="font-bold text-2xl tracking-wider flex items-center gap-3"><img src="{% static 'images/kafuosa-logo.jpg' %}" alt="KAFUOSA Logo" style="height:45px;width:45px;border-radius:50%;object-fit:cover;">
-        KAF<span class="text-[#8080B8]">UOSA</span>
+  <!-- NAVBAR -->
+  <nav class="w-full bg-white border-b border-border sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="{% url 'pages:home' %}" class="flex items-center gap-2">
+        <span class="text-primary font-bold text-xl tracking-tight">KAFUOSA</span>
       </a>
-      <div class="hidden md:flex items-center space-x-6">
-        <div class="flex space-x-3 text-gray-400 text-sm">
-          <a href="#" class="hover:text-white transition">f</a>
-          <a href="#" class="hover:text-white transition">g+</a>
-          <a href="#" class="hover:text-white transition">in</a>
-          <a href="#" class="hover:text-white transition">v</a>
-        </div>
-        {% if user.is_authenticated %}
-          <a href="/members/profile/" class="border border-[#AEAED0] text-[#AEAED0] text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-[#8080B8] hover:text-white transition">My Profile</a>
-        {% else %}
-          <a href="/members/register/" class="border border-white text-white text-xs font-semibold px-4 py-2 uppercase tracking-wide hover:bg-white hover:text-[#1e1e1e] transition">Become Member</a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Main Nav (Gold): Mimics the secondary bright yellow navigation bar -->
-<nav class="bg-[#1B1A4F] sticky top-0 z-50 shadow-md">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-14">
-      <!-- Desktop Links -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Home</a>
-        <a href="/about/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">About</a>
-        <a href="/events/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Events</a>
-        <a href="/news/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">News</a>
-        <a href="/gallery/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Gallery</a>
-        <a href="/alumni/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Alumni</a>
-        <a href="/contact/" class="text-white font-bold text-xs uppercase tracking-widest hover:text-[#AEAED0] transition">Contact Us</a>
-      </div>
-      
-      <!-- Search Input -->
-      <div class="hidden md:flex items-center border-b border-white pb-1">
-        <input type="text" placeholder="Search Here" class="bg-transparent border-none text-white placeholder-white focus:outline-none focus:ring-0 text-sm px-2 w-48">
-        <button type="submit" class="text-white hover:text-[#AEAED0] transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      <!-- Nav Links Desktop -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="{% url 'pages:home' %}" class="nav-link">Home</a></li>
+        <li><a href="{% url 'pages:about' %}" class="nav-link">About</a></li>
+        <li><a href="{% url 'events:list' %}" class="nav-link">Events</a></li>
+        <li><a href="{% url 'news:list' %}" class="nav-link">News</a></li>
+        <li><a href="{% url 'gallery:list' %}" class="nav-link">Gallery</a></li>
+        <li><a href="{% url 'alumni:list' %}" class="nav-link">Alumni</a></li>
+        <li><a href="{% url 'sponsorship:list' %}" class="nav-link">Sponsors</a></li>
+        <li><a href="{% url 'pages:contact' %}" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-4">
+        {% if user.is_authenticated %}
+          <a href="{% url 'members:profile' %}" class="hidden md:inline-block nav-link">
+            <i class="ri-user-line text-lg"></i>
+          </a>
+          <a href="{% url 'members:logout' %}" class="btn-outline text-sm py-2 px-4 hidden md:inline-block">Logout</a>
+        {% else %}
+          <a href="{% url 'members:login' %}" class="btn-primary text-sm py-2 px-4 hidden md:inline-block">Join Us</a>
+        {% endif %}
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-toggle" class="md:hidden text-dark text-2xl focus:outline-none">
+          <i class="ri-menu-3-line"></i>
         </button>
       </div>
-
-      <!-- Mobile Menu Toggle -->
-      <button id="nav-toggle" class="md:hidden text-[#1e1e1e] p-2 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
     </div>
-  </div>
-  
-  <!-- Mobile Dropdown -->
-  <div id="mobile-menu" class="hidden md:hidden bg-[#ca8a04] px-4 pb-4 space-y-2 shadow-inner">
-    <a href="/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Home</a>
-    <a href="/about/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">About</a>
-    <a href="/events/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Events</a>
-    <a href="/news/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">News</a>
-    <a href="/gallery/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Gallery</a>
-    <a href="/alumni/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2 border-b border-yellow-600">Alumni</a>
-    <a href="/contact/" class="block text-[#1e1e1e] font-bold text-sm uppercase py-2">Contact Us</a>
-    <div class="mt-4 pt-4 border-t border-[#1e1e1e]">
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-border px-4 py-4 space-y-3">
+      <a href="{% url 'pages:home' %}" class="block nav-link py-2">Home</a>
+      <a href="{% url 'pages:about' %}" class="block nav-link py-2">About</a>
+      <a href="{% url 'events:list' %}" class="block nav-link py-2">Events</a>
+      <a href="{% url 'news:list' %}" class="block nav-link py-2">News</a>
+      <a href="{% url 'gallery:list' %}" class="block nav-link py-2">Gallery</a>
+      <a href="{% url 'alumni:list' %}" class="block nav-link py-2">Alumni</a>
+      <a href="{% url 'sponsorship:list' %}" class="block nav-link py-2">Sponsors</a>
+      <a href="{% url 'pages:contact' %}" class="block nav-link py-2">Contact</a>
       {% if user.is_authenticated %}
-        <a href="/members/profile/" class="inline-block bg-[#1B1A4F] text-white text-xs px-4 py-2 uppercase tracking-wide">My Profile</a>
+        <a href="{% url 'members:logout' %}" class="btn-outline block text-center text-sm py-2">Logout</a>
       {% else %}
-        <a href="/members/register/" class="inline-block bg-[#1B1A4F] text-white text-xs px-4 py-2 uppercase tracking-wide">Become Member</a>
+        <a href="{% url 'members:login' %}" class="btn-primary block text-center text-sm py-2">Join Us</a>
       {% endif %}
     </div>
-  </div>
-</nav>
+  </nav>
 
-{% if messages %}
-<div class="max-w-7xl mx-auto px-4 pt-4 space-y-2">
-  {% for message in messages %}
-  <div class="px-4 py-3 rounded text-sm font-medium
-    {% if message.tags == 'success' %}bg-green-100 text-green-800
-    {% elif message.tags == 'error' %}bg-red-100 text-red-800
-    {% else %}bg-blue-100 text-blue-800{% endif %}">{{ message }}</div>
-  {% endfor %}
-</div>
-{% endif %}
-
-<main class="flex-grow">{% block content %}{% endblock %}</main>
-
-<footer class="bg-[#1B1A4F] text-gray-400 pt-16 pb-8 mt-16 border-t-[6px] border-[#8080B8]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-      <!-- Charity Brand / Info -->
-      <div>
-        <a href="/" style="font-family:'Playfair Display',serif" class="text-white text-2xl font-bold block mb-4">
-          KAF<span style="color:#8080B8">UOSA</span>
-        </a>
-        <p class="text-sm leading-relaxed mb-4">
-          KAFUOSA is the official optometry students association of Kaimosi Friends University, committed to academic excellence and eye care outreach across Kenya.
-        </p>
-        <ul class="space-y-2 text-sm">
-          <li class="flex items-center"><span class="mr-2 text-[#8080B8]">??</span> Kaimosi Friends University</li>
-          <li class="flex items-center"><span class="mr-2 text-[#8080B8]">??</span> 1800-222-222</li>
-          <li class="flex items-center"><span class="mr-2 text-[#8080B8]">??</span> contact@kafuosa.org</li>
-        </ul>
-      </div>
-      <!-- Quick Links -->
-      <div>
-        <h4 class="text-white font-bold text-sm uppercase mb-4">Quick Links</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/about/" class="hover:text-[#8080B8] transition-colors">About Us</a></li>
-          <li><a href="/events/" class="hover:text-[#8080B8] transition-colors">Events</a></li>
-          <li><a href="/news/" class="hover:text-[#8080B8] transition-colors">News</a></li>
-          <li><a href="/alumni/" class="hover:text-[#8080B8] transition-colors">Alumni Network</a></li>
-          <li><a href="/sponsorship/" class="hover:text-[#8080B8] transition-colors">Sponsorship</a></li>
-        </ul>
-      </div>
-      <!-- Newsletter Signup -->
-      <div>
-        <h4 class="text-white font-bold text-sm uppercase mb-4">Newsletter Signup</h4>
-        <p class="text-sm mb-4">Get the latest KAFUOSA news, events and outreach updates straight to your inbox.</p>
-        <form action="/newsletter/subscribe/" method="post" class="flex items-stretch">
-          {% csrf_token %}
-          <input type="email" name="email" placeholder="Email" class="flex-1 bg-transparent border border-gray-600 text-white text-sm px-3 py-2 focus:outline-none focus:border-[#8080B8]">
-          <button type="submit" class="border border-gray-600 border-l-0 text-[#8080B8] text-xs font-bold px-4 py-2 hover:bg-[#8080B8] hover:text-white transition">SUBMIT</button></form>
-        </form>
-        <div class="mt-6">
-          <h4 class="text-white font-bold text-sm uppercase mb-3">Follow us</h4>
-          <div class="flex space-x-3 text-gray-400">
-            <a href="#" class="hover:text-white transition">f</a>
-            <a href="#" class="hover:text-white transition">g+</a>
-            <a href="#" class="hover:text-white transition">in</a>
-            <a href="#" class="hover:text-white transition">v</a>
+  <!-- MAIN CONTENT -->
+  <main>
+    {% if messages %}
+      <div class="max-w-7xl mx-auto px-4 pt-4">
+        {% for message in messages %}
+          <div class="mb-3 px-4 py-3 rounded-md text-sm font-medium
+            {% if message.tags == 'error' %}bg-red-100 text-red-700
+            {% elif message.tags == 'success' %}bg-green-100 text-green-700
+            {% else %}bg-primary/10 text-primary{% endif %}">
+            {{ message }}
           </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <h3 class="text-white font-bold text-xl mb-3">KAFUOSA</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Kaimosi Friends University Optometry Students' Association. Advancing eye care, one community at a time.
+        </p>
+        <div class="flex gap-4 mt-5">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="ri-facebook-fill text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="ri-instagram-line text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="ri-twitter-x-line text-xl"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="ri-linkedin-fill text-xl"></i></a>
         </div>
       </div>
-    </div>
-    <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
-      <p>&copy; Copyright {% now "Y" %}, All Rights Reserved by KAFUOSA Theme.</p>
-    </div>
-  </div>
-</footer>
 
-<script>
-  document.getElementById('nav-toggle').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.toggle('hidden');
-  });
-</script>
-{% block extra_js %}{% endblock %}
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="{% url 'pages:about' %}" class="hover:text-primary transition-colors">About Us</a></li>
+          <li><a href="{% url 'events:list' %}" class="hover:text-primary transition-colors">Events</a></li>
+          <li><a href="{% url 'news:list' %}" class="hover:text-primary transition-colors">News</a></li>
+          <li><a href="{% url 'gallery:list' %}" class="hover:text-primary transition-colors">Gallery</a></li>
+          <li><a href="{% url 'alumni:list' %}" class="hover:text-primary transition-colors">Alumni</a></li>
+        </ul>
+      </div>
+
+      <!-- More Links -->
+      <div>
+        <h4 class="text-white font-semibold mb-4">Get Involved</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="{% url 'members:login' %}" class="hover:text-primary transition-colors">Become a Member</a></li>
+          <li><a href="{% url 'sponsorship:list' %}" class="hover:text-primary transition-colors">Sponsorship</a></li>
+          <li><a href="{% url 'newsletter:subscribe' %}" class="hover:text-primary transition-colors">Newsletter</a></li>
+          <li><a href="{% url 'resources:list' %}" class="hover:text-primary transition-colors">Resources</a></li>
+          <li><a href="{% url 'pages:contact' %}" class="hover:text-primary transition-colors">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="text-white font-semibold mb-4">Stay Updated</h4>
+        <p class="text-gray-400 text-sm mb-4">Get the latest news and events from KAFUOSA.</p>
+        <form action="{% url 'newsletter:subscribe' %}" method="POST">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Your email address"
+            class="w-full bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-md px-4 py-2 text-sm mb-3 focus:outline-none focus:border-primary" />
+          <button type="submit" class="btn-primary w-full text-sm py-2">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/10 py-5 text-center text-gray-500 text-sm">
+      &copy; {% now "Y" %} KAFUOSA. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const toggle = document.getElementById('mobile-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  </script>
+
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
-
-
-
