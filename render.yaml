@@ -3,7 +3,7 @@ services:
     name: kafuosa
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn hh.wsgi:application --bind 0.0.0.0:$PORT"
+    startCommand: "gunicorn hh.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 1 --bind 0.0.0.0:$PORT"
     envVars:
       - key: SECRET_KEY
         sync: false
@@ -27,5 +27,6 @@ services:
 databases:
   - name: kafuosa-db
     plan: starter
+
 
 
