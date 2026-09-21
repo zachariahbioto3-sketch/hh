@@ -155,11 +155,11 @@
 
       <!-- Centered Menu Items (Charius Alignment Pattern) -->
       <nav class="hidden lg:flex items-center gap-7 font-display font-semibold text-sm tracking-wide text-white/90">
-        <a href="{% url 'about' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">About</a>
-        <a href="{% url 'event_list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Events</a>
-        <a href="{% url 'post_list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">News &amp; Blog</a>
-        <a href="{% url 'resource_list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Resources</a>
-        <a href="{% url 'contact' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Contact</a>
+        <a href="{% url 'pages:about' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">About</a>
+        <a href="{% url 'events:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Events</a>
+        <a href="{% url 'news:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">News &amp; Blog</a>
+        <a href="{% url 'resources:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Resources</a>
+        <a href="{% url 'pages:contact' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Contact</a>
       </nav>
 
       <!-- Action Button & Search Trigger -->
@@ -169,12 +169,12 @@
         </button>
 
         {% if user.is_authenticated %}
-          <a href="{% url 'member_profile' %}" class="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm px-5 py-2.5 rounded-full btn-transition shadow-sm border border-white/10">
+          <a href="{% url 'members:profile' %}" class="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm px-5 py-2.5 rounded-full btn-transition shadow-sm border border-white/10">
             <i class="fa-solid fa-user-gear text-brandOrange text-xs"></i>
             <span>My Profile</span>
           </a>
         {% else %}
-          <a href="{% url 'member_login' %}" class="hidden sm:flex items-center gap-2 bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold text-sm px-6 py-2.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5">
+          <a href="{% url 'members:login' %}" class="hidden sm:flex items-center gap-2 bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold text-sm px-6 py-2.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5">
             <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
             <span>Member Login</span>
           </a>
@@ -209,23 +209,23 @@
         </div>
 
         <nav class="flex flex-col gap-2 mt-6 font-display font-semibold text-base text-white/90">
-          <a href="{% url 'about' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
+          <a href="{% url 'pages:about' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
             <span>About KAFUOSA</span>
             <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
           </a>
-          <a href="{% url 'event_list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
+          <a href="{% url 'events:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
             <span>Upcoming Events</span>
             <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
           </a>
-          <a href="{% url 'post_list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
+          <a href="{% url 'news:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
             <span>News &amp; Blog</span>
             <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
           </a>
-          <a href="{% url 'resource_list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
+          <a href="{% url 'resources:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
             <span>Academic Resources</span>
             <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
           </a>
-          <a href="{% url 'contact' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
+          <a href="{% url 'pages:contact' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
             <span>Contact Secretariat</span>
             <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
           </a>
@@ -234,11 +234,11 @@
 
       <div class="pt-6 border-t border-white/10 space-y-3">
         {% if user.is_authenticated %}
-          <a href="{% url 'member_profile' %}" class="w-full py-3 rounded-xl bg-white/10 text-white font-display font-bold text-center block hover:bg-white/20 transition">
+          <a href="{% url 'members:profile' %}" class="w-full py-3 rounded-xl bg-white/10 text-white font-display font-bold text-center block hover:bg-white/20 transition">
             My Account Profile
           </a>
         {% else %}
-          <a href="{% url 'member_login' %}" class="w-full py-3 rounded-xl bg-brandOrange text-brandDark font-display font-extrabold text-center block hover:bg-brandOrangeHover transition shadow-lg">
+          <a href="{% url 'members:login' %}" class="w-full py-3 rounded-xl bg-brandOrange text-brandDark font-display font-extrabold text-center block hover:bg-brandOrangeHover transition shadow-lg">
             Member Access Login
           </a>
         {% endif %}
@@ -260,7 +260,7 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <form action="{% url 'post_list' %}" method="GET" class="relative">
+      <form action="{% url 'news:list' %}" method="GET" class="relative">
         <input type="text" name="q" placeholder="Search events, clinical papers, seminars, news..."
                class="w-full bg-brandDark border border-white/15 rounded-xl px-4 py-3.5 pl-11 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brandOrange transition">
         <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
@@ -323,11 +323,11 @@
                 KAFUOSA brings together Optometry &amp; Vision Science students at Kaimosi Friends University to foster clinical excellence, community vision outreach, and groundbreaking research.
               </p>
               <div class="flex flex-wrap items-center gap-4 pt-2">
-                <a href="{% url 'event_list' %}" class="bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold px-8 py-3.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5 flex items-center gap-2">
+                <a href="{% url 'events:list' %}" class="bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold px-8 py-3.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5 flex items-center gap-2">
                   <span>Explore Events</span>
                   <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
-                <a href="{% url 'about' %}" class="bg-white/10 hover:bg-white/20 text-white font-display font-bold px-7 py-3.5 rounded-full btn-transition border border-white/10">
+                <a href="{% url 'pages:about' %}" class="bg-white/10 hover:bg-white/20 text-white font-display font-bold px-7 py-3.5 rounded-full btn-transition border border-white/10">
                   Our Mission
                 </a>
               </div>
@@ -485,11 +485,11 @@
         <div class="lg:col-span-2 space-y-4">
           <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider text-brandOrange">Quick Navigation</h4>
           <ul class="space-y-2.5 text-xs text-white/70 font-medium">
-            <li><a href="{% url 'about' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> About Association</a></li>
-            <li><a href="{% url 'event_list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Events Calendar</a></li>
-            <li><a href="{% url 'post_list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> News &amp; Articles</a></li>
-            <li><a href="{% url 'resource_list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Clinical Resources</a></li>
-            <li><a href="{% url 'contact' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Contact Us</a></li>
+            <li><a href="{% url 'pages:about' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> About Association</a></li>
+            <li><a href="{% url 'events:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Events Calendar</a></li>
+            <li><a href="{% url 'news:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> News &amp; Articles</a></li>
+            <li><a href="{% url 'resources:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Clinical Resources</a></li>
+            <li><a href="{% url 'pages:contact' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Contact Us</a></li>
           </ul>
         </div>
 
@@ -497,7 +497,7 @@
         <div class="lg:col-span-2 space-y-4">
           <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider text-brandOrange">Student Portal</h4>
           <ul class="space-y-2.5 text-xs text-white/70 font-medium">
-            <li><a href="{% url 'member_login' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Member Portal</a></li>
+            <li><a href="{% url 'members:login' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Member Portal</a></li>
             <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> KAFUOSA Constitution</a></li>
             <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Executive Board</a></li>
             <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Research &amp; Papers</a></li>
