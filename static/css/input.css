@@ -8,11 +8,11 @@
   }
 
   body {
-    @apply bg-white text-dark font-sans;
+    @apply bg-white text-slate-700 font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-dark;
+    @apply font-extrabold;
   }
 
   a {
@@ -23,23 +23,23 @@
 @layer components {
 
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-dark transition-all duration-200 inline-block;
+    @apply bg-brand-purple text-white px-6 py-3 rounded-full font-bold hover:bg-brand-purple-dark shadow-md hover:shadow-glow transition-all duration-200 inline-block;
   }
 
   .btn-outline {
-    @apply border-2 border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary hover:text-white transition-all duration-200 inline-block;
+    @apply border-2 border-brand-purple text-brand-purple px-6 py-3 rounded-full font-bold hover:bg-brand-purple hover:text-white transition-all duration-200 inline-block;
   }
 
   .btn-white {
-    @apply bg-white text-primary px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-all duration-200 inline-block;
+    @apply bg-white text-brand-purple px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 inline-block;
   }
 
   .section-title {
-    @apply text-3xl font-semibold text-dark mb-2;
+    @apply text-3xl font-extrabold text-slate-900 mb-2 tracking-tight;
   }
 
   .section-subtitle {
-    @apply text-primary font-semibold text-sm uppercase tracking-widest mb-2;
+    @apply text-brand-purple font-bold text-sm uppercase tracking-wider mb-2;
   }
 
   .section-padding {
@@ -51,22 +51,22 @@
   }
 
   .nav-link {
-    @apply text-dark font-medium hover:text-primary transition-colors duration-200;
+    @apply text-slate-700 font-semibold text-sm hover:text-brand-purple transition-colors duration-200;
   }
 
   .stat-number {
-    @apply text-4xl font-bold text-primary;
+    @apply text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight;
   }
 
   .stat-label {
-    @apply text-sm text-muted mt-1;
+    @apply text-slate-500 font-semibold text-sm mt-1;
   }
 
   .badge {
-    @apply bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full;
+    @apply bg-brand-purple text-white text-xs font-semibold px-3 py-1 rounded-full;
   }
 
   .badge-outline {
-    @apply border border-primary text-primary text-xs font-semibold px-3 py-1 rounded-full;
+    @apply border border-brand-purple text-brand-purple text-xs font-semibold px-3 py-1 rounded-full;
   }
 }

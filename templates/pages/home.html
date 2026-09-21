@@ -6,205 +6,228 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <div class="absolute inset-0 bg-dark z-0">
+<section class="relative min-h-[680px] flex items-center bg-slate-900 overflow-hidden">
+  <div class="absolute inset-0 z-0">
     {% if hero_image %}
       <img src="{{ hero_image }}" alt="KAFUOSA Outreach" class="w-full h-full object-cover opacity-40" />
     {% else %}
-      <div class="w-full h-full bg-gradient-to-br from-dark via-primary-dark to-primary opacity-90"></div>
+      <div class="w-full h-full bg-gradient-to-br from-brand-black via-brand-purple-dark to-brand-purple"></div>
     {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-black/90 via-brand-black/60 to-transparent"></div>
   </div>
-  <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-    <span class="inline-block text-primary-light font-semibold text-sm uppercase tracking-widest mb-4">
-      Kaimosi Friends University
-    </span>
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-      Advancing Eye Care <br class="hidden md:block" />
-      For Every Community.
-    </h1>
-    <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-      KAFUOSA is a student-led optometry association dedicated to outreach, education, and professional development in eye health across Kenya.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="{% url 'members:login' %}" class="btn-primary px-8 py-4 text-base">Join Us</a>
-      <a href="{% url 'pages:about' %}" class="btn-white px-8 py-4 text-base">Learn More</a>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-20 w-full">
+    <div class="max-w-2xl space-y-6">
+      <div class="inline-flex items-center gap-2 bg-brand-purple/20 border border-brand-purple/40 text-brand-purple-light px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-eye"></i>
+        <span>Kaimosi Friends University Optometry</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight tracking-tight">
+        Advancing Eye Care <br class="hidden md:block" />For Every Community.
+      </h1>
+      <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-xl">
+        KAFUOSA is a student-led optometry association dedicated to outreach, education, and professional development in eye health across Kenya.
+      </p>
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a href="{% url 'members:login' %}" class="bg-brand-purple hover:bg-brand-purple-dark text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all inline-flex items-center gap-2">
+          Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+        <a href="{% url 'pages:about' %}" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold px-8 py-4 rounded-full transition-all">
+          Learn More
+        </a>
+      </div>
     </div>
   </div>
-  <!-- Scroll Indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-    <i class="ri-arrow-down-line text-white text-2xl opacity-60"></i>
+    <i class="fa-solid fa-arrow-down text-white text-xl opacity-60"></i>
   </div>
 </section>
 
 <!-- STATS BAR -->
-<section class="bg-primary py-12">
+<section class="py-12 bg-slate-50 border-y border-slate-200">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div>
-        <p class="text-4xl font-bold text-white">{{ stats.members|default:"120" }}+</p>
-        <p class="text-primary-light text-sm mt-1 uppercase tracking-wide">Active Members</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+      <div class="text-center pt-4 md:pt-0">
+        <p class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">{{ stats.members|default:"120" }}<span class="text-brand-purple">+</span></p>
+        <p class="text-slate-500 font-semibold text-sm mt-1">Active Members</p>
       </div>
-      <div>
-        <p class="text-4xl font-bold text-white">{{ stats.events|default:"45" }}+</p>
-        <p class="text-primary-light text-sm mt-1 uppercase tracking-wide">Events Held</p>
+      <div class="text-center pt-4 md:pt-0">
+        <p class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">{{ stats.events|default:"45" }}<span class="text-brand-purple">+</span></p>
+        <p class="text-slate-500 font-semibold text-sm mt-1">Events Held</p>
       </div>
-      <div>
-        <p class="text-4xl font-bold text-white">{{ stats.screened|default:"2000" }}+</p>
-        <p class="text-primary-light text-sm mt-1 uppercase tracking-wide">People Screened</p>
+      <div class="text-center pt-4 md:pt-0">
+        <p class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">{{ stats.screened|default:"2000" }}<span class="text-brand-purple">+</span></p>
+        <p class="text-slate-500 font-semibold text-sm mt-1">People Screened</p>
       </div>
-      <div>
-        <p class="text-4xl font-bold text-white">{{ stats.glasses|default:"300" }}+</p>
-        <p class="text-primary-light text-sm mt-1 uppercase tracking-wide">Glasses Donated</p>
+      <div class="text-center pt-4 md:pt-0">
+        <p class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">{{ stats.glasses|default:"300" }}<span class="text-brand-purple">+</span></p>
+        <p class="text-slate-500 font-semibold text-sm mt-1">Glasses Donated</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section-padding max-w-7xl mx-auto">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Image Block -->
-    <div class="relative">
-      <div class="w-full h-80 md:h-96 bg-primary/10 rounded-2xl overflow-hidden">
-        <img src="{% static 'images/about.jpg' %}" alt="KAFUOSA team"
-          class="w-full h-full object-cover"
-          onerror="this.style.display='none'" />
+<section class="py-20 md:py-28 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-6 relative flex justify-center">
+        <div class="relative w-full max-w-lg aspect-square flex items-center justify-center">
+          <div class="absolute w-72 h-72 bg-brand-purple/10 rounded-full blur-3xl -top-10 -left-10"></div>
+          <div class="grid grid-cols-3 gap-4 w-full h-full p-4 relative z-10 items-center">
+            <div class="rounded-full overflow-hidden h-[280px] shadow-xl border-4 border-white" style="border-radius:999px; transform:rotate(-15deg);">
+              <img src="{% static 'images/about1.jpg' %}" class="w-full h-full object-cover" style="transform:rotate(15deg) scale(1.25);" onerror="this.parentElement.style.background='#f3eefa'" />
+            </div>
+            <div class="rounded-full overflow-hidden h-[320px] shadow-2xl border-4 border-white -mt-8" style="border-radius:999px; transform:rotate(-15deg);">
+              <img src="{% static 'images/about2.jpg' %}" class="w-full h-full object-cover" style="transform:rotate(15deg) scale(1.25);" onerror="this.parentElement.style.background='#e9d8fd'" />
+            </div>
+            <div class="rounded-full overflow-hidden h-[280px] shadow-xl border-4 border-white" style="border-radius:999px; transform:rotate(-15deg);">
+              <img src="{% static 'images/about3.jpg' %}" class="w-full h-full object-cover" style="transform:rotate(15deg) scale(1.25);" onerror="this.parentElement.style.background='#f3eefa'" />
+            </div>
+          </div>
+          <div class="absolute -bottom-4 right-4 bg-brand-black text-white p-5 rounded-2xl shadow-xl flex items-center gap-4 z-20 border border-white/10">
+            <div class="w-12 h-12 rounded-xl bg-brand-purple text-white flex items-center justify-center text-2xl font-bold">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div>
+              <div class="text-2xl font-extrabold text-brand-purple-light">Est. 2018</div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider font-medium">Year Founded</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="absolute -bottom-5 -right-5 bg-primary text-white rounded-xl px-6 py-4 shadow-lg hidden md:block">
-        <p class="text-2xl font-bold">Est. 2018</p>
-        <p class="text-primary-light text-sm">Year Founded</p>
-      </div>
-    </div>
-    <!-- Text Block -->
-    <div>
-      <p class="section-subtitle">Welcome to KAFUOSA</p>
-      <h2 class="section-title text-4xl mb-4">We Care For Sight, <br />One Outreach At A Time.</h2>
-      <p class="text-muted leading-relaxed mb-4">
-        KAFUOSA is the official optometry students' association at Kaimosi Friends University. We bridge the gap between academic learning and real-world community eye care through outreach, mentorship, and professional development.
-      </p>
-      <p class="text-muted leading-relaxed mb-8">
-        Our mission is to cultivate the next generation of optometrists who are not only clinically excellent but deeply committed to serving underserved communities across Kenya.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a href="{% url 'pages:about' %}" class="btn-primary">More About Us</a>
-        <a href="{% url 'pages:contact' %}" class="btn-outline">Contact Us</a>
+      <div class="lg:col-span-6 space-y-6">
+        <div>
+          <span class="text-brand-purple font-bold text-sm tracking-wider uppercase block mb-2">Welcome to KAFUOSA</span>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+            We Care For Sight, <br />One Outreach At A Time.
+          </h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed">KAFUOSA is the official optometry students' association at Kaimosi Friends University. We bridge the gap between academic learning and real-world community eye care through outreach, mentorship, and professional development.</p>
+        <p class="text-slate-600 leading-relaxed">Our mission is to cultivate the next generation of optometrists who are not only clinically excellent but deeply committed to serving underserved communities across Kenya.</p>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 pt-4">
+          <a href="{% url 'pages:about' %}" class="bg-brand-purple hover:bg-brand-purple-dark text-white font-bold px-8 py-4 rounded-full text-center shadow-md transition-all">
+            More About Us
+          </a>
+          <div class="flex items-center gap-4 sm:border-l-2 border-slate-200 sm:pl-6">
+            <div class="w-12 h-12 rounded-full bg-brand-purple/10 text-brand-purple flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <div>
+              <span class="text-xs text-slate-400 font-semibold block uppercase">Call Us Anytime</span>
+              <span class="text-slate-900 font-extrabold text-lg">+254 700 000 000</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EVENTS -->
-<section class="section-padding bg-card">
+<section class="py-20 bg-white" id="events">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
-    <div class="text-center mb-12">
-      <p class="section-subtitle">What's Coming</p>
-      <h2 class="section-title text-3xl">Upcoming Events</h2>
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-brand-purple font-bold text-sm tracking-wider uppercase block mb-2">What's Coming</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Upcoming Events</h2>
+      <div class="w-16 h-1 bg-brand-purple mx-auto mt-4 rounded-full"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {% for event in upcoming_events %}
-      <div class="card overflow-hidden group">
-        <!-- Event Image -->
-        <div class="relative h-48 bg-primary/10 overflow-hidden">
+      <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-card hover:shadow-hover transition-all duration-300 flex flex-col group">
+        <div class="relative h-56 overflow-hidden">
           {% if event.cover_image %}
-            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           {% else %}
-            <div class="w-full h-full flex items-center justify-center bg-primary/10">
-              <i class="ri-calendar-event-line text-primary text-5xl opacity-40"></i>
+            <div class="w-full h-full bg-brand-purple/10 flex items-center justify-center">
+              <i class="fa-solid fa-calendar-days text-brand-purple text-5xl opacity-30"></i>
             </div>
           {% endif %}
-          <!-- Date Badge -->
-          <div class="absolute top-4 left-4 bg-primary text-white rounded-lg px-3 py-2 text-center leading-tight shadow">
-            <p class="text-xs font-medium uppercase">{{ event.start_datetime|date:"M" }}</p>
-            <p class="text-xl font-bold">{{ event.start_datetime|date:"d" }}</p>
+          <div class="absolute top-4 left-4 bg-brand-purple text-white rounded-xl px-3 py-2 text-center leading-tight shadow-lg">
+            <p class="text-xs font-bold uppercase">{{ event.start_datetime|date:"M" }}</p>
+            <p class="text-2xl font-extrabold">{{ event.start_datetime|date:"d" }}</p>
           </div>
           {% if event.is_outreach %}
-            <span class="absolute top-4 right-4 badge">Outreach</span>
+            <span class="absolute top-4 right-4 bg-brand-purple text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">Outreach</span>
           {% endif %}
         </div>
-        <!-- Event Info -->
-        <div class="p-5">
-          <h3 class="font-semibold text-dark text-lg mb-1 group-hover:text-primary transition-colors">{{ event.title }}</h3>
-          <p class="text-muted text-sm mb-1">
-            <i class="ri-map-pin-line mr-1"></i>{{ event.venue }}
-          </p>
-          <p class="text-muted text-sm mb-4">
-            <i class="ri-time-line mr-1"></i>{{ event.start_datetime|date:"g:i A" }}
-          </p>
-          <p class="text-muted text-sm leading-relaxed mb-5">{{ event.description|truncatewords:18 }}</p>
-          <a href="{% url 'events:detail' event.slug %}" class="btn-primary text-sm py-2 px-5 w-full text-center block">
+        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-xl font-bold text-slate-900 hover:text-brand-purple transition-colors mb-2">{{ event.title }}</h3>
+            <p class="text-slate-500 text-sm"><i class="fa-solid fa-location-dot mr-1 text-brand-purple"></i>{{ event.venue }}</p>
+            <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-clock mr-1 text-brand-purple"></i>{{ event.start_datetime|date:"g:i A" }}</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-3 line-clamp-2">{{ event.description|truncatewords:18 }}</p>
+          </div>
+          <a href="{% url 'events:detail' event.slug %}" class="w-full mt-2 bg-slate-100 hover:bg-brand-purple hover:text-white text-slate-800 font-bold py-2.5 rounded-xl transition-all text-sm text-center block">
             View & RSVP
           </a>
         </div>
       </div>
       {% empty %}
-      <div class="col-span-3 text-center py-16 text-muted">
-        <i class="ri-calendar-line text-5xl mb-4 block opacity-30"></i>
-        <p>No upcoming events at the moment. Check back soon.</p>
+      <div class="col-span-3 text-center py-16 text-slate-400">
+        <i class="fa-solid fa-calendar-xmark text-5xl mb-4 block opacity-30"></i>
+        <p class="font-semibold">No upcoming events at the moment. Check back soon.</p>
       </div>
       {% endfor %}
     </div>
     <div class="text-center mt-10">
-      <a href="{% url 'events:list' %}" class="btn-outline">View All Events</a>
+      <a href="{% url 'events:list' %}" class="border-2 border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white font-bold px-8 py-3 rounded-full transition-all inline-block">View All Events</a>
     </div>
   </div>
 </section>
 
 <!-- SPONSORSHIP CTA -->
-<section class="bg-primary py-20 text-center">
+<section class="bg-brand-black py-20 text-center">
   <div class="max-w-3xl mx-auto px-4">
-    <p class="text-primary-light font-semibold text-sm uppercase tracking-widest mb-3">Support Our Mission</p>
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-      Your Support Means A Lot. <br />Partner With Us Today.
-    </h2>
-    <p class="text-gray-300 mb-8 text-lg">
-      Help us reach more communities, donate glasses, and train future optometrists. Your partnership makes it possible.
-    </p>
-    <a href="{% url 'sponsorship:list' %}" class="btn-white px-8 py-4 text-base">Become a Sponsor</a>
+    <p class="text-brand-purple-light font-bold text-sm uppercase tracking-widest mb-3">Support Our Mission</p>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Your Support Means A Lot. <br />Partner With Us Today.</h2>
+    <p class="text-slate-400 mb-8 text-lg">Help us reach more communities, donate glasses, and train future optometrists.</p>
+    <a href="{% url 'sponsorship:list' %}" class="bg-brand-purple hover:bg-brand-purple-dark text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all inline-flex items-center gap-2">
+      Become a Sponsor <i class="fa-solid fa-arrow-right text-xs"></i>
+    </a>
   </div>
 </section>
 
 <!-- NEWS -->
-<section class="section-padding">
+<section class="py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
-    <div class="text-center mb-12">
-      <p class="section-subtitle">Stay Informed</p>
-      <h2 class="section-title text-3xl">Latest News & Articles</h2>
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-brand-purple font-bold text-sm tracking-wider uppercase block mb-2">Stay Informed</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Latest News & Articles</h2>
+      <div class="w-16 h-1 bg-brand-purple mx-auto mt-4 rounded-full"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {% for post in latest_news %}
-      <div class="card overflow-hidden group">
-        <div class="h-48 bg-primary/10 overflow-hidden">
+      <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-card hover:shadow-hover transition-all duration-300 group">
+        <div class="h-48 overflow-hidden">
           {% if post.cover_image %}
-            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           {% else %}
-            <div class="w-full h-full flex items-center justify-center">
-              <i class="ri-newspaper-line text-primary text-5xl opacity-30"></i>
+            <div class="w-full h-full bg-brand-purple/10 flex items-center justify-center">
+              <i class="fa-solid fa-newspaper text-brand-purple text-5xl opacity-30"></i>
             </div>
           {% endif %}
         </div>
-        <div class="p-5">
+        <div class="p-6">
           <div class="flex items-center gap-2 mb-3">
-            <span class="badge-outline capitalize">{{ post.category }}</span>
-            <span class="text-muted text-xs">{{ post.published_at|date:"M d, Y" }}</span>
+            <span class="bg-brand-purple text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{{ post.category }}</span>
+            <span class="text-slate-400 text-xs">{{ post.published_at|date:"M d, Y" }}</span>
           </div>
-          <h3 class="font-semibold text-dark text-lg mb-2 group-hover:text-primary transition-colors">{{ post.title }}</h3>
-          <p class="text-muted text-sm leading-relaxed mb-5">{{ post.excerpt|truncatewords:20 }}</p>
-          <a href="{% url 'news:detail' post.slug %}" class="text-primary font-semibold text-sm hover:underline">
-            Read More <i class="ri-arrow-right-line"></i>
+          <h3 class="font-bold text-slate-900 text-lg mb-2 group-hover:text-brand-purple transition-colors">{{ post.title }}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">{{ post.excerpt|truncatewords:20 }}</p>
+          <a href="{% url 'news:detail' post.slug %}" class="text-brand-purple font-bold text-sm hover:underline inline-flex items-center gap-1">
+            Read More <i class="fa-solid fa-arrow-right text-xs"></i>
           </a>
         </div>
       </div>
       {% empty %}
-      <div class="col-span-3 text-center py-16 text-muted">
-        <i class="ri-newspaper-line text-5xl mb-4 block opacity-30"></i>
-        <p>No news articles yet.</p>
+      <div class="col-span-3 text-center py-16 text-slate-400">
+        <i class="fa-solid fa-newspaper text-5xl mb-4 block opacity-30"></i>
+        <p class="font-semibold">No news articles yet.</p>
       </div>
       {% endfor %}
     </div>
     <div class="text-center mt-10">
-      <a href="{% url 'news:list' %}" class="btn-outline">View All News</a>
+      <a href="{% url 'news:list' %}" class="border-2 border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white font-bold px-8 py-3 rounded-full transition-all inline-block">View All News</a>
     </div>
   </div>
 </section>
