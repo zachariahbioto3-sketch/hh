@@ -1,95 +1,239 @@
 ﻿{% extends "base.html" %}
 {% block title %}Gallery — KAFUOSA{% endblock %}
 {% block content %}
-<section class="max-w-7xl mx-auto px-4 py-20">
-  <h1 class="text-2xl text-gray-500 mb-12 text-center">Visual Memories. <span class="font-bold text-[#1B1A4F] border-b-2 border-[#8080B8] pb-1">Our Gallery</span></h1>
-  {% for album in albums %}
-  <div class="mb-16">
-    <h2 class="text-xl font-bold text-[#1B1A4F] mb-6 border-l-4 border-[#8080B8] pl-4">{{ album.title }}</h2>
-    {% if album.description %}<p class="text-gray-500 text-sm mb-6">{{ album.description }}</p>{% endif %}
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {% for photo in album.photos.all %}
-      <div class="relative group cursor-pointer overflow-hidden rounded shadow"
-           onclick="openLightbox('{{ photo.image.url }}', '{{ photo.caption }}', {{ forloop.counter0 }}, '{{ album.pk }}')">
-        {% if photo.image %}
-        <img src="{{ photo.image.url }}" alt="{{ photo.caption }}"
-             class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
-        {% else %}
-        <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
-          <span class="text-gray-300 text-4xl">No Image</span>
+
+<style>
+  .gold-accent-text {
+    background: linear-gradient(135deg, #FFF1D0 0%, #E5C178 50%, #C59A45 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glass-card {
+    background: rgba(29, 20, 45, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(229, 193, 120, 0.18);
+  }
+  .glass-card:hover {
+    border-color: rgba(229, 193, 120, 0.45);
+    box-shadow: 0 12px 30px -5px rgba(0,0,0,0.6), 0 0 20px 2px rgba(229,193,120,0.15);
+  }
+  .grid-masonry { column-count:1; column-gap:1.5rem; }
+  @media(min-width:640px){ .grid-masonry{ column-count:2; } }
+  @media(min-width:1024px){ .grid-masonry{ column-count:3; } }
+  @media(min-width:1280px){ .grid-masonry{ column-count:4; } }
+  .masonry-item { break-inside:avoid; margin-bottom:1.5rem; }
+  .bento-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+    grid-auto-rows:240px;
+    grid-auto-flow:dense;
+    gap:1.25rem;
+  }
+  @media(min-width:768px){
+    .bento-item-large{ grid-column:span 2; grid-row:span 2; }
+    .bento-item-tall{ grid-row:span 2; }
+    .bento-item-wide{ grid-column:span 2; }
+  }
+  .magnifier-lens {
+    position:absolute; border:2px solid #E5C178; border-radius:50%;
+    cursor:none; width:130px; height:130px; pointer-events:none;
+    box-shadow:0 0 20px rgba(0,0,0,0.8), inset 0 0 10px rgba(229,193,120,0.5);
+    display:none; z-index:30; background-repeat:no-repeat;
+  }
+  .no-scrollbar::-webkit-scrollbar{ display:none; }
+  .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+</style>
+
+<div class="min-h-screen" style="background:#08050D;">
+
+  <!-- Hero Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-4">
+    <div class="relative mb-8 p-6 sm:p-10 rounded-3xl border shadow-2xl overflow-hidden"
+         style="background:radial-gradient(ellipse at center,#2C1F3D 0%,#150E22 55%,#08050D 100%); border-color:rgba(229,193,120,0.22);">
+      <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none" style="background:rgba(229,193,120,0.08);"></div>
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full animate-ping" style="background:#E5C178;"></span>
+            <span class="text-xs font-bold uppercase tracking-widest gold-accent-text" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.35em;">
+              KAFUOSA &bull; VISUAL ARCHIVE
+            </span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-black uppercase leading-tight" style="font-family:'Cinzel',serif; color:#fff; letter-spacing:0.1em;">
+            PHOTO <span class="gold-accent-text">GALLERY</span>
+          </h1>
+          <p class="text-sm mt-3 font-light leading-relaxed" style="color:#9E92AC; max-width:36rem;">
+            A curated visual archive of our outreach events, academic milestones, and community moments.
+          </p>
         </div>
-        {% endif %}
-        <div class="absolute inset-0 bg-[#1B1A4F] bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
-          <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-          </svg>
+        <div class="flex items-center gap-4 p-4 rounded-2xl border shrink-0 self-start lg:self-center"
+             style="background:rgba(21,14,34,0.7); backdrop-filter:blur(12px); border-color:rgba(229,193,120,0.22);">
+          <div class="text-center px-3 border-r" style="border-color:rgba(229,193,120,0.22);">
+            <span class="block text-xl font-bold" style="font-family:'Cinzel',serif; color:#E5C178;" id="statAlbums">{{ albums|length }}</span>
+            <span class="text-xs uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif; color:#9E92AC;">Albums</span>
+          </div>
+          <div class="text-center px-3 border-r" style="border-color:rgba(229,193,120,0.22);">
+            <span class="block text-xl font-bold" style="font-family:'Cinzel',serif; color:#fff;" id="statPhotos">{{ total_photos }}</span>
+            <span class="text-xs uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif; color:#9E92AC;">Photos</span>
+          </div>
+          <div class="text-center px-3">
+            <span class="block text-xl font-bold" style="font-family:'Cinzel',serif; color:#E5C178;">2026</span>
+            <span class="text-xs uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif; color:#9E92AC;">Catalog</span>
+          </div>
         </div>
-        {% if photo.caption %}<p class="text-xs text-gray-500 mt-1 px-1 truncate">{{ photo.caption }}</p>{% endif %}
       </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <!-- Search -->
+      <div class="relative flex-1 max-w-sm">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-xs" style="color:rgba(229,193,120,0.6);"></i>
+        <input type="text" id="searchInput" placeholder="Search albums..."
+          class="w-full pl-10 pr-4 py-2.5 text-sm rounded-full focus:outline-none transition-all"
+          style="background:rgba(21,14,34,0.8); border:1px solid rgba(229,193,120,0.22); color:#EDE9E3;">
+      </div>
+      <!-- View Switcher -->
+      <div class="flex items-center gap-1 p-1 rounded-xl border" style="background:rgba(21,14,34,0.8); border-color:rgba(229,193,120,0.22);">
+        <button id="viewGridBtn" onclick="setView('grid')"
+          class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all"
+          style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; background:linear-gradient(135deg,#F3D99B,#E5C178,#C59A45); color:#08050D;">
+          <i class="fa-solid fa-border-all"></i><span class="hidden md:inline">Grid</span>
+        </button>
+        <button id="viewMasonryBtn" onclick="setView('masonry')"
+          class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+          style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; color:#9E92AC;">
+          <i class="fa-solid fa-align-left rotate-90"></i><span class="hidden md:inline">Masonry</span>
+        </button>
+        <button id="viewBentoBtn" onclick="setView('bento')"
+          class="px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all"
+          style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; color:#9E92AC;">
+          <i class="fa-solid fa-table-cells-large"></i><span class="hidden md:inline">Bento</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Albums Grid -->
+    <div id="albumsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]">
+      {% for album in albums %}
+      {% with cover=album.cover %}
+      <a href="/gallery/{{ album.pk }}/"
+         class="album-card glass-card group block rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer"
+         data-title="{{ album.title|lower }}">
+        <!-- Cover Image -->
+        <div class="relative h-56 overflow-hidden" style="background:#150E22;">
+          {% if cover and cover.image %}
+          <img src="{{ cover.image.url }}" alt="{{ album.title }}"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center" style="background:rgba(21,14,34,0.8);">
+            <i class="fa-solid fa-images text-4xl" style="color:rgba(229,193,120,0.3);"></i>
+          </div>
+          {% endif %}
+          <!-- Overlay -->
+          <div class="absolute inset-0 flex items-end p-4 transition-all duration-300"
+               style="background:linear-gradient(to top, rgba(8,5,13,0.85) 0%, transparent 60%);">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-widest"
+                  style="font-family:'Josefin Sans',sans-serif; background:rgba(229,193,120,0.15); border:1px solid rgba(229,193,120,0.3); color:#E5C178;">
+              {{ album.photos.count }} photo{{ album.photos.count|pluralize }}
+            </span>
+          </div>
+          <!-- Hover View Icon -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center"
+                 style="background:rgba(229,193,120,0.2); border:1px solid rgba(229,193,120,0.5); backdrop-filter:blur(8px);">
+              <i class="fa-solid fa-eye" style="color:#E5C178;"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Card Info -->
+        <div class="p-4">
+          <h3 class="font-bold uppercase tracking-widest text-sm text-white group-hover:text-yellow-300 transition-colors"
+              style="font-family:'Cinzel',serif;">{{ album.title }}</h3>
+          {% if album.description %}
+          <p class="text-xs mt-1 line-clamp-2" style="color:#9E92AC;">{{ album.description }}</p>
+          {% endif %}
+          <div class="flex items-center gap-1.5 mt-3 text-xs" style="color:rgba(229,193,120,0.6);">
+            <i class="fa-regular fa-calendar text-xs"></i>
+            <span style="font-family:'Josefin Sans',sans-serif;">{{ album.created_at|date:"M d, Y" }}</span>
+          </div>
+        </div>
+      </a>
+      {% endwith %}
       {% empty %}
-      <p class="text-gray-400 col-span-4 text-center py-8">No photos in this album yet.</p>
+      <div class="col-span-3 flex flex-col items-center justify-center py-28 rounded-3xl border"
+           style="background:rgba(21,14,34,0.3); border-color:rgba(229,193,120,0.15);">
+        <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-5"
+             style="background:rgba(21,14,34,0.8); border:1px solid rgba(229,193,120,0.22); box-shadow:0 0 30px rgba(229,193,120,0.1);">
+          <i class="fa-solid fa-images text-3xl" style="color:#E5C178;"></i>
+        </div>
+        <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-white" style="font-family:'Cinzel',serif;">No Albums Yet</h3>
+        <p class="text-xs" style="color:#9E92AC;">Check back soon for visual updates.</p>
+      </div>
       {% endfor %}
     </div>
-  </div>
-  {% empty %}
-  <p class="text-center text-gray-400">No albums yet.</p>
-  {% endfor %}
-</section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90" onclick="closeLightbox(event)">
-  <button onclick="closeLightbox()" class="absolute top-4 right-6 text-white text-4xl font-bold z-50">&times;</button>
-  <button onclick="prevImage(event)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-50 bg-[#1B1A4F] bg-opacity-60 px-4 py-2 rounded">&#10094;</button>
-  <div class="flex flex-col items-center max-w-4xl w-full px-4" onclick="event.stopPropagation()">
-    <img id="lightbox-img" src="" alt="" class="max-h-[80vh] max-w-full rounded shadow-2xl object-contain"/>
-    <p id="lightbox-caption" class="text-white text-sm mt-4 text-center"></p>
-    <p id="lightbox-counter" class="text-gray-400 text-xs mt-1"></p>
+    <!-- No Search Results -->
+    <div id="emptySearch" class="hidden flex-col items-center justify-center py-20 text-center">
+      <i class="fa-solid fa-magnifying-glass text-3xl mb-4" style="color:rgba(229,193,120,0.3);"></i>
+      <p class="text-sm" style="color:#9E92AC;">No albums match your search.</p>
+      <button onclick="document.getElementById('searchInput').value=''; filterAlbums();"
+              class="mt-4 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all"
+              style="background:linear-gradient(135deg,#F3D99B,#E5C178,#C59A45); color:#08050D; font-family:'Josefin Sans',sans-serif;">
+        Clear Search
+      </button>
+    </div>
+
+    <div class="pb-16"></div>
   </div>
-  <button onclick="nextImage(event)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-50 bg-[#1B1A4F] bg-opacity-60 px-4 py-2 rounded">&#10095;</button>
 </div>
 
-<script>
-const albumData = {
-  {% for album in albums %}
-  "{{ album.pk }}": [
-    {% for photo in album.photos.all %}
-    {% if photo.image %}{ url: "{{ photo.image.url }}", caption: "{{ photo.caption|escapejs }}" },{% endif %}
-    {% endfor %}
-  ],
-  {% endfor %}
-};
-let currentAlbum = null;
-let currentIndex = 0;
+<!-- Toast -->
+<div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
 
-function openLightbox(url, caption, index, albumPk) {
-  currentAlbum = albumPk;
-  currentIndex = index;
-  showSlide();
-  document.getElementById("lightbox").classList.remove("hidden");
-  document.getElementById("lightbox").classList.add("flex");
-  document.body.style.overflow = "hidden";
-}
-function closeLightbox(e) {
-  if (e && e.target !== document.getElementById("lightbox")) return;
-  document.getElementById("lightbox").classList.add("hidden");
-  document.getElementById("lightbox").classList.remove("flex");
-  document.body.style.overflow = "";
-}
-function showSlide() {
-  const photos = albumData[currentAlbum];
-  const photo = photos[currentIndex];
-  document.getElementById("lightbox-img").src = photo.url;
-  document.getElementById("lightbox-caption").textContent = photo.caption;
-  document.getElementById("lightbox-counter").textContent = (currentIndex + 1) + " / " + photos.length;
-}
-function nextImage(e) { e.stopPropagation(); const photos = albumData[currentAlbum]; currentIndex = (currentIndex + 1) % photos.length; showSlide(); }
-function prevImage(e) { e.stopPropagation(); const photos = albumData[currentAlbum]; currentIndex = (currentIndex - 1 + photos.length) % photos.length; showSlide(); }
-document.addEventListener("keydown", function(e) {
-  const lb = document.getElementById("lightbox");
-  if (lb.classList.contains("hidden")) return;
-  if (e.key === "ArrowRight") nextImage(e);
-  if (e.key === "ArrowLeft") prevImage(e);
-  if (e.key === "Escape") { lb.classList.add("hidden"); lb.classList.remove("flex"); document.body.style.overflow = ""; }
-});
+<script>
+  let viewMode = 'grid';
+  const cards = document.querySelectorAll('.album-card');
+
+  function setView(mode) {
+    viewMode = mode;
+    const grid = document.getElementById('albumsGrid');
+    const btns = { grid: document.getElementById('viewGridBtn'), masonry: document.getElementById('viewMasonryBtn'), bento: document.getElementById('viewBentoBtn') };
+
+    Object.values(btns).forEach(b => {
+      b.style.background = 'transparent';
+      b.style.color = '#9E92AC';
+      b.style.fontWeight = '';
+    });
+    btns[mode].style.background = 'linear-gradient(135deg,#F3D99B,#E5C178,#C59A45)';
+    btns[mode].style.color = '#08050D';
+    btns[mode].style.fontWeight = 'bold';
+
+    grid.className = '';
+    if (mode === 'grid') {
+      grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]';
+      cards.forEach(c => { c.style.height = ''; c.style.marginBottom = ''; });
+    } else if (mode === 'masonry') {
+      grid.className = 'grid-masonry min-h-[300px]';
+      cards.forEach(c => { c.className = c.className + ' masonry-item'; });
+    } else if (mode === 'bento') {
+      grid.className = 'bento-grid min-h-[300px]';
+    }
+  }
+
+  function filterAlbums() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    let visible = 0;
+    cards.forEach(c => {
+      const title = c.getAttribute('data-title') || '';
+      const show = !q || title.includes(q);
+      c.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('emptySearch').style.display = visible === 0 ? 'flex' : 'none';
+  }
+
+  document.getElementById('searchInput').addEventListener('input', filterAlbums);
 </script>
 {% endblock %}
