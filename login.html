@@ -1,0 +1,43 @@
+﻿{% extends "base.html" %}
+{% block title %}Login — KAFUOSA{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto px-4 sm:px-6 py-16 md:py-24">
+  <div class="art-card p-6 sm:p-10">
+    <div class="text-center mb-8">
+      <div class="deco-divider max-w-xs mx-auto mb-4">
+        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+          Portal Access
+        </span>
+      </div>
+      <h1 class="font-display font-bold text-3xl text-white tracking-wider">
+        Member Login
+      </h1>
+      <p class="text-white/50 text-xs mt-2" style="font-family:'Inter',sans-serif;">
+        Enter your credentials to access the KAFUOSA portal.
+      </p>
+    </div>
+
+    <form method="post" class="space-y-5">
+      {% csrf_token %}
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Username</label>
+        <input name="username" placeholder="Enter username" class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;" />
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Password</label>
+        <input name="password" type="password" placeholder="Enter password" class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;" />
+      </div>
+
+      <button type="submit" class="w-full btn-primary py-3.5 rounded-sm text-xs font-semibold uppercase tracking-widest mt-2" style="font-family:'Josefin Sans',sans-serif;">
+        Login
+      </button>
+
+      <p class="text-center text-xs text-white/50 pt-4 border-t" style="border-color: rgba(176,141,87,0.12); font-family:'Josefin Sans',sans-serif;">
+        Not a member yet? <a href="/members/register/" class="text-artAccent hover:text-artAccentL transition font-semibold">Register now</a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+﻿{% extends "base.html" %}
+{% block title %}About — KAFUOSA{% endblock %}
+
+{% block content %}
+<!-- Banner -->
+<section class="relative overflow-hidden deco-sunburst py-16 md:py-24 text-center">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+    <div class="deco-divider mb-4 max-w-xs mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+        Who We Are
+      </span>
+    </div>
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-white tracking-widest mb-6">
+      About <span class="text-aurora">KAFUOSA</span>
+    </h1>
+    <p class="text-white/60 text-sm md:text-base leading-relaxed max-w-2xl mx-auto" style="font-family:'Inter',sans-serif;">
+      The Kaimosi Friends University Optometry Students Association (KAFUOSA) is the official body representing optometry students at Kaimosi Friends University. We are committed to fostering academic excellence, professional development, and community outreach in eye care across Kenya.
+    </p>
+  </div>
+</section>
+
+<!-- Core Pillars -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-20">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="art-card p-8 text-center">
+      <div class="w-14 h-14 mx-auto mb-6 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.3);">
+        <i class="fa-solid fa-graduation-cap text-artAccent text-xl"></i>
+      </div>
+      <h3 class="font-display font-bold text-lg text-white mb-3 tracking-wider">Academic Excellence</h3>
+      <p class="text-white/50 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
+        Supporting students through resources, clinical study groups, and peer mentorship programs.
+      </p>
+    </div>
+
+    <div class="art-card p-8 text-center">
+      <div class="w-14 h-14 mx-auto mb-6 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.3);">
+        <i class="fa-solid fa-hand-holding-medical text-artAccent text-xl"></i>
+      </div>
+      <h3 class="font-display font-bold text-lg text-white mb-3 tracking-wider">Community Outreach</h3>
+      <p class="text-white/50 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
+        Running free vision screening camps and donating prescription glasses across underserved communities in Kenya.
+      </p>
+    </div>
+
+    <div class="art-card p-8 text-center">
+      <div class="w-14 h-14 mx-auto mb-6 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.3);">
+        <i class="fa-solid fa-people-group text-artAccent text-xl"></i>
+      </div>
+      <h3 class="font-display font-bold text-lg text-white mb-3 tracking-wider">Professional Network</h3>
+      <p class="text-white/50 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
+        Connecting vision science students with alumni, clinical mentors, and global optometry professionals.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

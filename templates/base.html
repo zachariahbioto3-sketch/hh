@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -6,15 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}KAFUOSA — Eyes To The Future{% endblock %}</title>
 
-  <!-- Charius-style Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -23,634 +18,529 @@
       theme: {
         extend: {
           colors: {
-            brandDark: '#081226',      /* Ultra-deep professional slate navy from Charius template */
-            brandNav: '#0B1528',       /* Exact header background navy variant */
-            brandCard: '#101F3B',      /* Card surface accent navy */
-            brandOrange: '#FF9900',    /* High-energy vibrant premium orange-gold button accent */
-            brandOrangeHover: '#E08600',
-            brandOrangeLight: '#FFF4E5',
-            brandBg: '#F3F6FA',        /* Bright, fresh off-white modern charity background */
-            textMain: '#1F2937',       /* Polished gray-900 typography */
-            textMuted: '#6B7280',      /* Clean gray-500 secondary texts */
+            artDark:    '#0D0A14',
+            artDeep:    '#130F1E',
+            artNav:     '#1A1428',
+            artCard:    '#1F1830',
+            artPurple:  '#522888',
+            artViolet:  '#3D1F66',
+            artAccent:  '#B08D57',
+            artAccentL: '#C9A96E',
+            artMuted:   '#7B6F8A',
+            artBg:      '#F4F2F8',
+            textMain:   '#1A1428',
+            textMuted:  '#6B6478',
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Cinzel', 'serif'],
+            sans:    ['Josefin Sans', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
           },
-          boxShadow: {
-            'charius': '0px 14px 40px rgba(8, 18, 38, 0.06)',
-            'charius-hover': '0px 22px 50px rgba(8, 18, 38, 0.12)',
-            'orange-glow': '0px 8px 25px rgba(255, 153, 0, 0.35)',
-          }
         }
       }
     }
   </script>
 
   <style>
-    body {
-      background-color: #F3F6FA;
-      font-family: 'Inter', sans-serif;
-      color: #1F2937;
+    body { background-color:#0D0A14; font-family:'Inter',sans-serif; color:#EDE9F4; }
+
+    /* Art Deco geometric border */
+    .deco-border {
+      border: 1px solid rgba(176,141,87,0.25);
+      position: relative;
+    }
+    .deco-border::before, .deco-border::after {
+      content:'';
+      position:absolute;
+      width:16px; height:16px;
+      border-color:rgba(176,141,87,0.6);
+      border-style:solid;
+    }
+    .deco-border::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+    .deco-border::after  { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+
+    /* Stepped arch decoration */
+    .deco-arch {
+      background: linear-gradient(180deg,rgba(82,40,136,0.18) 0%,transparent 100%);
+      border-bottom: 1px solid rgba(176,141,87,0.2);
     }
 
-    /* Charius Custom Shape Masks for Leaf/Shield Grid Designs */
-    .charius-mask-left {
-      border-radius: 120px 24px 120px 24px;
-    }
-    .charius-mask-right {
-      border-radius: 24px 120px 24px 120px;
-    }
-    .charius-card {
-      border-radius: 18px;
-      background: #FFFFFF;
-      box-shadow: 0px 12px 40px rgba(8, 18, 38, 0.04);
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .charius-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0px 20px 50px rgba(8, 18, 38, 0.10);
+    /* Sunburst radial subtle bg */
+    .deco-sunburst {
+      background: radial-gradient(ellipse at 50% 0%, rgba(82,40,136,0.35) 0%, rgba(13,10,20,0) 70%);
     }
 
-    .btn-transition {
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #081226;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #FF9900;
+    /* Card styles */
+    .art-card {
+      background: rgba(31,24,48,0.8);
+      border: 1px solid rgba(176,141,87,0.18);
       border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .art-card:hover {
+      border-color: rgba(176,141,87,0.45);
+      box-shadow: 0 8px 32px rgba(82,40,136,0.25), 0 0 0 1px rgba(176,141,87,0.15);
+      transform: translateY(-3px);
+    }
+
+    /* Geometric divider */
+    .deco-divider {
+      display:flex; align-items:center; gap:12px;
+    }
+    .deco-divider::before, .deco-divider::after {
+      content:''; flex:1; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(176,141,87,0.4), transparent);
+    }
+
+    /* Nav underline hover */
+    .nav-link {
+      position:relative; padding-bottom:4px;
+    }
+    .nav-link::after {
+      content:''; position:absolute; bottom:0; left:0;
+      width:0; height:1px;
+      background: linear-gradient(90deg,#522888,#B08D57);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width:100%; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:#0D0A14; }
+    ::-webkit-scrollbar-thumb { background:rgba(176,141,87,0.4); border-radius:3px; }
+
+    /* Button */
+    .btn-primary {
+      background: linear-gradient(135deg,#522888,#3D1F66);
+      border: 1px solid rgba(176,141,87,0.35);
+      color:#EDE9F4;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg,#6B35A8,#522888);
+      border-color:rgba(176,141,87,0.6);
+      box-shadow: 0 4px 20px rgba(82,40,136,0.45);
+    }
+
+    /* Gold text */
+    .text-gold {
+      background: linear-gradient(135deg,#C9A96E 0%,#B08D57 50%,#8A6D3F 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    /* Purple gradient text */
+    .text-aurora {
+      background: linear-gradient(135deg,#9B6FCC 0%,#7B4FA8 50%,#B08D57 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
     }
   </style>
 
   {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-brandBg text-textMain min-h-screen flex flex-col antialiased selection:bg-brandOrange selection:text-brandDark">
+<body class="min-h-screen flex flex-col antialiased">
 
-  <!-- ================= TOP UTILITY INFO STRIP ================= -->
-  <div class="bg-brandDark text-white/80 text-[13px] py-2.5 px-4 md:px-8 border-b border-white/10 font-display font-medium tracking-wide">
+  <!-- TOP INFO STRIP -->
+  <div class="deco-arch text-white/70 text-[12px] py-2 px-4 md:px-8">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 md:gap-6">
-        <span class="flex items-center gap-2 hover:text-brandOrange transition">
-          <i class="fa-solid fa-location-dot text-brandOrange"></i>
+        <span class="flex items-center gap-2 hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.08em;">
+          <i class="fa-solid fa-location-dot text-artAccent text-[10px]"></i>
           Kaimosi Friends University, Kenya
         </span>
-        <span class="hidden md:inline-block text-white/20">|</span>
-        <span class="hidden md:flex items-center gap-2 hover:text-brandOrange transition">
-          <i class="fa-solid fa-eye text-brandOrange"></i>
+        <span class="hidden md:inline-block text-white/15">|</span>
+        <span class="hidden md:flex items-center gap-2" style="font-family:'Josefin Sans',sans-serif;">
+          <i class="fa-solid fa-eye text-artAccent text-[10px]"></i>
           Department of Optometry &amp; Vision Science
         </span>
-        <span class="hidden lg:inline-block text-white/20">|</span>
-        <a href="mailto:info@kafuosa.org" class="hidden lg:flex items-center gap-2 hover:text-brandOrange transition">
-          <i class="fa-solid fa-envelope text-brandOrange"></i>
+        <span class="hidden lg:inline-block text-white/15">|</span>
+        <a href="mailto:info@kafuosa.org" class="hidden lg:flex items-center gap-2 hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif;">
+          <i class="fa-solid fa-envelope text-artAccent text-[10px]"></i>
           info@kafuosa.org
         </a>
       </div>
-
-      <div class="flex items-center gap-5 text-xs font-semibold">
-        <div class="flex items-center gap-3 text-white/60">
-          <a href="#" class="hover:text-brandOrange transition" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" class="hover:text-brandOrange transition" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" class="hover:text-brandOrange transition" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" class="hover:text-brandOrange transition" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <div class="flex items-center gap-4 text-[11px]">
+        <div class="flex items-center gap-3 text-white/50">
+          <a href="#" class="hover:text-artAccentL transition"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-artAccentL transition"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-artAccentL transition"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="hover:text-artAccentL transition"><i class="fa-brands fa-instagram"></i></a>
         </div>
-        <span class="text-white/20">|</span>
-        <span class="uppercase tracking-widest text-brandOrange font-bold flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-brandOrange animate-ping"></span>
+        <span class="text-white/15">|</span>
+        <span class="uppercase tracking-[0.25em] text-artAccent font-semibold text-[10px]" style="font-family:'Josefin Sans',sans-serif;">
           Eyes to the Future
         </span>
       </div>
     </div>
   </div>
 
-  <!-- ================= PREMIUM CHARIUS HEADER NAVIGATION ================= -->
-  <header class="bg-brandNav text-white sticky top-0 z-40 shadow-xl border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-3.5 flex items-center justify-between">
+  <!-- HEADER / NAV -->
+  <header class="sticky top-0 z-40 border-b" style="background:rgba(19,15,30,0.97); backdrop-filter:blur(16px); border-color:rgba(176,141,87,0.15);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between">
 
-      <!-- App Brand Logo Block -->
+      <!-- Logo -->
       <a href="/" class="flex items-center gap-3.5 group">
-        <div class="relative">
-          <!-- Fallback image handling if django static file is loading -->
+        <div class="relative w-11 h-11">
           <img src="{% static 'images/kafuosa-logo.jpeg' %}"
-               onerror="this.onerror=null; this.src='https://placehold.co/100x100/081226/FF9900?text=KAFUOSA';"
+               onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1428/B08D57?text=K';"
                alt="KAFUOSA logo"
-               class="w-12 h-12 rounded-full object-cover ring-2 ring-brandOrange/40 group-hover:ring-brandOrange transition duration-300 shadow-md">
-          <div class="absolute inset-0 rounded-full bg-brandOrange/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+               class="w-11 h-11 rounded-sm object-cover"
+               style="border:1px solid rgba(176,141,87,0.35);">
+          <!-- deco corner -->
+          <span class="absolute -top-0.5 -left-0.5 w-2 h-2 border-t border-l" style="border-color:#B08D57;"></span>
+          <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 border-b border-r" style="border-color:#B08D57;"></span>
         </div>
         <div>
-          <span class="font-display font-black text-2xl tracking-tight text-white block leading-none">
-            KAFUOSA<span class="text-brandOrange">.</span>
-          </span>
-          <span class="text-[10px] text-brandOrange uppercase font-bold tracking-widest mt-1 block">
-            Optometry Association
-          </span>
+          <span class="font-display font-bold text-xl tracking-widest text-white block leading-none" style="letter-spacing:0.18em;">KAFUOSA</span>
+          <span class="text-[9px] uppercase tracking-[0.3em] mt-0.5 block" style="font-family:'Josefin Sans',sans-serif; color:#B08D57;">Optometry Association</span>
         </div>
       </a>
 
-      <!-- Centered Menu Items (Charius Alignment Pattern) -->
-      <nav class="hidden lg:flex items-center gap-7 font-display font-semibold text-sm tracking-wide text-white/90">
-        <a href="{% url 'pages:about' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">About</a>
-        <a href="{% url 'events:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Events</a>
-        <a href="{% url 'news:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">News &amp; Blog</a>
-        <a href="{% url 'resources:list' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Resources</a>
-        <a href="{% url 'pages:contact' %}" class="hover:text-brandOrange btn-transition py-2 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-brandOrange after:transition-all">Contact</a>
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-8" style="font-family:'Josefin Sans',sans-serif; font-size:13px; letter-spacing:0.12em;">
+        <a href="{% url 'pages:about' %}" class="nav-link text-white/80 hover:text-white transition uppercase">About</a>
+        <a href="{% url 'events:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Events</a>
+        <a href="{% url 'news:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">News</a>
+        <a href="{% url 'resources:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Resources</a>
+        <a href="{% url 'pages:contact' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Contact</a>
       </nav>
 
-      <!-- Action Button & Search Trigger -->
-      <div class="flex items-center gap-3.5">
-        <button id="searchOpenBtn" class="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white/80 hover:text-brandOrange flex items-center justify-center transition border border-white/10" title="Search site">
-          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+        <button id="searchOpenBtn" class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm" title="Search">
+          <i class="fa-solid fa-magnifying-glass text-xs"></i>
         </button>
 
         {% if user.is_authenticated %}
-          <a href="{% url 'members:profile' %}" class="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-display font-bold text-sm px-5 py-2.5 rounded-full btn-transition shadow-sm border border-white/10">
-            <i class="fa-solid fa-user-gear text-brandOrange text-xs"></i>
-            <span>My Profile</span>
+          <a href="{% url 'members:profile' %}" class="hidden sm:flex items-center gap-2 btn-primary text-sm px-5 py-2 rounded-sm font-semibold" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.08em;">
+            <i class="fa-solid fa-user text-artAccent text-xs"></i> My Profile
           </a>
         {% else %}
-          <a href="{% url 'members:login' %}" class="hidden sm:flex items-center gap-2 bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold text-sm px-6 py-2.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
-            <span>Member Login</span>
+          <a href="{% url 'members:login' %}" class="hidden sm:flex items-center gap-2 btn-primary text-sm px-5 py-2 rounded-sm font-semibold" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.08em;">
+            <i class="fa-solid fa-arrow-right-to-bracket text-artAccent text-xs"></i> Login
           </a>
         {% endif %}
 
-        <!-- Mobile Menu Toggle Button -->
-        <button id="mobileMenuBtn" class="lg:hidden w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center hover:bg-brandOrange hover:text-brandDark transition">
-          <i class="fa-solid fa-bars text-lg"></i>
+        <button id="mobileMenuBtn" class="lg:hidden w-9 h-9 flex items-center justify-center text-white/70 hover:text-artAccentL transition deco-border rounded-sm">
+          <i class="fa-solid fa-bars text-sm"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ================= MOBILE NAVIGATION DRAWER ================= -->
-  <div id="mobileDrawer" class="fixed inset-0 z-50 bg-brandDark/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 lg:hidden">
-    <div class="fixed top-0 right-0 w-80 max-w-[85vw] h-full bg-brandNav border-l border-white/10 shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="mobileDrawerCard">
-
+  <!-- MOBILE DRAWER -->
+  <div id="mobileDrawer" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-all duration-300 lg:hidden" style="background:rgba(13,10,20,0.92); backdrop-filter:blur(12px);">
+    <div class="fixed top-0 right-0 w-72 max-w-[85vw] h-full border-l flex flex-col justify-between p-6 transform translate-x-full transition-transform duration-300" id="mobileDrawerCard" style="background:#1A1428; border-color:rgba(176,141,87,0.2);">
       <div>
-        <div class="flex items-center justify-between pb-6 border-b border-white/10">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brandOrange/20 flex items-center justify-center text-brandOrange font-bold text-lg">
-              K
-            </div>
-            <div>
-              <span class="font-display font-black text-xl text-white block leading-none">KAFUOSA</span>
-              <span class="text-[9px] text-brandOrange font-bold tracking-widest uppercase">Menu Navigation</span>
-            </div>
-          </div>
-          <button id="mobileMenuClose" class="w-9 h-9 rounded-full bg-white/5 text-white/80 hover:bg-brandOrange hover:text-brandDark flex items-center justify-center transition">
-            <i class="fa-solid fa-xmark text-lg"></i>
+        <div class="flex items-center justify-between pb-5 mb-6 border-b" style="border-color:rgba(176,141,87,0.18);">
+          <span class="font-display font-bold text-lg text-white tracking-widest">KAFUOSA</span>
+          <button id="mobileMenuClose" class="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white transition deco-border rounded-sm">
+            <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-
-        <nav class="flex flex-col gap-2 mt-6 font-display font-semibold text-base text-white/90">
-          <a href="{% url 'pages:about' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
-            <span>About KAFUOSA</span>
-            <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
+        <nav class="flex flex-col gap-1" style="font-family:'Josefin Sans',sans-serif; font-size:13px; letter-spacing:0.12em;">
+          <a href="{% url 'pages:about' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            About <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
-          <a href="{% url 'events:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
-            <span>Upcoming Events</span>
-            <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
+          <a href="{% url 'events:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            Events <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
-          <a href="{% url 'news:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
-            <span>News &amp; Blog</span>
-            <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
+          <a href="{% url 'news:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            News <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
-          <a href="{% url 'resources:list' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
-            <span>Academic Resources</span>
-            <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
+          <a href="{% url 'resources:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            Resources <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
-          <a href="{% url 'pages:contact' %}" class="px-4 py-3 rounded-xl hover:bg-brandOrange/10 hover:text-brandOrange transition flex items-center justify-between">
-            <span>Contact Secretariat</span>
-            <i class="fa-solid fa-chevron-right text-xs text-white/40"></i>
+          <a href="{% url 'pages:contact' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            Contact <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
         </nav>
       </div>
-
-      <div class="pt-6 border-t border-white/10 space-y-3">
+      <div class="pt-5 border-t space-y-3" style="border-color:rgba(176,141,87,0.18);">
         {% if user.is_authenticated %}
-          <a href="{% url 'members:profile' %}" class="w-full py-3 rounded-xl bg-white/10 text-white font-display font-bold text-center block hover:bg-white/20 transition">
-            My Account Profile
-          </a>
+          <a href="{% url 'members:profile' %}" class="block w-full py-2.5 text-center btn-primary rounded-sm text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em;">My Account</a>
         {% else %}
-          <a href="{% url 'members:login' %}" class="w-full py-3 rounded-xl bg-brandOrange text-brandDark font-display font-extrabold text-center block hover:bg-brandOrangeHover transition shadow-lg">
-            Member Access Login
-          </a>
+          <a href="{% url 'members:login' %}" class="block w-full py-2.5 text-center btn-primary rounded-sm text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em;">Member Login</a>
         {% endif %}
-        <p class="text-[11px] text-center text-white/40 font-mono">Kaimosi Friends University &copy; 2026</p>
+        <p class="text-[10px] text-center text-white/30 uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif;">KAFU &copy; 2026</p>
       </div>
-
     </div>
   </div>
 
-  <!-- ================= SEARCH OVERLAY MODAL ================= -->
-  <div id="searchModal" class="fixed inset-0 z-50 bg-brandDark/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-start justify-center pt-20 px-4">
-    <div class="bg-brandNav border border-white/10 max-w-xl w-full rounded-2xl p-6 shadow-2xl transform -translate-y-4 transition-transform duration-300" id="searchModalCard">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="font-display font-bold text-white text-lg flex items-center gap-2">
-          <i class="fa-solid fa-magnifying-glass text-brandOrange"></i>
-          Search KAFUOSA Portal
-        </h3>
-        <button id="searchCloseBtn" class="text-white/60 hover:text-white text-lg">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+  <!-- SEARCH MODAL -->
+  <div id="searchModal" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-start justify-center pt-20 px-4" style="background:rgba(13,10,20,0.85); backdrop-filter:blur(12px);">
+    <div class="max-w-xl w-full p-6 rounded-sm shadow-2xl transform -translate-y-4 transition-transform duration-300 deco-border" id="searchModalCard" style="background:#1A1428;">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="font-display text-white text-base tracking-widest">Search KAFUOSA</h3>
+        <button id="searchCloseBtn" class="text-white/50 hover:text-white transition text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form action="{% url 'news:list' %}" method="GET" class="relative">
-        <input type="text" name="q" placeholder="Search events, clinical papers, seminars, news..."
-               class="w-full bg-brandDark border border-white/15 rounded-xl px-4 py-3.5 pl-11 text-white placeholder-white/40 text-sm focus:outline-none focus:border-brandOrange transition">
-        <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
-        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-brandOrange hover:bg-brandOrangeHover text-brandDark text-xs font-bold font-display px-4 py-2 rounded-lg transition">
+        <input type="text" name="q" placeholder="Events, resources, news..."
+               class="w-full px-4 py-3 pl-10 text-sm text-white placeholder-white/30 focus:outline-none transition rounded-sm"
+               style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;">
+        <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-artAccent text-xs"></i>
+        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 btn-primary px-4 py-1.5 rounded-sm text-xs font-semibold" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.08em;">
           Search
         </button>
       </form>
-      <div class="mt-4 flex flex-wrap gap-2 text-xs text-white/60">
-        <span class="text-brandOrange font-bold">Popular:</span>
-        <a href="?q=Screening" class="hover:text-brandOrange transition bg-white/5 px-2.5 py-1 rounded-md">Eye Screening</a>
-        <a href="?q=Seminar" class="hover:text-brandOrange transition bg-white/5 px-2.5 py-1 rounded-md">Seminars</a>
-        <a href="?q=Constitution" class="hover:text-brandOrange transition bg-white/5 px-2.5 py-1 rounded-md">Constitution</a>
-        <a href="?q=Optometry" class="hover:text-brandOrange transition bg-white/5 px-2.5 py-1 rounded-md">Optometry Day</a>
+      <div class="mt-4 flex flex-wrap gap-2 text-[11px]" style="font-family:'Josefin Sans',sans-serif;">
+        <span class="text-artAccent uppercase tracking-widest">Popular:</span>
+        <a href="?q=Screening" class="px-2.5 py-1 rounded-sm hover:text-artAccentL transition" style="background:rgba(82,40,136,0.2); color:rgba(255,255,255,0.6); border:1px solid rgba(176,141,87,0.12);">Eye Screening</a>
+        <a href="?q=Seminar" class="px-2.5 py-1 rounded-sm hover:text-artAccentL transition" style="background:rgba(82,40,136,0.2); color:rgba(255,255,255,0.6); border:1px solid rgba(176,141,87,0.12);">Seminars</a>
+        <a href="?q=Optometry" class="px-2.5 py-1 rounded-sm hover:text-artAccentL transition" style="background:rgba(82,40,136,0.2); color:rgba(255,255,255,0.6); border:1px solid rgba(176,141,87,0.12);">Optometry Day</a>
       </div>
     </div>
   </div>
 
-  <!-- ================= DJANGO FLASH MESSAGES ================= -->
+  <!-- MESSAGES -->
   {% if messages %}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mt-6 space-y-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mt-5 space-y-3">
       {% for message in messages %}
-        <div class="p-4 rounded-xl text-sm font-display font-medium flex items-center justify-between shadow-md transition-all
-          {% if message.tags == 'error' %} bg-rose-900/90 border border-rose-500 text-rose-100
-          {% elif message.tags == 'success' %} bg-emerald-900/90 border border-emerald-500 text-emerald-100
-          {% else %} bg-brandNav border border-brandOrange text-white {% endif %}">
-          <div class="flex items-center gap-3">
-            <i class="fa-solid
-              {% if message.tags == 'error' %}fa-circle-exclamation text-rose-400
-              {% elif message.tags == 'success' %}fa-circle-check text-emerald-400
-              {% else %}fa-circle-info text-brandOrange{% endif %} text-base"></i>
-            <span>{{ message }}</span>
-          </div>
-          <button onclick="this.parentElement.remove()" class="text-white/60 hover:text-white">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+        <div class="art-card px-5 py-3.5 flex items-center gap-3 text-sm">
+          {% if message.tags == 'success' %}
+            <i class="fa-solid fa-circle-check text-artAccent"></i>
+          {% elif message.tags == 'error' %}
+            <i class="fa-solid fa-circle-xmark text-red-400"></i>
+          {% else %}
+            <i class="fa-solid fa-circle-info text-artPurple"></i>
+          {% endif %}
+          <span>{{ message }}</span>
         </div>
       {% endfor %}
     </div>
   {% endif %}
 
-  <!-- ================= CENTRAL CONTENT TEMPLATE INJECTION POINT ================= -->
-  <main class="flex-grow">
+  <!-- MAIN CONTENT -->
+  <main class="flex-1">
     {% block content %}
-      <!-- DEFAULT PREVIEW CONTENT (Visible when testing base.html directly) -->
-      <section class="relative bg-brandDark text-white py-20 lg:py-28 overflow-hidden border-b border-white/10">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brandOrange/20 via-brandDark to-brandDark pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-            <div class="lg:col-span-7 space-y-6">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brandOrange/15 border border-brandOrange/30 text-brandOrange font-display text-xs uppercase tracking-widest font-bold">
-                <i class="fa-solid fa-eye text-xs"></i>
-                Official Student Association Portal
-              </div>
-              <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-white">
-                Empowering Future <br>
-                <span class="text-brandOrange">Vision Specialists</span> in Kenya.
-              </h1>
-              <p class="text-white/70 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
-                KAFUOSA brings together Optometry &amp; Vision Science students at Kaimosi Friends University to foster clinical excellence, community vision outreach, and groundbreaking research.
-              </p>
-              <div class="flex flex-wrap items-center gap-4 pt-2">
-                <a href="{% url 'events:list' %}" class="bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold px-8 py-3.5 rounded-full btn-transition shadow-orange-glow transform hover:-translate-y-0.5 flex items-center gap-2">
-                  <span>Explore Events</span>
-                  <i class="fa-solid fa-arrow-right text-xs"></i>
-                </a>
-                <a href="{% url 'pages:about' %}" class="bg-white/10 hover:bg-white/20 text-white font-display font-bold px-7 py-3.5 rounded-full btn-transition border border-white/10">
-                  Our Mission
-                </a>
-              </div>
-            </div>
+    <!-- DEFAULT HOME HERO (only shows on base) -->
+    <section class="relative overflow-hidden deco-sunburst" style="min-height:520px;">
+      <!-- Geometric radial lines decoration -->
+      <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.04) 60px), repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.04) 60px);"></div>
 
-            <div class="lg:col-span-5 relative">
-              <div class="relative z-10 p-3 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-md shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80"
-                     alt="Optometry Examination"
-                     class="w-full h-80 sm:h-96 object-cover rounded-2xl charius-mask-right">
-              </div>
-              <div class="absolute -bottom-6 -left-6 bg-brandNav p-5 rounded-2xl border border-white/10 shadow-2xl z-20 hidden sm:flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-brandOrange text-brandDark flex items-center justify-center font-black text-xl">
-                  <i class="fa-solid fa-user-doctor"></i>
-                </div>
-                <div>
-                  <span class="block font-display font-extrabold text-white text-lg leading-none">500+ Patients</span>
-                  <span class="text-xs text-white/60 font-medium">Screened in recent medical camps</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-24 relative z-10 text-center">
+        <div class="deco-divider mb-8 max-w-xs mx-auto">
+          <span class="text-[10px] uppercase tracking-[0.4em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">KAFUOSA &bull; Since 2024</span>
         </div>
-      </section>
 
-      <!-- Key Pillars Section -->
-      <section class="py-16 md:py-24 bg-brandBg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span class="text-brandOrange font-display font-bold text-xs uppercase tracking-widest">Our Core Objectives</span>
-            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-brandDark">Dedicated to Academic &amp; Clinical Impact</h2>
-            <p class="text-textMuted text-sm sm:text-base">Bridging student training with real-world clinical optometric care across Kakamega county and nationwide.</p>
-          </div>
+        <h1 class="font-display font-bold text-4xl sm:text-6xl text-white mb-5 leading-tight tracking-widest">
+          Eyes To The<br><span class="text-aurora">Future</span>
+        </h1>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="charius-card p-8 border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div class="w-14 h-14 rounded-2xl bg-brandOrange/10 text-brandOrange flex items-center justify-center text-2xl font-bold mb-6">
-                  <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <h3 class="font-display font-bold text-xl text-brandDark mb-3">Academic Excellence</h3>
-                <p class="text-textMuted text-sm leading-relaxed">Organizing specialized clinical workshops, research symposiums, and peer-to-peer mentoring seminars.</p>
-              </div>
-              <a href="#" class="mt-6 inline-flex items-center gap-2 text-brandOrange font-display font-bold text-sm hover:underline">
-                Learn More <i class="fa-solid fa-arrow-right text-xs"></i>
-              </a>
-            </div>
+        <p class="text-white/55 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-10" style="font-family:'Inter',sans-serif;">
+          Kaimosi Friends University Optometry Students Association — advancing vision science, community eye health, and professional excellence in Kenya.
+        </p>
 
-            <div class="charius-card p-8 border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div class="w-14 h-14 rounded-2xl bg-brandOrange/10 text-brandOrange flex items-center justify-center text-2xl font-bold mb-6">
-                  <i class="fa-solid fa-hand-holding-medical"></i>
-                </div>
-                <h3 class="font-display font-bold text-xl text-brandDark mb-3">Community Eye Camps</h3>
-                <p class="text-textMuted text-sm leading-relaxed">Providing free vision screening, refraction services, and prescription eyewear to underserved rural communities.</p>
-              </div>
-              <a href="#" class="mt-6 inline-flex items-center gap-2 text-brandOrange font-display font-bold text-sm hover:underline">
-                View Outreach <i class="fa-solid fa-arrow-right text-xs"></i>
-              </a>
-            </div>
-
-            <div class="charius-card p-8 border border-gray-100 flex flex-col justify-between">
-              <div>
-                <div class="w-14 h-14 rounded-2xl bg-brandOrange/10 text-brandOrange flex items-center justify-center text-2xl font-bold mb-6">
-                  <i class="fa-solid fa-people-group"></i>
-                </div>
-                <h3 class="font-display font-bold text-xl text-brandDark mb-3">Professional Unity</h3>
-                <p class="text-textMuted text-sm leading-relaxed">Connecting students with Optometry Association of Kenya (OAK) leaders and global vision science partners.</p>
-              </div>
-              <a href="#" class="mt-6 inline-flex items-center gap-2 text-brandOrange font-display font-bold text-sm hover:underline">
-                Join Network <i class="fa-solid fa-arrow-right text-xs"></i>
-              </a>
-            </div>
-          </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="{% url 'pages:about' %}" class="btn-primary px-8 py-3 rounded-sm font-semibold text-sm tracking-widest" style="font-family:'Josefin Sans',sans-serif;">
+            Discover More
+          </a>
+          <a href="{% url 'events:list' %}" class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-white/70 hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.2);">
+            View Events
+          </a>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <!-- MISSION CARDS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20">
+      <div class="text-center mb-14">
+        <div class="deco-divider mb-5 max-w-sm mx-auto">
+          <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Our Mission</span>
+        </div>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">What We Stand For</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="art-card p-8">
+          <div class="w-12 h-12 flex items-center justify-center mb-6 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+            <i class="fa-solid fa-graduation-cap text-artAccent text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white mb-3 tracking-wider">Academic Excellence</h3>
+          <p class="text-white/50 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Supporting rigorous optometry education and cutting-edge clinical training for the next generation of vision scientists.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 text-artAccent text-xs font-semibold uppercase tracking-widest hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif;">
+            Learn More <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+        <div class="art-card p-8">
+          <div class="w-12 h-12 flex items-center justify-center mb-6 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+            <i class="fa-solid fa-hand-holding-medical text-artAccent text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white mb-3 tracking-wider">Community Eye Camps</h3>
+          <p class="text-white/50 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Providing free vision screening, refraction services, and prescription eyewear to underserved rural communities across Kenya.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 text-artAccent text-xs font-semibold uppercase tracking-widest hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif;">
+            View Outreach <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+        <div class="art-card p-8">
+          <div class="w-12 h-12 flex items-center justify-center mb-6 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+            <i class="fa-solid fa-people-group text-artAccent text-lg"></i>
+          </div>
+          <h3 class="font-display font-bold text-base text-white mb-3 tracking-wider">Professional Unity</h3>
+          <p class="text-white/50 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Connecting students with Optometry Association of Kenya leaders and global vision science partners worldwide.</p>
+          <a href="#" class="mt-5 inline-flex items-center gap-2 text-artAccent text-xs font-semibold uppercase tracking-widest hover:text-artAccentL transition" style="font-family:'Josefin Sans',sans-serif;">
+            Join Network <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
     {% endblock %}
   </main>
 
-  <!-- ================= COMPLETE RE-ENGINEERED COMPREHENSIVE FOOTER ================= -->
-  <footer class="bg-brandDark text-white pt-20 pb-8 mt-20 relative overflow-hidden border-t-4 border-brandOrange">
+  <!-- FOOTER -->
+  <footer class="border-t mt-20 relative overflow-hidden" style="background:#0D0A14; border-color:rgba(176,141,87,0.2);">
+    <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(176,141,87,0.4),transparent);"></div>
 
-    <!-- Accent Background Shape Elements for Modern Contrast -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-brandOrange/[0.03] rounded-full pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
-    <div class="absolute bottom-0 left-0 w-80 h-80 bg-white/[0.01] rounded-full pointer-events-none transform -translate-x-1/4 translate-y-1/4"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-16">
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
-
-      <!-- Top Newsletter Banner Strip -->
-      <div class="bg-brandNav border border-white/10 rounded-3xl p-8 lg:p-10 mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
-        <div class="space-y-2 max-w-xl text-center lg:text-left">
-          <span class="text-brandOrange font-display font-bold text-xs uppercase tracking-widest">Subscribe To KAFUOSA Dispatch</span>
-          <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">Stay Updated With Vision Science News</h3>
-          <p class="text-white/60 text-xs sm:text-sm font-light">Receive notifications for clinical workshops, upcoming community camps, and research publications.</p>
+      <!-- Newsletter -->
+      <div class="art-card p-8 lg:p-10 mb-14 flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-2 max-w-lg text-center lg:text-left">
+          <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">KAFUOSA Dispatch</span>
+          <h3 class="font-display font-bold text-xl text-white tracking-wider">Stay Updated With Vision Science</h3>
+          <p class="text-white/45 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">Clinical workshops, community camps, and research publications — delivered to your inbox.</p>
         </div>
-
         <form onsubmit="event.preventDefault(); showSubscribeToast();" class="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3">
-          <div class="relative w-full sm:w-80">
-            <input type="email" required placeholder="Enter your email address..."
-                   class="w-full bg-brandDark border border-white/15 rounded-full px-5 py-3.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-brandOrange transition">
-          </div>
-          <button type="submit" class="w-full sm:w-auto bg-brandOrange hover:bg-brandOrangeHover text-brandDark font-display font-extrabold text-xs px-8 py-3.5 rounded-full btn-transition shadow-orange-glow whitespace-nowrap">
-            Join Newsletter
+          <input type="email" required placeholder="Your email address..."
+                 class="w-full sm:w-72 px-4 py-3 text-xs text-white placeholder-white/30 focus:outline-none transition rounded-sm"
+                 style="background:#0D0A14; border:1px solid rgba(176,141,87,0.22); font-family:'Josefin Sans',sans-serif;">
+          <button type="submit" class="w-full sm:w-auto btn-primary px-6 py-3 rounded-sm text-xs font-semibold whitespace-nowrap" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em;">
+            Subscribe
           </button>
         </form>
       </div>
 
-      <!-- Main Footer 12-Column Grid Structure -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-16 border-b border-white/10">
+      <!-- Footer Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b" style="border-color:rgba(176,141,87,0.12);">
 
-        <!-- Big Brand / Mission Column (5 Cols) -->
         <div class="lg:col-span-5 space-y-6">
           <div class="flex items-center gap-3">
             <img src="{% static 'images/kafuosa-logo.jpeg' %}"
-                 onerror="this.onerror=null; this.src='https://placehold.co/100x100/081226/FF9900?text=KAFUOSA';"
-                 alt="KAFUOSA Logo"
-                 class="w-12 h-12 rounded-full object-cover ring-2 ring-brandOrange/40">
+                 onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1428/B08D57?text=K';"
+                 alt="KAFUOSA Logo" class="w-10 h-10 rounded-sm object-cover" style="border:1px solid rgba(176,141,87,0.3);">
             <div>
-              <span class="font-display font-extrabold text-2xl tracking-tight text-white block leading-none">
-                KAFUOSA<span class="text-brandOrange">.</span>
-              </span>
-              <span class="text-[10px] text-brandOrange font-bold tracking-widest uppercase">Optometry Association</span>
+              <span class="font-display font-bold text-lg tracking-widest text-white block">KAFUOSA</span>
+              <span class="text-[9px] uppercase tracking-[0.3em] block" style="font-family:'Josefin Sans',sans-serif; color:#B08D57;">Optometry Association</span>
             </div>
           </div>
-
-          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white max-w-sm leading-snug">
-            Give The Gift <br><span class="text-brandOrange">Of Clear Vision.</span>
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-white tracking-wider leading-snug">
+            Give The Gift<br><span class="text-gold">Of Clear Vision.</span>
           </h2>
-
-          <p class="text-white/60 text-xs sm:text-sm font-light leading-relaxed max-w-md">
-            Kaimosi Friends University Optometry Students Association is committed to raising eye healthcare standards through education, research, and community vision service in Kenya.
+          <p class="text-white/45 text-xs leading-relaxed" style="font-family:'Inter',sans-serif; max-width:22rem;">
+            Committed to raising eye healthcare standards through education, research, and community vision service in Kenya.
           </p>
-
-          <div class="flex items-center gap-3 pt-2">
-            <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brandOrange hover:text-brandDark text-white/80 flex items-center justify-center transition border border-white/10" title="Facebook">
-              <i class="fa-brands fa-facebook-f text-xs"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brandOrange hover:text-brandDark text-white/80 flex items-center justify-center transition border border-white/10" title="X (Twitter)">
-              <i class="fa-brands fa-x-twitter text-xs"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brandOrange hover:text-brandDark text-white/80 flex items-center justify-center transition border border-white/10" title="LinkedIn">
-              <i class="fa-brands fa-linkedin-in text-xs"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brandOrange hover:text-brandDark text-white/80 flex items-center justify-center transition border border-white/10" title="Instagram">
-              <i class="fa-brands fa-instagram text-xs"></i>
-            </a>
-            <a href="#" class="w-9 h-9 rounded-full bg-white/5 hover:bg-brandOrange hover:text-brandDark text-white/80 flex items-center justify-center transition border border-white/10" title="YouTube">
-              <i class="fa-brands fa-youtube text-xs"></i>
-            </a>
+          <div class="flex items-center gap-2.5 pt-1">
+            <a href="#" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition rounded-sm deco-border"><i class="fa-brands fa-facebook-f text-[11px]"></i></a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition rounded-sm deco-border"><i class="fa-brands fa-x-twitter text-[11px]"></i></a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition rounded-sm deco-border"><i class="fa-brands fa-linkedin-in text-[11px]"></i></a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition rounded-sm deco-border"><i class="fa-brands fa-instagram text-[11px]"></i></a>
           </div>
         </div>
 
-        <!-- Quick Navigation Links (2 Cols) -->
         <div class="lg:col-span-2 space-y-4">
-          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider text-brandOrange">Quick Navigation</h4>
-          <ul class="space-y-2.5 text-xs text-white/70 font-medium">
-            <li><a href="{% url 'pages:about' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> About Association</a></li>
-            <li><a href="{% url 'events:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Events Calendar</a></li>
-            <li><a href="{% url 'news:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> News &amp; Articles</a></li>
-            <li><a href="{% url 'resources:list' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Clinical Resources</a></li>
-            <li><a href="{% url 'pages:contact' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Contact Us</a></li>
+          <h4 class="text-[10px] uppercase tracking-[0.3em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Navigation</h4>
+          <ul class="space-y-2.5 text-xs text-white/55" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.06em;">
+            <li><a href="{% url 'pages:about' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> About</a></li>
+            <li><a href="{% url 'events:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Events</a></li>
+            <li><a href="{% url 'news:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> News</a></li>
+            <li><a href="{% url 'resources:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Resources</a></li>
+            <li><a href="{% url 'pages:contact' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Contact</a></li>
           </ul>
         </div>
 
-        <!-- Key Services & Focus (2 Cols) -->
         <div class="lg:col-span-2 space-y-4">
-          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider text-brandOrange">Student Portal</h4>
-          <ul class="space-y-2.5 text-xs text-white/70 font-medium">
-            <li><a href="{% url 'members:login' %}" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Member Portal</a></li>
-            <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> KAFUOSA Constitution</a></li>
-            <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Executive Board</a></li>
-            <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Research &amp; Papers</a></li>
-            <li><a href="#" class="hover:text-brandOrange transition flex items-center gap-1.5"><i class="fa-solid fa-angle-right text-[10px] text-brandOrange"></i> Gallery Archive</a></li>
+          <h4 class="text-[10px] uppercase tracking-[0.3em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Portal</h4>
+          <ul class="space-y-2.5 text-xs text-white/55" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.06em;">
+            <li><a href="{% url 'members:login' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Member Portal</a></li>
+            <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Constitution</a></li>
+            <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Executive Board</a></li>
+            <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Research</a></li>
+            <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Gallery</a></li>
           </ul>
         </div>
 
-        <!-- Contact & Campus Info Column (3 Cols) -->
         <div class="lg:col-span-3 space-y-4">
-          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider text-brandOrange">Campus Location</h4>
-
-          <div class="space-y-3 text-xs text-white/70 font-light leading-relaxed">
-            <p class="flex items-start gap-3">
-              <i class="fa-solid fa-building-columns text-brandOrange mt-0.5"></i>
-              <span>Department of Optometry &amp; Vision Science, Kaimosi Friends University (KAFU)</span>
-            </p>
-            <p class="flex items-center gap-3">
-              <i class="fa-solid fa-location-dot text-brandOrange"></i>
-              <span>P.O. Box 139-50309, Kaimosi, Kenya</span>
-            </p>
-            <p class="flex items-center gap-3">
-              <i class="fa-solid fa-phone text-brandOrange"></i>
-              <span>+254 (0) 700 000 000</span>
-            </p>
-            <p class="flex items-center gap-3">
-              <i class="fa-solid fa-envelope text-brandOrange"></i>
-              <span>optometry@kafu.ac.ke</span>
-            </p>
+          <h4 class="text-[10px] uppercase tracking-[0.3em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Location</h4>
+          <div class="space-y-3 text-xs text-white/50 leading-relaxed" style="font-family:'Inter',sans-serif;">
+            <p class="flex items-start gap-3"><i class="fa-solid fa-building-columns text-artAccent mt-0.5 shrink-0"></i> Dept. of Optometry &amp; Vision Science, Kaimosi Friends University</p>
+            <p class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-artAccent shrink-0"></i> P.O. Box 139-50309, Kaimosi, Kenya</p>
+            <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-artAccent shrink-0"></i> +254 (0) 700 000 000</p>
+            <p class="flex items-center gap-3"><i class="fa-solid fa-envelope text-artAccent shrink-0"></i> optometry@kafu.ac.ke</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Bottom Legal & Copyright Bar -->
-      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50 font-medium">
+      <!-- Bottom bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/30" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.06em;">
         <p>&copy; 2026 KAFUOSA. All Rights Reserved. Kaimosi Friends University.</p>
-
-        <div class="flex items-center gap-6">
-          <a href="#" class="hover:text-brandOrange transition">Privacy Policy</a>
-          <span>&bull;</span>
-          <a href="#" class="hover:text-brandOrange transition">Terms of Service</a>
-          <span>&bull;</span>
-          <a href="#" class="hover:text-brandOrange transition">Department Portal</a>
+        <div class="flex items-center gap-5">
+          <a href="#" class="hover:text-artAccent transition">Privacy Policy</a>
+          <span class="text-white/15">&bull;</span>
+          <a href="#" class="hover:text-artAccent transition">Terms of Service</a>
+          <span class="text-white/15">&bull;</span>
+          <a href="#" class="hover:text-artAccent transition">Department Portal</a>
         </div>
       </div>
-
     </div>
   </footer>
 
-  <!-- Floating Back to Top Button -->
-  <button id="backToTopBtn" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-brandOrange text-brandDark font-bold flex items-center justify-center shadow-orange-glow opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 active:scale-95" title="Back to top">
-    <i class="fa-solid fa-arrow-up text-sm"></i>
+  <!-- Back to Top -->
+  <button id="backToTopBtn" class="fixed bottom-6 right-6 z-40 w-10 h-10 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 deco-border rounded-sm" style="background:rgba(82,40,136,0.5); backdrop-filter:blur(8px);" title="Back to top">
+    <i class="fa-solid fa-arrow-up text-artAccent text-sm"></i>
   </button>
 
-  <!-- Notification Toast Container -->
   <div id="toastContainer" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-
-      // Mobile Drawer Elements
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileDrawer = document.getElementById('mobileDrawer');
       const mobileDrawerCard = document.getElementById('mobileDrawerCard');
       const mobileMenuClose = document.getElementById('mobileMenuClose');
 
-      function openDrawer() {
-        mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
-        mobileDrawerCard.classList.remove('translate-x-full');
-        document.body.style.overflow = 'hidden';
-      }
+      function openDrawer() { mobileDrawer.classList.remove('opacity-0','pointer-events-none'); mobileDrawerCard.classList.remove('translate-x-full'); document.body.style.overflow='hidden'; }
+      function closeDrawer() { mobileDrawer.classList.add('opacity-0','pointer-events-none'); mobileDrawerCard.classList.add('translate-x-full'); document.body.style.overflow=''; }
 
-      function closeDrawer() {
-        mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
-        mobileDrawerCard.classList.add('translate-x-full');
-        document.body.style.overflow = '';
-      }
+      if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+      if(mobileMenuClose) mobileMenuClose.addEventListener('click', closeDrawer);
+      if(mobileDrawer) mobileDrawer.addEventListener('click', e => { if(e.target===mobileDrawer) closeDrawer(); });
 
-      if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
-      if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeDrawer);
-      if (mobileDrawer) {
-        mobileDrawer.addEventListener('click', (e) => {
-          if (e.target === mobileDrawer) closeDrawer();
-        });
-      }
-
-      // Search Modal Elements
       const searchOpenBtn = document.getElementById('searchOpenBtn');
       const searchCloseBtn = document.getElementById('searchCloseBtn');
       const searchModal = document.getElementById('searchModal');
       const searchModalCard = document.getElementById('searchModalCard');
 
-      function openSearch() {
-        searchModal.classList.remove('opacity-0', 'pointer-events-none');
-        searchModalCard.classList.remove('-translate-y-4');
-      }
+      function openSearch() { searchModal.classList.remove('opacity-0','pointer-events-none'); searchModalCard.classList.remove('-translate-y-4'); }
+      function closeSearch() { searchModal.classList.add('opacity-0','pointer-events-none'); searchModalCard.classList.add('-translate-y-4'); }
 
-      function closeSearch() {
-        searchModal.classList.add('opacity-0', 'pointer-events-none');
-        searchModalCard.classList.add('-translate-y-4');
-      }
+      if(searchOpenBtn) searchOpenBtn.addEventListener('click', openSearch);
+      if(searchCloseBtn) searchCloseBtn.addEventListener('click', closeSearch);
+      if(searchModal) searchModal.addEventListener('click', e => { if(e.target===searchModal) closeSearch(); });
 
-      if (searchOpenBtn) searchOpenBtn.addEventListener('click', openSearch);
-      if (searchCloseBtn) searchCloseBtn.addEventListener('click', closeSearch);
-      if (searchModal) {
-        searchModal.addEventListener('click', (e) => {
-          if (e.target === searchModal) closeSearch();
-        });
-      }
-
-      // Back to Top Button Logic
       const backToTopBtn = document.getElementById('backToTopBtn');
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-        } else {
-          backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-        }
+        if(window.scrollY>300){ backToTopBtn.classList.remove('opacity-0','pointer-events-none'); }
+        else { backToTopBtn.classList.add('opacity-0','pointer-events-none'); }
       });
+      if(backToTopBtn) backToTopBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
-      if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-
-      // Escape Key Listener
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          closeDrawer();
-          closeSearch();
-        }
-      });
+      window.addEventListener('keydown', e => { if(e.key==='Escape'){ closeDrawer(); closeSearch(); } });
     });
 
-    // Toast Notification Dispatcher
     function showSubscribeToast() {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
-      toast.className = 'px-5 py-3.5 bg-brandDark text-white rounded-2xl text-xs font-display font-semibold tracking-wide shadow-2xl border border-brandOrange flex items-center gap-3 transform -translate-x-4 opacity-0 transition-all duration-300 pointer-events-auto';
-      toast.innerHTML = `<i class="fa-solid fa-circle-check text-brandOrange text-sm"></i> <span>Thank you for subscribing to KAFUOSA Dispatch!</span>`;
-
+      toast.className = 'px-5 py-3 text-white text-xs font-semibold shadow-2xl flex items-center gap-3 transform -translate-x-4 opacity-0 transition-all duration-300 pointer-events-auto rounded-sm';
+      toast.style.cssText = 'background:#1A1428; border:1px solid rgba(176,141,87,0.3); font-family:Josefin Sans,sans-serif; letter-spacing:0.08em;';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-artAccent text-sm" style="color:#B08D57"></i> <span>Subscribed to KAFUOSA Dispatch!</span>`;
       container.appendChild(toast);
-
-      requestAnimationFrame(() => {
-        toast.classList.remove('-translate-x-4', 'opacity-0');
-      });
-
-      setTimeout(() => {
-        toast.classList.add('-translate-x-4', 'opacity-0');
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
+      requestAnimationFrame(() => toast.classList.remove('-translate-x-4','opacity-0'));
+      setTimeout(() => { toast.classList.add('-translate-x-4','opacity-0'); setTimeout(() => toast.remove(), 300); }, 3500);
     }
   </script>
 

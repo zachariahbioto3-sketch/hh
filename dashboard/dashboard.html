@@ -1,0 +1,84 @@
+﻿{% extends "base.html" %}
+{% block title %}Staff Dashboard — KAFUOSA{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-16">
+  <div class="text-center mb-12">
+    <div class="deco-divider max-w-xs mx-auto mb-4">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+        Administration
+      </span>
+    </div>
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-white tracking-widest">
+      Staff Dashboard
+    </h1>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
+        <i class="fa-solid fa-users text-artAccent text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-white mb-1">{{ total_members }}</p>
+      <p class="text-xs uppercase tracking-widest text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Total Members</p>
+    </div>
+
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
+        <i class="fa-solid fa-user-check text-emerald-400 text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-emerald-400 mb-1">{{ approved }}</p>
+      <p class="text-xs uppercase tracking-widest text-emerald-400/80 font-semibold" style="font-family:'Josefin Sans',sans-serif;">Approved Members</p>
+    </div>
+
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
+        <i class="fa-solid fa-clock text-amber-400 text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-amber-400 mb-1">{{ pending }}</p>
+      <p class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold" style="font-family:'Josefin Sans',sans-serif;">Pending Approvals</p>
+    </div>
+
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
+        <i class="fa-solid fa-calendar-days text-artAccent text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-white mb-1">{{ total_events }}</p>
+      <p class="text-xs uppercase tracking-widest text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Total Events</p>
+    </div>
+
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
+        <i class="fa-solid fa-ticket text-artAccent text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-white mb-1">{{ total_rsvps }}</p>
+      <p class="text-xs uppercase tracking-widest text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Total RSVPs</p>
+    </div>
+
+    <div class="art-card p-8 text-center relative overflow-hidden">
+      <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center rounded-sm" style="background:rgba(225,29,72,0.15); border:1px solid rgba(225,29,72,0.3);">
+        <i class="fa-solid fa-envelope-open-text text-rose-400 text-sm"></i>
+      </div>
+      <p class="font-display font-bold text-4xl text-rose-400 mb-1">{{ unread_messages }}</p>
+      <p class="text-xs uppercase tracking-widest text-rose-400/80 font-semibold" style="font-family:'Josefin Sans',sans-serif;">Unread Messages</p>
+    </div>
+  </div>
+
+  <!-- Export Actions -->
+  <div class="art-card p-8 text-center">
+    <h3 class="font-display text-lg text-white mb-6 tracking-wider">Export Data Reports</h3>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href="/dashboard/export/members/" class="btn-primary px-6 py-3 rounded-sm text-xs font-semibold uppercase tracking-widest inline-flex items-center gap-2" style="font-family:'Josefin Sans',sans-serif;">
+        <i class="fa-solid fa-file-csv text-artAccent"></i> Export Members CSV
+      </a>
+      <a href="/dashboard/export/rsvps/" class="btn-primary px-6 py-3 rounded-sm text-xs font-semibold uppercase tracking-widest inline-flex items-center gap-2" style="font-family:'Josefin Sans',sans-serif;">
+        <i class="fa-solid fa-file-csv text-artAccent"></i> Export RSVPs CSV
+      </a>
+      <a href="/dashboard/export/contacts/" class="btn-primary px-6 py-3 rounded-sm text-xs font-semibold uppercase tracking-widest inline-flex items-center gap-2" style="font-family:'Josefin Sans',sans-serif;">
+        <i class="fa-solid fa-file-csv text-artAccent"></i> Export Contacts CSV
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

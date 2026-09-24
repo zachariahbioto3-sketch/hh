@@ -1,0 +1,50 @@
+﻿{% extends "base.html" %}
+{% block title %}My Profile — KAFUOSA{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+  <div class="art-card p-8 md:p-12 text-center relative overflow-hidden">
+    <div class="deco-divider max-w-xs mx-auto mb-6">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+        Member Portal
+      </span>
+    </div>
+
+    <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full deco-border" style="background: rgba(82,40,136,0.3);">
+      <i class="fa-solid fa-user text-2xl text-artAccent"></i>
+    </div>
+
+    <h1 class="font-display font-bold text-3xl text-white tracking-wider mb-2">
+      My Profile
+    </h1>
+
+    <div class="p-6 rounded-sm mb-8 space-y-4 border text-left max-w-md mx-auto" style="background:#0D0A14; border-color: rgba(176,141,87,0.2);">
+      {% if member %}
+        <div class="flex items-center justify-between pb-3 border-b" style="border-color: rgba(176,141,87,0.12);">
+          <span class="text-xs uppercase tracking-widest text-white/60" style="font-family:'Josefin Sans',sans-serif;">Status</span>
+          <span class="px-3 py-1 text-xs font-semibold rounded-sm text-artAccentL" style="background: rgba(82,40,136,0.4); border:1px solid rgba(176,141,87,0.3); font-family:'Josefin Sans',sans-serif;">
+            {{ member.get_status_display }}
+          </span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-widest text-white/60" style="font-family:'Josefin Sans',sans-serif;">Tier</span>
+          <span class="px-3 py-1 text-xs font-semibold rounded-sm text-white" style="background: rgba(176,141,87,0.2); border:1px solid rgba(176,141,87,0.3); font-family:'Josefin Sans',sans-serif;">
+            {{ member.get_tier_display }}
+          </span>
+        </div>
+      {% else %}
+        <p class="text-xs text-white/50 text-center py-2" style="font-family:'Inter',sans-serif;">
+          No member profile linked to your account.
+        </p>
+      {% endif %}
+    </div>
+
+    <form method="post" action="/members/logout/" class="max-w-md mx-auto">
+      {% csrf_token %}
+      <button type="submit" class="w-full btn-primary py-3 rounded-sm text-xs font-semibold uppercase tracking-widest flex items-center justify-center gap-2" style="font-family:'Josefin Sans',sans-serif;">
+        <i class="fa-solid fa-right-from-bracket text-artAccent"></i> Logout
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+﻿{% extends "base.html" %}
+{% block title %}Contact Us — KAFUOSA{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+  <div class="art-card p-8 md:p-12">
+    <div class="text-center mb-10">
+      <div class="deco-divider max-w-xs mx-auto mb-4">
+        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+          Get In Touch
+        </span>
+      </div>
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-white tracking-wider">
+        Contact Us
+      </h1>
+      <p class="text-white/50 text-xs mt-2" style="font-family:'Inter',sans-serif;">
+        Have questions or want to partner with KAFUOSA? Send us a message below.
+      </p>
+    </div>
+
+    <form method="post" class="space-y-5">
+      {% csrf_token %}
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Your Name</label>
+        <input name="name" placeholder="Enter your name" class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;" />
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Email Address</label>
+        <input name="email" type="email" placeholder="Enter your email" class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;" />
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Subject</label>
+        <input name="subject" placeholder="Subject of message" class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Josefin Sans',sans-serif;" />
+      </div>
+
+      <div>
+        <label class="block text-[11px] uppercase tracking-widest text-artAccent mb-1.5" style="font-family:'Josefin Sans',sans-serif;">Message</label>
+        <textarea name="message" rows="5" placeholder="Write your message here..." class="w-full px-4 py-3 text-xs text-white placeholder-white/30 rounded-sm focus:outline-none focus:border-artAccent transition" style="background:#0D0A14; border:1px solid rgba(176,141,87,0.25); font-family:'Inter',sans-serif;"></textarea>
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" class="w-full btn-primary py-3.5 rounded-sm text-xs font-semibold uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif;">
+          Send Message
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

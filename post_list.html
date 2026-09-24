@@ -1,0 +1,55 @@
+﻿{% extends "base.html" %}
+{% block title %}News & Updates — KAFUOSA{% endblock %}
+
+{% block content %}
+<!-- Header Banner -->
+<section class="relative overflow-hidden deco-sunburst py-16 md:py-20 text-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+    <div class="deco-divider mb-4 max-w-xs mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+        KAFUOSA Dispatch
+      </span>
+    </div>
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-white tracking-widest mb-4">
+      Latest <span class="text-aurora">News &amp; Updates</span>
+    </h1>
+    <p class="text-white/55 text-sm max-w-xl mx-auto leading-relaxed" style="font-family:'Inter',sans-serif;">
+      Stay informed on vision science developments, clinical workshops, student achievements, and community outreach efforts.
+    </p>
+  </div>
+</section>
+
+<!-- News Grid -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-20">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for p in posts %}
+      <div class="art-card flex flex-col justify-between p-6 group">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3 text-[10px] uppercase tracking-widest text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+            <span>{{ p.get_category_display }}</span>
+            <span class="text-white/40 font-normal flex items-center gap-1">
+              <i class="fa-regular fa-clock text-[9px]"></i> {{ p.published_at|date:"d M Y" }}
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white group-hover:text-artAccentL transition mb-3 leading-snug">
+            <a href="/news/{{ p.slug }}/">{{ p.title }}</a>
+          </h3>
+          <p class="text-white/55 text-xs line-clamp-3 leading-relaxed mb-6" style="font-family:'Inter',sans-serif;">
+            {{ p.excerpt }}
+          </p>
+        </div>
+        <div class="pt-4 border-t" style="border-color: rgba(176,141,87,0.12);">
+          <a href="/news/{{ p.slug }}/" class="inline-flex items-center gap-2 btn-primary px-4 py-2 rounded-sm text-xs font-semibold uppercase tracking-wider" style="font-family:'Josefin Sans',sans-serif;">
+            Read Article <i class="fa-solid fa-arrow-right text-[10px] text-artAccent"></i>
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-span-full art-card p-12 text-center">
+        <i class="fa-solid fa-newspaper text-3xl text-artAccent/40 mb-3 block"></i>
+        <p class="text-white/50 text-sm">No news posts published yet. Check back soon!</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
