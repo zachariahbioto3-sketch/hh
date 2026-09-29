@@ -188,6 +188,7 @@
         <a href="{% url 'pages:about' %}" class="nav-link text-white/80 hover:text-white transition uppercase">About</a>
         <a href="{% url 'events:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Events</a>
         <a href="{% url 'news:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">News</a>
+        <a href="{% url 'gallery:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Gallery</a>
         <a href="{% url 'resources:list' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Resources</a>
         <a href="{% url 'pages:contact' %}" class="nav-link text-white/80 hover:text-white transition uppercase">Contact</a>
       </nav>
@@ -243,6 +244,9 @@
           </a>
           <a href="{% url 'news:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
             News <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
+          </a>
+          <a href="{% url 'gallery:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
+            Gallery <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
           </a>
           <a href="{% url 'resources:list' %}" class="px-4 py-3 uppercase text-white/80 hover:text-artAccentL hover:bg-artPurple/10 transition flex items-center justify-between rounded-sm">
             Resources <i class="fa-solid fa-chevron-right text-[10px] text-artAccent"></i>
@@ -441,6 +445,7 @@
             <li><a href="{% url 'pages:about' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> About</a></li>
             <li><a href="{% url 'events:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Events</a></li>
             <li><a href="{% url 'news:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> News</a></li>
+            <li><a href="{% url 'gallery:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Gallery</a></li>
             <li><a href="{% url 'resources:list' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Resources</a></li>
             <li><a href="{% url 'pages:contact' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Contact</a></li>
           </ul>
