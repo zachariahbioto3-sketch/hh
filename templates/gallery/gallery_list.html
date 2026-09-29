@@ -1,221 +1,81 @@
-﻿{% extends "base.html" %}
-{% block title %}Gallery — KAFUOSA{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Gallery | KAFUOSA{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'css/gallery.css' %}">{% endblock %}
 {% block content %}
-
-<style>
-  .gallery-card {
-    background: rgba(26,20,40,0.85);
-    border: 1px solid rgba(176,141,87,0.18);
-    border-radius: 2px;
-    transition: all 0.35s ease;
-    position: relative;
-  }
-  .gallery-card::before, .gallery-card::after {
-    content:''; position:absolute; width:12px; height:12px;
-    border-color:rgba(176,141,87,0.5); border-style:solid;
-    transition: all 0.3s ease;
-    z-index:2;
-  }
-  .gallery-card::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
-  .gallery-card::after  { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
-  .gallery-card:hover {
-    border-color: rgba(176,141,87,0.42);
-    box-shadow: 0 12px 40px rgba(82,40,136,0.3), 0 0 0 1px rgba(176,141,87,0.12);
-    transform: translateY(-4px);
-  }
-  .gallery-card:hover::before, .gallery-card:hover::after {
-    border-color:rgba(176,141,87,0.9);
-    width:18px; height:18px;
-  }
-  .grid-masonry { column-count:1; column-gap:1.5rem; }
-  @media(min-width:640px){ .grid-masonry{ column-count:2; } }
-  @media(min-width:1024px){ .grid-masonry{ column-count:3; } }
-  .masonry-item { break-inside:avoid; margin-bottom:1.5rem; }
-  .bento-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); grid-auto-rows:240px; grid-auto-flow:dense; gap:1.25rem; }
-  @media(min-width:768px){ .bento-item-large{ grid-column:span 2; grid-row:span 2; } .bento-item-wide{ grid-column:span 2; } }
-  .text-gold { background:linear-gradient(135deg,#C9A96E 0%,#B08D57 60%,#8A6D3F 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-  .deco-divider { display:flex; align-items:center; gap:12px; }
-  .deco-divider::before,.deco-divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(176,141,87,0.35),transparent); }
-</style>
-
-<div class="min-h-screen" style="background:#0D0A14;">
-
-  <!-- Hero Banner -->
-  <div class="relative overflow-hidden" style="background:radial-gradient(ellipse at 50% 0%,rgba(82,40,136,0.35) 0%,rgba(13,10,20,0) 70%);">
-    <!-- geometric grid lines -->
-    <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px);"></div>
-    <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(176,141,87,0.35),transparent);"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 relative z-10">
-      <div class="text-center mb-10">
-        <div class="deco-divider mb-6 max-w-xs mx-auto">
-          <span class="text-[10px] uppercase tracking-[0.4em] font-semibold" style="font-family:'Josefin Sans',sans-serif; color:#B08D57;">
-            KAFUOSA &bull; Visual Archive
-          </span>
-        </div>
-        <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mb-4 tracking-widest">
-          PHOTO <span class="text-gold">GALLERY</span>
-        </h1>
-        <p class="text-sm text-white/45 max-w-lg mx-auto leading-relaxed" style="font-family:'Inter',sans-serif;">
-          A curated visual archive of our outreach events, academic milestones, and community moments.
-        </p>
-      </div>
-
-      <!-- Stats Row -->
-      <div class="flex items-center justify-center gap-0 mb-10">
-        <div class="text-center px-8 py-4 border-r" style="border-color:rgba(176,141,87,0.2);">
-          <span class="block text-2xl font-bold font-display text-gold" id="statAlbums">{{ albums|length }}</span>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-white/40 block mt-0.5" style="font-family:'Josefin Sans',sans-serif;">Albums</span>
-        </div>
-        <div class="text-center px-8 py-4 border-r" style="border-color:rgba(176,141,87,0.2);">
-          <span class="block text-2xl font-bold font-display text-white" id="statPhotos">{{ total_photos }}</span>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-white/40 block mt-0.5" style="font-family:'Josefin Sans',sans-serif;">Photos</span>
-        </div>
-        <div class="text-center px-8 py-4">
-          <span class="block text-2xl font-bold font-display text-gold">2026</span>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-white/40 block mt-0.5" style="font-family:'Josefin Sans',sans-serif;">Catalog</span>
-        </div>
-      </div>
-
-      <!-- Toolbar -->
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <div class="relative flex-1 max-w-sm">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[10px]" style="color:rgba(176,141,87,0.5);"></i>
-          <input type="text" id="searchInput" placeholder="Search albums..."
-            class="w-full pl-9 pr-4 py-2.5 text-sm focus:outline-none transition-all"
-            style="background:rgba(26,20,40,0.8); border:1px solid rgba(176,141,87,0.2); color:#EDE9F4; font-family:'Josefin Sans',sans-serif; border-radius:2px;">
-        </div>
-        <div class="flex items-center gap-1 p-1" style="background:rgba(26,20,40,0.8); border:1px solid rgba(176,141,87,0.2); border-radius:2px;">
-          <button id="viewGridBtn" onclick="setView('grid')"
-            class="px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 transition-all"
-            style="border-radius:2px; font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; background:rgba(82,40,136,0.5); color:#C9A96E; border:1px solid rgba(176,141,87,0.25);">
-            <i class="fa-solid fa-border-all"></i> Grid
-          </button>
-          <button id="viewMasonryBtn" onclick="setView('masonry')"
-            class="px-3 py-1.5 text-xs flex items-center gap-1.5 transition-all"
-            style="border-radius:2px; font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; color:rgba(255,255,255,0.4);">
-            <i class="fa-solid fa-align-left rotate-90"></i> Masonry
-          </button>
-          <button id="viewBentoBtn" onclick="setView('bento')"
-            class="px-3 py-1.5 text-xs flex items-center gap-1.5 transition-all"
-            style="border-radius:2px; font-family:'Josefin Sans',sans-serif; letter-spacing:0.1em; color:rgba(255,255,255,0.4);">
-            <i class="fa-solid fa-table-cells-large"></i> Bento
-          </button>
-        </div>
+<div class="g-page">
+  <div class="g-hero">
+    <div class="g-wrap g-center">
+      <span class="g-kicker">KAFUOSA &bull; Visual Archive</span>
+      <h1 class="g-title">Photo <span>Gallery</span></h1>
+      <p class="g-sub">A curated visual archive of our outreach events, academic milestones, and community moments.</p>
+      <div class="g-stats">
+        <div class="g-stat"><b>{{ albums|length }}</b><small>Albums</small></div>
+        <div class="g-stat"><b>{{ total_photos }}</b><small>Photos</small></div>
       </div>
     </div>
   </div>
 
-  <!-- Albums Grid -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div id="albumsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]">
+  <div class="g-wrap">
+    <div class="g-toolbar">
+      <div class="g-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search albums...">
+      </div>
+      {% include "gallery/_switcher.html" %}
+    </div>
+
+    <div id="gGrid" data-view="grid">
       {% for album in albums %}
       {% with cover=album.cover %}
-      <a href="/gallery/{{ album.pk }}/"
-         class="album-card gallery-card group block overflow-hidden cursor-pointer"
-         data-title="{{ album.title|lower }}">
-        <div class="relative h-52 overflow-hidden" style="background:#130F1E;">
+      <a href="{% url 'gallery:detail' album.pk %}" class="g-card g-item album-card" data-title="{{ album.title|lower }}">
+        <div class="g-media">
           {% if cover and cover.image %}
-          <img src="{{ cover.image.url }}" alt="{{ album.title }}"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85 group-hover:opacity-100"/>
+          <img src="{{ cover.image.url }}" alt="{{ album.title }}" loading="lazy">
           {% else %}
-          <div class="w-full h-full flex items-center justify-center" style="background:rgba(26,20,40,0.9);">
-            <i class="fa-solid fa-images text-4xl" style="color:rgba(176,141,87,0.2);"></i>
-          </div>
+          <div class="g-ph"><i class="fa-solid fa-images"></i></div>
           {% endif %}
-          <div class="absolute inset-0 flex items-end p-4" style="background:linear-gradient(to top, rgba(13,10,20,0.9) 0%, transparent 55%);">
-            <span class="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif; background:rgba(82,40,136,0.4); border:1px solid rgba(176,141,87,0.25); color:#C9A96E; border-radius:1px;">
-              {{ album.photos.count }} photo{{ album.photos.count|pluralize }}
-            </span>
-          </div>
-          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div class="w-11 h-11 flex items-center justify-center" style="background:rgba(82,40,136,0.5); border:1px solid rgba(176,141,87,0.4); backdrop-filter:blur(8px); border-radius:2px;">
-              <i class="fa-solid fa-eye" style="color:#C9A96E;"></i>
-            </div>
-          </div>
+          <span class="g-badge">{{ album.photos.count }} photo{{ album.photos.count|pluralize }}</span>
         </div>
-        <div class="p-5">
-          <h3 class="font-display font-bold text-sm text-white group-hover:text-gold transition-all tracking-widest leading-snug" style="font-size:13px;">{{ album.title }}</h3>
-          {% if album.description %}
-          <p class="text-xs mt-2 line-clamp-2 text-white/40 leading-relaxed" style="font-family:'Inter',sans-serif;">{{ album.description }}</p>
-          {% endif %}
-          <div class="flex items-center gap-2 mt-3 text-[11px]" style="color:rgba(176,141,87,0.5); font-family:'Josefin Sans',sans-serif;">
-            <i class="fa-regular fa-calendar text-[10px]"></i>
-            <span>{{ album.created_at|date:"M d, Y" }}</span>
-          </div>
+        <div class="g-body">
+          <h3>{{ album.title }}</h3>
+          {% if album.description %}<p>{{ album.description }}</p>{% endif %}
+          <div class="g-meta"><i class="fa-regular fa-calendar"></i> {{ album.created_at|date:"M d, Y" }}</div>
         </div>
       </a>
       {% endwith %}
       {% empty %}
-      <div class="col-span-3 flex flex-col items-center justify-center py-24 gallery-card">
-        <div class="w-16 h-16 flex items-center justify-center mb-5" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2); border-radius:2px;">
-          <i class="fa-solid fa-images text-2xl" style="color:rgba(176,141,87,0.4);"></i>
-        </div>
-        <h3 class="font-display text-lg font-bold text-white mb-2 tracking-widest">No Albums Yet</h3>
-        <p class="text-xs text-white/35" style="font-family:'Josefin Sans',sans-serif;">Check back soon for visual updates.</p>
+      <div class="g-empty">
+        <i class="fa-solid fa-images"></i>
+        <h3>No Albums Yet</h3>
+        <p>Check back soon for visual updates.</p>
       </div>
       {% endfor %}
+      <div class="g-empty" id="emptySearch" style="display:none;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <p>No albums match your search.</p>
+        <button type="button" class="g-btn" id="clearSearch">Clear Search</button>
+      </div>
     </div>
-
-    <div id="emptySearch" class="hidden flex-col items-center justify-center py-20 text-center">
-      <i class="fa-solid fa-magnifying-glass text-2xl mb-4" style="color:rgba(176,141,87,0.25);"></i>
-      <p class="text-sm text-white/40" style="font-family:'Josefin Sans',sans-serif;">No albums match your search.</p>
-      <button onclick="document.getElementById('searchInput').value=''; filterAlbums();"
-              class="mt-4 px-6 py-2 text-xs font-semibold uppercase tracking-widest transition-all"
-              style="background:rgba(82,40,136,0.4); border:1px solid rgba(176,141,87,0.25); color:#C9A96E; font-family:'Josefin Sans',sans-serif; border-radius:2px;">
-        Clear Search
-      </button>
-    </div>
-
-    <div class="pb-16"></div>
   </div>
 </div>
 
 <script>
-  let viewMode = 'grid';
-  const cards = document.querySelectorAll('.album-card');
-
-  function setView(mode) {
-    viewMode = mode;
-    const grid = document.getElementById('albumsGrid');
-    const btns = {
-      grid: document.getElementById('viewGridBtn'),
-      masonry: document.getElementById('viewMasonryBtn'),
-      bento: document.getElementById('viewBentoBtn')
-    };
-    Object.values(btns).forEach(b => {
-      b.style.background = 'transparent';
-      b.style.color = 'rgba(255,255,255,0.4)';
-      b.style.border = 'none';
-    });
-    btns[mode].style.background = 'rgba(82,40,136,0.5)';
-    btns[mode].style.color = '#C9A96E';
-    btns[mode].style.border = '1px solid rgba(176,141,87,0.25)';
-
-    grid.className = '';
-    if (mode === 'grid') {
-      grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[300px]';
-      cards.forEach(c => c.style.marginBottom = '');
-    } else if (mode === 'masonry') {
-      grid.className = 'grid-masonry min-h-[300px]';
-      cards.forEach(c => c.classList.add('masonry-item'));
-    } else if (mode === 'bento') {
-      grid.className = 'bento-grid min-h-[300px]';
-    }
-  }
-
+document.addEventListener('DOMContentLoaded', function () {
+  var input = document.getElementById('searchInput');
+  var cards = document.querySelectorAll('.album-card');
+  var empty = document.getElementById('emptySearch');
   function filterAlbums() {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    let visible = 0;
-    cards.forEach(c => {
-      const match = !q || (c.getAttribute('data-title')||'').includes(q);
-      c.style.display = match ? '' : 'none';
-      if (match) visible++;
+    var q = input.value.toLowerCase().trim(), visible = 0;
+    cards.forEach(function (c) {
+      var ok = !q || (c.getAttribute('data-title') || '').indexOf(q) > -1;
+      c.style.display = ok ? '' : 'none';
+      if (ok) visible++;
     });
-    const empty = document.getElementById('emptySearch');
-    empty.style.display = visible === 0 ? 'flex' : 'none';
+    empty.style.display = (cards.length && visible === 0) ? 'block' : 'none';
   }
-
-  document.getElementById('searchInput').addEventListener('input', filterAlbums);
+  input.addEventListener('input', filterAlbums);
+  document.getElementById('clearSearch').addEventListener('click', function () { input.value = ''; filterAlbums(); });
+});
 </script>
 {% endblock %}

@@ -1,0 +1,22 @@
+<div class="g-switch" role="group" aria-label="Layout">
+  <button type="button" data-view="grid"><i class="fa-solid fa-border-all"></i> Grid</button>
+  <button type="button" data-view="masonry"><i class="fa-solid fa-align-left fa-rotate-90"></i> Masonry</button>
+  <button type="button" data-view="bento"><i class="fa-solid fa-table-cells-large"></i> Bento</button>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var grid = document.getElementById('gGrid');
+  if (!grid) return;
+  var btns = document.querySelectorAll('.g-switch button');
+  var modes = ['grid', 'masonry', 'bento'];
+  function setView(v) {
+    grid.setAttribute('data-view', v);
+    btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-view') === v); });
+    try { localStorage.setItem('kafuosa-gallery-view', v); } catch (e) {}
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { setView(b.getAttribute('data-view')); }); });
+  var saved = null;
+  try { saved = localStorage.getItem('kafuosa-gallery-view'); } catch (e) {}
+  setView(modes.indexOf(saved) > -1 ? saved : 'grid');
+});
+</script>
