@@ -1,16 +1,308 @@
-{% extends "base.html" %}
-{% block title %}My Profile{% endblock %}
+﻿{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Profile — KAFUOSA{% endblock %}
+
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 py-20 text-center">
-  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-8">My Profile</h1>
-  <div class="bg-gray-50 border border-gray-100 p-8 inline-block text-left min-w-[320px]">
-    {% if member %}
-    <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Status: <strong class="text-[#8080B8]">{{ member.get_status_display }}</strong></p>
-    <p class="text-sm text-gray-500 uppercase tracking-widest mb-8">Tier: <strong class="text-[#1e1e1e]">{{ member.get_tier_display }}</strong></p>
-    {% else %}
-    <p class="text-gray-500 mb-8">No member profile linked to your account.</p>
-    {% endif %}
-    <form method="post" action="/members/logout/">{% csrf_token %}<button type="submit" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-6 py-3 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition w-full">Logout</button></form>
+<style>
+.profile-input {
+    width:100%; background:rgba(255,255,255,0.04);
+    border:1px solid rgba(176,141,87,0.2); color:#fff;
+    padding:0.6rem 1rem; font-size:0.85rem;
+    font-family:"Inter",sans-serif; outline:none; transition:border-color .2s;
+}
+.profile-input:focus { border-color:rgba(176,141,87,0.6); }
+.profile-input::placeholder { color:rgba(255,255,255,0.25); }
+textarea.profile-input { resize:vertical; }
+</style>
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-16">
+
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="mb-6 px-5 py-3 text-sm font-semibold rounded-sm" style="background:rgba(176,141,87,0.12);border:1px solid rgba(176,141,87,0.3);color:#C9A96E;font-family:Josefin Sans,sans-serif;">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- HEADER -->
+  <div class="deco-border p-8 mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-8" style="background:#130F1E;">
+    <div class="relative shrink-0">
+      {% if member.photo %}
+        <img src="{{ member.photo.url }}" class="w-28 h-28 object-cover rounded-sm" style="border:2px solid rgba(176,141,87,0.4);" />
+      {% else %}
+        <div class="w-28 h-28 rounded-sm flex items-center justify-center" style="background:rgba(82,40,136,0.3);border:2px solid rgba(176,141,87,0.3);">
+          <i class="fa-solid fa-user text-artAccent text-4xl opacity-50"></i>
+        </div>
+      {% endif %}
+    </div>
+    <div class="flex-1 text-center sm:text-left space-y-2">
+      <h1 class="font-display font-bold text-2xl text-white tracking-widest">{{ request.user.get_full_name|default:request.user.username }}</h1>
+      <p class="text-white/40 text-xs uppercase tracking-widest" style="font-family:Josefin Sans,sans-serif;">Reg No: {{ member.registration_number }}</p>
+      <div class="flex flex-wrap justify-center sm:justify-start gap-3 mt-3">
+        <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(82,40,136,0.3);border:1px solid rgba(176,141,87,0.25);color:#C9A96E;font-family:Josefin Sans,sans-serif;">{{ member.get_tier_display }}</span>
+        <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="font-family:Josefin Sans,sans-serif;{% if member.status == 'approved' %}background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#4ade80;{% elif member.status == 'pending' %}background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3);color:#facc15;{% else %}background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;{% endif %}">{{ member.get_status_display }}</span>
+        {% if member.has_paid_dues %}
+          <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#4ade80;font-family:Josefin Sans,sans-serif;">Dues Paid</span>
+        {% else %}
+          <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;font-family:Josefin Sans,sans-serif;">Dues Unpaid</span>
+        {% endif %}
+      </div>
+      <p class="text-white/30 text-[11px] mt-2" style="font-family:Josefin Sans,sans-serif;">Member since {{ member.date_joined|date:"F j, Y" }}</p>
+    </div>
+    <div class="flex flex-col gap-3 shrink-0">
+      <button onclick="toggleEdit()" class="btn-primary px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest" style="font-family:Josefin Sans,sans-serif;">
+        <i class="fa-solid fa-pen-to-square mr-2"></i>Edit Profile
+      </button>
+      {% if request.user.is_staff %}
+        <a href="{% url 'dashboard:index' %}" class="px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest text-center text-artAccentL hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(176,141,87,0.3);">
+          <i class="fa-solid fa-gauge mr-2"></i>Dashboard
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- INLINE EDIT PANEL -->
+  <div id="edit-panel" class="hidden deco-border p-8 mb-8" style="background:#130F1E;">
+    <div class="deco-divider mb-6 max-w-xs">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:Josefin Sans,sans-serif;">Edit Your Profile</span>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="edit_profile">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">First Name</label>
+          {{ user_form.first_name }}
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Last Name</label>
+          {{ user_form.last_name }}
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Email</label>
+          {{ user_form.email }}
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Phone Number</label>
+          {{ profile_form.phone_number }}
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Year of Study</label>
+          {{ profile_form.year_of_study }}
+        </div>
+        <div>
+          <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Profile Photo</label>
+          {{ profile_form.photo }}
+        </div>
+      </div>
+      <div class="mb-6">
+        <label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Bio</label>
+        {{ profile_form.bio }}
+      </div>
+      <div class="flex gap-4">
+        <button type="submit" class="btn-primary px-8 py-2.5 rounded-sm text-xs font-semibold tracking-widest" style="font-family:Josefin Sans,sans-serif;">Save Changes</button>
+        <button type="button" onclick="toggleEdit()" class="px-8 py-2.5 rounded-sm text-xs font-semibold text-white/50 hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(255,255,255,0.1);">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 space-y-6">
+
+      <!-- PERSONAL INFO -->
+      <div class="art-card p-6">
+        <h2 class="font-display font-bold text-sm text-white tracking-widest mb-5 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Personal Information</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-envelope text-artAccent text-xs"></i></div>
+            <div>
+              <p class="text-[10px] uppercase tracking-widest text-white/35" style="font-family:Josefin Sans,sans-serif;">Email</p>
+              <p class="text-white text-sm mt-0.5" style="font-family:Inter,sans-serif;">{{ request.user.email|default:"—" }}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-phone text-artAccent text-xs"></i></div>
+            <div>
+              <p class="text-[10px] uppercase tracking-widest text-white/35" style="font-family:Josefin Sans,sans-serif;">Phone</p>
+              <p class="text-white text-sm mt-0.5" style="font-family:Inter,sans-serif;">{{ member.phone_number|default:"—" }}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-graduation-cap text-artAccent text-xs"></i></div>
+            <div>
+              <p class="text-[10px] uppercase tracking-widest text-white/35" style="font-family:Josefin Sans,sans-serif;">Year of Study</p>
+              <p class="text-white text-sm mt-0.5" style="font-family:Inter,sans-serif;">Year {{ member.year_of_study|default:"—" }}</p>
+            </div>
+          </div>
+          {% if member.bio %}
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-quote-left text-artAccent text-xs"></i></div>
+            <div>
+              <p class="text-[10px] uppercase tracking-widest text-white/35" style="font-family:Josefin Sans,sans-serif;">Bio</p>
+              <p class="text-white/60 text-sm mt-0.5 leading-relaxed" style="font-family:Inter,sans-serif;">{{ member.bio }}</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- MY EVENTS -->
+      <div class="art-card p-6">
+        <h2 class="font-display font-bold text-sm text-white tracking-widest mb-5 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">My Events</h2>
+        {% if rsvps %}
+          <div class="space-y-3">
+            {% for rsvp in rsvps %}
+            <div class="flex items-center justify-between p-4 rounded-sm" style="background:rgba(255,255,255,0.02);border:1px solid rgba(176,141,87,0.1);">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-sm flex flex-col items-center justify-center shrink-0" style="background:rgba(82,40,136,0.3);border:1px solid rgba(176,141,87,0.2);">
+                  <span class="text-[9px] font-bold text-artAccentL uppercase" style="font-family:Josefin Sans,sans-serif;">{{ rsvp.event.start_datetime|date:"M" }}</span>
+                  <span class="text-sm font-display font-bold text-white">{{ rsvp.event.start_datetime|date:"d" }}</span>
+                </div>
+                <div>
+                  <p class="text-white text-sm font-semibold" style="font-family:Josefin Sans,sans-serif;">{{ rsvp.event.title }}</p>
+                  <p class="text-white/35 text-[11px]" style="font-family:Inter,sans-serif;">{{ rsvp.event.venue }}</p>
+                </div>
+              </div>
+              {% if rsvp.checked_in %}
+                <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#4ade80;font-family:Josefin Sans,sans-serif;">Checked In</span>
+              {% else %}
+                <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3);color:#facc15;font-family:Josefin Sans,sans-serif;">RSVP'd</span>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center py-10">
+            <i class="fa-solid fa-calendar-xmark text-3xl text-white/10 mb-3 block"></i>
+            <p class="text-white/30 text-sm" style="font-family:Inter,sans-serif;">No events RSVPd yet.</p>
+            <a href="{% url 'events:list' %}" class="text-artAccent hover:text-artAccentL text-xs font-semibold mt-2 inline-block uppercase tracking-widest transition" style="font-family:Josefin Sans,sans-serif;">Browse Events</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- ALUMNI SECTION -->
+      {% if member.tier == "alumni" %}
+      <div class="art-card p-6">
+        <h2 class="font-display font-bold text-sm text-white tracking-widest mb-5 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Alumni Information</h2>
+        {% if alumni %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-1" style="font-family:Josefin Sans,sans-serif;">Graduation Year</p>
+            <p class="text-white text-sm" style="font-family:Inter,sans-serif;">{{ alumni.graduation_year }}</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-1" style="font-family:Josefin Sans,sans-serif;">Employer</p>
+            <p class="text-white text-sm" style="font-family:Inter,sans-serif;">{{ alumni.current_employer|default:"—" }}</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-1" style="font-family:Josefin Sans,sans-serif;">Job Title</p>
+            <p class="text-white text-sm" style="font-family:Inter,sans-serif;">{{ alumni.job_title|default:"—" }}</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-1" style="font-family:Josefin Sans,sans-serif;">Mentoring</p>
+            <p class="text-sm" style="font-family:Inter,sans-serif;color:{% if alumni.available_for_mentoring %}#4ade80{% else %}#f87171{% endif %};">{% if alumni.available_for_mentoring %}Available{% else %}Not Available{% endif %}</p>
+          </div>
+          {% if alumni.linkedin %}
+          <div class="sm:col-span-2">
+            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-1" style="font-family:Josefin Sans,sans-serif;">LinkedIn</p>
+            <a href="{{ alumni.linkedin }}" target="_blank" class="text-artAccent hover:text-artAccentL text-sm transition" style="font-family:Inter,sans-serif;">{{ alumni.linkedin }}</a>
+          </div>
+          {% endif %}
+        </div>
+        {% if mentorships %}
+        <div class="mb-6">
+          <p class="text-[10px] uppercase tracking-widest text-white/35 mb-3" style="font-family:Josefin Sans,sans-serif;">Active Mentees</p>
+          <div class="space-y-2">
+            {% for m in mentorships %}
+            <div class="flex items-center gap-3 p-3 rounded-sm" style="background:rgba(82,40,136,0.1);border:1px solid rgba(176,141,87,0.1);">
+              <i class="fa-solid fa-user-graduate text-artAccent text-xs"></i>
+              <span class="text-white text-sm" style="font-family:Inter,sans-serif;">{{ m.mentee.user.get_full_name }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="pt-4" style="border-top:1px solid rgba(176,141,87,0.1);">
+          <button onclick="toggleAlumniEdit()" class="text-artAccent hover:text-artAccentL text-xs font-semibold uppercase tracking-widest transition" style="font-family:Josefin Sans,sans-serif;">
+            <i class="fa-solid fa-pen-to-square mr-1"></i>Edit Alumni Info
+          </button>
+          <form id="alumni-edit-panel" method="POST" class="hidden mt-5 space-y-4">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="edit_alumni">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div><label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Graduation Year</label>{{ alumni_form.graduation_year }}</div>
+              <div><label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Employer</label>{{ alumni_form.current_employer }}</div>
+              <div><label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">Job Title</label>{{ alumni_form.job_title }}</div>
+              <div><label class="text-[10px] uppercase tracking-widest text-white/40 mb-1 block" style="font-family:Josefin Sans,sans-serif;">LinkedIn URL</label>{{ alumni_form.linkedin }}</div>
+            </div>
+            <div class="flex items-center gap-3">{{ alumni_form.available_for_mentoring }}<label class="text-white/50 text-xs" style="font-family:Josefin Sans,sans-serif;">Available for Mentoring</label></div>
+            <div class="flex gap-4 pt-2">
+              <button type="submit" class="btn-primary px-6 py-2 rounded-sm text-xs font-semibold tracking-widest" style="font-family:Josefin Sans,sans-serif;">Save</button>
+              <button type="button" onclick="toggleAlumniEdit()" class="px-6 py-2 rounded-sm text-xs text-white/40 hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(255,255,255,0.1);">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <!-- RIGHT COL -->
+    <div class="space-y-6">
+
+      <!-- MEMBERSHIP -->
+      <div class="art-card p-6">
+        <h2 class="font-display font-bold text-sm text-white tracking-widest mb-5 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Membership</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-white/40 text-xs uppercase tracking-wider" style="font-family:Josefin Sans,sans-serif;">Tier</span>
+            <span class="text-artAccentL text-xs font-bold uppercase tracking-widest" style="font-family:Josefin Sans,sans-serif;">{{ member.get_tier_display }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-white/40 text-xs uppercase tracking-wider" style="font-family:Josefin Sans,sans-serif;">Status</span>
+            <span class="text-xs font-bold uppercase tracking-widest" style="font-family:Josefin Sans,sans-serif;color:{% if member.status == 'approved' %}#4ade80{% elif member.status == 'pending' %}#facc15{% else %}#f87171{% endif %};">{{ member.get_status_display }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-white/40 text-xs uppercase tracking-wider" style="font-family:Josefin Sans,sans-serif;">Annual Dues</span>
+            <span class="text-xs font-bold uppercase tracking-widest" style="font-family:Josefin Sans,sans-serif;color:{% if member.has_paid_dues %}#4ade80{% else %}#f87171{% endif %};">{% if member.has_paid_dues %}Paid{% else %}Unpaid{% endif %}</span>
+          </div>
+        </div>
+        {% if not member.has_paid_dues %}
+        <div class="mt-5 pt-4" style="border-top:1px solid rgba(176,141,87,0.1);">
+          <p class="text-white/40 text-xs mb-3" style="font-family:Inter,sans-serif;">Pay your annual dues to unlock full member benefits.</p>
+          <a href="#" class="btn-primary w-full py-2.5 rounded-sm text-xs font-semibold tracking-widest text-center block" style="font-family:Josefin Sans,sans-serif;">Pay Dues via M-Pesa</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- ACCOUNT -->
+      <div class="art-card p-6">
+        <h2 class="font-display font-bold text-sm text-white tracking-widest mb-5 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Account</h2>
+        <div class="space-y-3">
+          <a href="/members/password/" class="flex items-center gap-3 p-3 rounded-sm text-white/50 hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;">
+            <i class="fa-solid fa-lock text-artAccent"></i>
+            <span class="uppercase tracking-widest">Change Password</span>
+          </a>
+          <a href="{% url 'members:logout' %}" class="flex items-center gap-3 p-3 rounded-sm text-white/50 hover:text-red-400 transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(255,255,255,0.05);font-size:0.75rem;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="uppercase tracking-widest">Logout</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
+
+<script>
+function toggleEdit() {
+    var p = document.getElementById("edit-panel");
+    p.classList.toggle("hidden");
+    if (!p.classList.contains("hidden")) p.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function toggleAlumniEdit() {
+    document.getElementById("alumni-edit-panel").classList.toggle("hidden");
+}
+</script>
 {% endblock %}
