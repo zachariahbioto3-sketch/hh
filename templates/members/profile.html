@@ -54,7 +54,7 @@ textarea.profile-input { resize:vertical; }
         <i class="fa-solid fa-pen-to-square mr-2"></i>Edit Profile
       </button>
       {% if request.user.is_staff %}
-        <a href="{% url 'dashboard:index' %}" class="px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest text-center text-artAccentL hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(176,141,87,0.3);">
+        <a href="{% url 'dashboard' %}" class="px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest text-center text-artAccentL hover:text-white transition" style="font-family:Josefin Sans,sans-serif;border:1px solid rgba(176,141,87,0.3);">
           <i class="fa-solid fa-gauge mr-2"></i>Dashboard
         </a>
       {% endif %}
