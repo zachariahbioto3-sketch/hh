@@ -20,3 +20,4 @@ base.html.bak
 fix_hero_cdn.py
 fix_revert.py
 scaffold.py
+venv/

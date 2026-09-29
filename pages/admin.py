@@ -10,5 +10,5 @@ class ContactMessageAdmin(admin.ModelAdmin):
 @admin.register(Officer)
 class OfficerAdmin(admin.ModelAdmin):
     list_display  = ('order', 'name', 'position', 'term', 'is_active')
+    list_display_links = ('name')
     list_editable = ('order', 'is_active')
-    ordering      = ('order',)
