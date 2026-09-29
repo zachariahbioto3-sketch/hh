@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}Events — KAFUOSA{% endblock %}
 {% block content %}
@@ -8,7 +8,7 @@
       <div class="deco-divider mb-5 max-w-xs mx-auto">
         <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">What Is On</span>
       </div>
-      <h1 class="font-display font-bold text-2xl sm:text-4xl text-white tracking-widest">Events Calendar</h1>
+      <h1 class="font-display font-bold text-4xl sm:text-6xl text-white tracking-widest">Events Calendar</h1>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
       {% for e in events %}
@@ -31,7 +31,7 @@
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-3">
           <div>
-            <h3 class="font-display font-bold text-sm sm:text-base text-white tracking-wider group-hover:text-artAccentL transition leading-snug">{{ e.title }}</h3>
+            <h3 class="font-display font-bold text-lg sm:text-xl text-white tracking-wider group-hover:text-artAccentL transition leading-snug">{{ e.title }}</h3>
             <p class="text-white/40 text-xs mt-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-location-dot mr-1 text-artAccent"></i>{{ e.venue }}</p>
             <p class="text-white/40 text-xs mt-1" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-clock mr-1 text-artAccent"></i>{{ e.start_datetime|date:"g:i A" }}</p>
           </div>

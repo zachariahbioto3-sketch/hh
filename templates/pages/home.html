@@ -1,318 +1,465 @@
-﻿{% extends "base.html" %}
-{% load static %}
-{% block title %}KAFUOSA — Eyes To The Future{% endblock %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nenogram Technologies{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
-{% block content %}
+    <!-- Theme init: runs before paint to prevent flash -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('devis-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
 
-<!-- HERO -->
-<section class="relative min-h-[680px] flex items-center overflow-hidden deco-sunburst">
-  <div class="absolute inset-0 z-0">
-    <img src="{% static 'images/hero-group.jpg' %}"
-         onerror="this.style.display='none'"
-         alt="KAFUOSA" class="w-full h-full object-cover opacity-20">
-    <div class="absolute inset-0"
-         style="background:linear-gradient(135deg,rgba(13,10,20,0.97) 0%,rgba(26,20,40,0.88) 60%,rgba(82,40,136,0.15) 100%);">
-    </div>
-    <div class="absolute inset-0 pointer-events-none"
-         style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px),
-                            repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px);">
-    </div>
-  </div>
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-24 w-full">
-    <div class="max-w-2xl space-y-7">
-      <div class="deco-divider max-w-xs">
-        <span class="text-[10px] uppercase tracking-[0.4em] text-artAccent font-semibold"
-              style="font-family:'Josefin Sans',sans-serif;">KAFUOSA &bull; Eyes To The Future</span>
-      </div>
-      <h1 class="font-display font-bold text-4xl sm:text-6xl leading-tight tracking-widest hero-heading">
-        Advancing Eye Care<br><span class="text-aurora">For Every Community.</span>
-      </h1>
-      <p class="hero-body text-sm sm:text-base leading-relaxed max-w-xl" style="font-family:'Inter',sans-serif;">
-        KAFUOSA is a student-led optometry association dedicated to outreach, education,
-        and professional development in eye health across Kenya.
-      </p>
-      <div class="flex flex-wrap items-center gap-4 pt-2">
-        <a href="{% url 'members:login' %}"
-           class="btn-primary px-8 py-3 rounded-sm font-semibold text-sm tracking-widest inline-flex items-center gap-2"
-           style="font-family:'Josefin Sans',sans-serif;">
-          Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
-        </a>
-        <a href="{% url 'pages:about' %}"
-           class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest transition hero-outline-btn"
-           style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
-          Learn More
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-    <i class="fa-solid fa-arrow-down text-artAccent text-lg opacity-60"></i>
-  </div>
-</section>
+    <script>
+        tailwind = { config: {
+            darkMode: ['selector', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900:"#050505", 800:"#111111", 700:"#1a1a1a", 600:"#242424" },
+                        brand: { 400:"#adc6ff", 500:"#7fa3ff", 600:"#5b82e6" }
+                    },
+                    fontFamily: {
+                        sans: ["Inter","sans-serif"],
+                        serif: ["Playfair Display","serif"],
+                    }
+                }
+            }
+        }}
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- STATS -->
-<section class="py-14 stats-section" style="border-top:1px solid rgba(176,141,87,0.15); border-bottom:1px solid rgba(176,141,87,0.15);">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="text-center">
-        <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.members|default:"1" }}+</p>
-        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
-           style="font-family:'Josefin Sans',sans-serif;">Active Members</p>
-      </div>
-      <div class="text-center">
-        <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.events|default:"45" }}+</p>
-        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
-           style="font-family:'Josefin Sans',sans-serif;">Events Held</p>
-      </div>
-      <div class="text-center">
-        <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.screened|default:"2000" }}+</p>
-        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
-           style="font-family:'Josefin Sans',sans-serif;">People Screened</p>
-      </div>
-      <div class="text-center">
-        <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.glasses|default:"300" }}+</p>
-        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
-           style="font-family:'Josefin Sans',sans-serif;">Glasses Donated</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <style>
+           LIGHT THEME VARIABLES
+        :root, [data-theme="light"] {
+            --bg-base:          #e8ecef;
+            --bg-surface:       #ffffff;
+            --bg-surface-half:  rgba(255,255,255,0.50);
+            --bg-surface-low:   rgba(255,255,255,0.30);
+            --bg-nav:           rgba(255,255,255,0.55);
+            --bg-icon:          rgba(255,255,255,0.70);
+            --border:           rgba(255,255,255,0.40);
+            --border-solid:     #e5e7eb;
+            --text-primary:     #050505;
+            --text-secondary:   #4b5563;
+            --text-muted:       #9ca3af;
+            --glow:             rgba(255,255,255,0.80);
+            --logo-bg:          #000000;
+            --logo-text:        #ffffff;
+            --accent:           #000000;
+            --accent-text:      #ffffff;
+            --sidebar-link:     #4b5563;
+            --sidebar-hover-bg: rgba(0,0,0,0.05);
+            --sidebar-active-bg:#000000;
+            --sidebar-active:   #ffffff;
+            --sidebar-section:  #9ca3af;
+            --scrollbar-thumb:  #d1d5db;
+            --msg-error-bg:     #fef2f2;
+            --msg-error-border: #fecaca;
+            --msg-error-text:   #b91c1c;
+            --msg-ok-bg:        #f0fdf4;
+            --msg-ok-border:    #bbf7d0;
+            --msg-ok-text:      #15803d;
+            --msg-info-bg:      #eff6ff;
+            --msg-info-border:  #bfdbfe;
+            --msg-info-text:    #1d4ed8;
+        }
 
-<!-- ABOUT STRIP -->
-<section class="py-20 md:py-28 about-section">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-    <div class="grid lg:grid-cols-2 gap-14 items-center">
-      <div class="relative flex justify-center hidden sm:flex">
-        <div class="grid grid-cols-3 gap-4 w-full max-w-md">
-          <div class="overflow-hidden shadow-xl"
-               style="height:260px; border-radius:999px; transform:rotate(-8deg); border:2px solid rgba(176,141,87,0.3);">
-            <img src="{% static 'images/hero-outreach.jpg' %}"
-                 onerror="this.parentElement.style.background='rgba(82,40,136,0.25)'"
-                 class="w-full h-full object-cover" style="transform:rotate(8deg) scale(1.2);">
-          </div>
-          <div class="overflow-hidden shadow-2xl -mt-6"
-               style="height:300px; border-radius:999px; transform:rotate(-8deg); border:2px solid rgba(176,141,87,0.35);">
-            <img src="{% static 'images/hero-group.jpg' %}"
-                 onerror="this.parentElement.style.background='rgba(82,40,136,0.3)'"
-                 class="w-full h-full object-cover" style="transform:rotate(8deg) scale(1.2);">
-          </div>
-          <div class="overflow-hidden shadow-xl"
-               style="height:260px; border-radius:999px; transform:rotate(-8deg); border:2px solid rgba(176,141,87,0.3);">
-            <img src="{% static 'images/hero-clinic.jpg' %}"
-                 onerror="this.parentElement.style.background='rgba(82,40,136,0.2)'"
-                 class="w-full h-full object-cover" style="transform:rotate(8deg) scale(1.2);">
-          </div>
-        </div>
-        <div class="absolute -bottom-4 right-0 p-4 rounded-sm shadow-xl flex items-center gap-4 deco-border est-badge">
-          <div class="w-11 h-11 rounded-sm flex items-center justify-center"
-               style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
-            <i class="fa-solid fa-award text-artAccent text-lg"></i>
-          </div>
-          <div>
-            <div class="font-display font-bold text-gold text-xl">Est. 2018</div>
-            <div class="est-badge-label text-[10px] uppercase tracking-wider"
-                 style="font-family:'Josefin Sans',sans-serif;">Year Founded</div>
-          </div>
-        </div>
-      </div>
-      <div class="space-y-6">
-        <div class="deco-divider max-w-xs">
-          <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
-                style="font-family:'Josefin Sans',sans-serif;">Welcome to KAFUOSA</span>
-        </div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight tracking-wider section-heading">
-          We Care For Sight,<br><span class="text-aurora">One Outreach At A Time.</span>
-        </h2>
-        <p class="section-body leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
-          KAFUOSA is the official optometry students association at Kaimosi Friends University.
-          We bridge the gap between academic learning and real-world community eye care.
-        </p>
-        <p class="section-body leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
-          Our mission is to cultivate the next generation of optometrists deeply committed
-          to serving underserved communities across Kenya.
-        </p>
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
-          <a href="{% url 'pages:about' %}"
-             class="btn-primary px-8 py-3 rounded-sm font-semibold text-sm tracking-widest"
-             style="font-family:'Josefin Sans',sans-serif;">More About Us</a>
-          <div class="flex items-center gap-4 sm:pl-6" style="border-left:1px solid rgba(176,141,87,0.2);">
-            <div class="w-11 h-11 rounded-sm flex items-center justify-center shrink-0 deco-border"
-                 style="background:rgba(82,40,136,0.2);">
-              <i class="fa-solid fa-phone-volume text-artAccent"></i>
+           DARK THEME VARIABLES
+        [data-theme="dark"] {
+            --bg-base:          #131313;
+            --bg-surface:       #1c1c1c;
+            --bg-surface-half:  rgba(28,28,28,0.80);
+            --bg-surface-low:   rgba(28,28,28,0.60);
+            --bg-nav:           rgba(19,19,19,0.85);
+            --bg-icon:          rgba(42,42,42,0.80);
+            --border:           rgba(42,42,42,0.80);
+            --border-solid:     #2a2a2a;
+            --text-primary:     #e8e8e8;
+            --text-secondary:   #9ca3af;
+            --text-muted:       #6b6b6b;
+            --glow:             rgba(26,42,74,0.60);
+            --logo-bg:          #adc6ff;
+            --logo-text:        #131313;
+            --accent:           #adc6ff;
+            --accent-text:      #131313;
+            --sidebar-link:     #9ca3af;
+            --sidebar-hover-bg: rgba(255,255,255,0.05);
+            --sidebar-active-bg:#adc6ff;
+            --sidebar-active:   #131313;
+            --sidebar-section:  #6b6b6b;
+            --scrollbar-thumb:  #2a2a2a;
+            --msg-error-bg:     rgba(127,29,29,0.25);
+            --msg-error-border: rgba(185,28,28,0.40);
+            --msg-error-text:   #fca5a5;
+            --msg-ok-bg:        rgba(20,83,45,0.25);
+            --msg-ok-border:    rgba(21,128,61,0.40);
+            --msg-ok-text:      #86efac;
+            --msg-info-bg:      rgba(30,58,138,0.25);
+            --msg-info-border:  rgba(29,78,216,0.40);
+            --msg-info-text:    #93c5fd;
+        }
+
+           BASE STYLES
+        html { transition: background-color 0.25s, color 0.25s; }
+        body { font-family:"Inter",sans-serif; background-color:var(--bg-base); color:var(--text-primary); }
+        .text-title { font-family:"Playfair Display",serif; }
+
+        ::-webkit-scrollbar { width:6px; height:6px; }
+        ::-webkit-scrollbar-track { background:transparent; }
+        ::-webkit-scrollbar-thumb { background:var(--scrollbar-thumb); border-radius:3px; }
+
+           COMPONENT CLASSES (used in base + dashboard)
+        .site-nav { background:var(--bg-nav); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
+        .nav-link { color:var(--text-secondary); transition:color 0.15s; font-size:0.875rem; font-weight:500; }
+        .nav-link:hover { color:var(--text-primary); }
+        .nav-logo-text { color:var(--text-primary); font-weight:700; font-size:1.125rem; letter-spacing:-0.025em; }
+        .nav-logo-muted { color:var(--text-muted); font-weight:400; }
+        .nav-logo-bg { background:var(--logo-bg); }
+        .nav-logo-letter { color:var(--logo-text); }
+        .nav-icon-btn {
+            width:2.25rem; height:2.25rem; border-radius:9999px;
+            background:var(--bg-icon); border:1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            color:var(--text-secondary); transition:color 0.15s,background 0.15s; cursor:pointer;
+        }
+        .nav-icon-btn:hover { color:var(--text-primary); background:var(--bg-surface); }
+        .glow-blob { background:var(--glow); }
+        .page-wrap { background:var(--bg-base); }
+
+        .sidebar-link {
+            display:flex; align-items:center; gap:10px; padding:9px 14px; border-radius:12px;
+            font-size:0.8125rem; font-weight:500; color:var(--sidebar-link);
+            transition:background 0.15s,color 0.15s;
+        }
+        .sidebar-link:hover { background:var(--sidebar-hover-bg); color:var(--text-primary); }
+        .sidebar-link.active { background:var(--sidebar-active-bg); color:var(--sidebar-active); }
+        .sidebar-link svg { width:16px; height:16px; flex-shrink:0; }
+        .sidebar-section {
+            font-size:0.65rem; font-weight:700; text-transform:uppercase;
+            letter-spacing:0.08em; color:var(--sidebar-section); padding:14px 14px 4px;
+        }
+
+        .site-footer { background:var(--bg-surface-low); border-top:1px solid var(--border); backdrop-filter:blur(8px); }
+        .footer-heading { color:var(--text-muted); }
+        .footer-link { color:var(--text-secondary); font-size:0.875rem; display:block; transition:color 0.15s; }
+        .footer-link:hover { color:var(--text-primary); }
+        .footer-copy { color:var(--text-muted); font-size:0.75rem; }
+        .footer-logo-bg { background:var(--logo-bg); }
+        .footer-logo-letter { color:var(--logo-text); }
+        .footer-logo-text { color:var(--text-primary); font-weight:700; }
+        .footer-tagline { color:var(--text-muted); font-size:0.75rem; line-height:1.5; }
+        .footer-divider { border-top:1px solid var(--border); }
+
+        .msg-error   { background:var(--msg-error-bg); border:1px solid var(--msg-error-border); color:var(--msg-error-text); }
+        .msg-success { background:var(--msg-ok-bg);    border:1px solid var(--msg-ok-border);    color:var(--msg-ok-text); }
+        .msg-info    { background:var(--msg-info-bg);  border:1px solid var(--msg-info-border);  color:var(--msg-info-text); }
+
+        #theme-toggle .icon-sun  { display:none; }
+        #theme-toggle .icon-moon { display:block; }
+        [data-theme="dark"] #theme-toggle .icon-sun  { display:block; }
+        [data-theme="dark"] #theme-toggle .icon-moon { display:none; }
+
+        .btn-signin     { color:var(--text-secondary); font-size:0.875rem; font-weight:500; transition:color 0.15s; padding:6px 12px; }
+        .btn-signin:hover { color:var(--text-primary); }
+        .btn-getstarted { background:var(--accent); color:var(--accent-text); font-size:0.875rem; font-weight:600; padding:8px 16px; border-radius:12px; transition:opacity 0.15s; }
+        .btn-getstarted:hover { opacity:0.85; }
+        .btn-signout    { color:var(--text-muted); font-size:0.875rem; transition:color 0.15s; }
+        .btn-signout:hover { color:var(--text-primary); }
+        .btn-dashboard  { color:var(--text-secondary); font-size:0.875rem; font-weight:600; transition:color 0.15s; padding:6px 12px; }
+        .btn-dashboard:hover { color:var(--text-primary); }
+
+           GLOBAL DARK OVERRIDES
+           Targets Tailwind utility classes used
+           across all child templates
+
+        /* Backgrounds */
+        [data-theme="dark"] .bg-[#1a1a1a]                { background-color: var(--bg-surface)      !important; }
+        [data-theme="dark"] .bg-[#131313]              { background-color: var(--bg-base)          !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]             { background-color: #222222                 !important; }
+        [data-theme="dark"] .bg-gray-200             { background-color: #2a2a2a                 !important; }
+        [data-theme="dark"] .bg-gray-300             { background-color: #333333                 !important; }
+        [data-theme="dark"] .bg-gray-800             { background-color: #111111                 !important; }
+        [data-theme="dark"] .bg-gray-900             { background-color: #0a0a0a                 !important; }
+        [data-theme="dark"] .bg-[#adc6ff] text-[#001b3d]\/5             { background-color: rgba(255,255,255,0.04)  !important; }
+        [data-theme="dark"] .bg-[#adc6ff] text-[#001b3d]\/10            { background-color: rgba(255,255,255,0.07)  !important; }
+        [data-theme="dark"] .bg-[#adc6ff] text-[#001b3d]\/20            { background-color: rgba(255,255,255,0.10)  !important; }
+        [data-theme="dark"] .bg-[#adc6ff] text-[#001b3d]\/30            { background-color: rgba(255,255,255,0.12)  !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]\/30            { background-color: rgba(255,255,255,0.04)  !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]\/50            { background-color: rgba(28,28,28,0.80)     !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]\/60            { background-color: rgba(28,28,28,0.85)     !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]\/70            { background-color: rgba(28,28,28,0.90)     !important; }
+        [data-theme="dark"] .bg-[#1a1a1a]\/80            { background-color: rgba(28,28,28,0.95)     !important; }
+
+        /* Text */
+        [data-theme="dark"] .text-[#e5e7eb]              { color: var(--text-primary)   !important; }
+        [data-theme="dark"] .text-[#e5e7eb]           { color: var(--text-primary)   !important; }
+        [data-theme="dark"] .text-[#e5e7eb]           { color: var(--text-primary)   !important; }
+        [data-theme="dark"] .text-[#d1d5db]           { color: var(--text-secondary) !important; }
+        [data-theme="dark"] .text-[#9ca3af]           { color: var(--text-secondary) !important; }
+        [data-theme="dark"] .text-[#9ca3af]           { color: var(--text-muted)     !important; }
+        [data-theme="dark"] .text-[#9ca3af]           { color: var(--text-muted)     !important; }
+        [data-theme="dark"] .text-gray-300           { color: #555555               !important; }
+
+        /* Borders */
+        [data-theme="dark"] .border-gray-50          { border-color: #222222 !important; }
+        [data-theme="dark"] .border-[#222222]         { border-color: #2a2a2a !important; }
+        [data-theme="dark"] .border-[#2e2e2e]         { border-color: #2a2a2a !important; }
+        [data-theme="dark"] .border-gray-300         { border-color: #333333 !important; }
+        [data-theme="dark"] .border-gray-400         { border-color: #444444 !important; }
+        [data-theme="dark"] .border-gray-500         { border-color: #555555 !important; }
+        [data-theme="dark"] .border-black\/5         { border-color: rgba(255,255,255,0.05) !important; }
+        [data-theme="dark"] .border-black\/8         { border-color: rgba(255,255,255,0.06) !important; }
+        [data-theme="dark"] .border-black\/10        { border-color: rgba(255,255,255,0.08) !important; }
+        [data-theme="dark"] .border-black\/20        { border-color: rgba(255,255,255,0.12) !important; }
+        [data-theme="dark"] .border-black\/30        { border-color: rgba(255,255,255,0.15) !important; }
+        [data-theme="dark"] .border-black\/40        { border-color: rgba(255,255,255,0.18) !important; }
+        [data-theme="dark"] .border-white\/20        { border-color: rgba(255,255,255,0.08) !important; }
+        [data-theme="dark"] .border-white\/40        { border-color: rgba(255,255,255,0.10) !important; }
+        [data-theme="dark"] .border-white\/50        { border-color: rgba(255,255,255,0.10) !important; }
+        [data-theme="dark"] .border-white\/60        { border-color: rgba(255,255,255,0.10) !important; }
+        [data-theme="dark"] .border-white\/70        { border-color: rgba(255,255,255,0.10) !important; }
+        [data-theme="dark"] .border-white\/80        { border-color: rgba(255,255,255,0.10) !important; }
+        [data-theme="dark"] .border-white\/90        { border-color: rgba(255,255,255,0.10) !important; }
+
+        /* Divide */
+        [data-theme="dark"] .divide-gray-100 > * + * { border-color: #2a2a2a !important; }
+        [data-theme="dark"] .divide-gray-200 > * + * { border-color: #2a2a2a !important; }
+        [data-theme="dark"] .divide-gray-300 > * + * { border-color: #333333 !important; }
+
+        /* Hover backgrounds */
+        [data-theme="dark"] .hover\:bg-[#131313]:hover  { background-color: #1e1e1e !important; }
+        [data-theme="dark"] .hover\:bg-[#1a1a1a]:hover { background-color: #222222 !important; }
+        [data-theme="dark"] .hover\:bg-[#adc6ff] text-[#001b3d]\/5:hover { background-color: rgba(255,255,255,0.05) !important; }
+        [data-theme="dark"] .hover\:text-[#e5e7eb]:hover  { color: var(--text-primary) !important; }
+
+        /* Inputs & textareas */
+        [data-theme="dark"] input,
+        [data-theme="dark"] textarea,
+        [data-theme="dark"] select {
+            background-color: var(--bg-surface) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--border-solid) !important;
+        }
+        [data-theme="dark"] input::placeholder,
+        [data-theme="dark"] textarea::placeholder { color: var(--text-muted) !important; }
+        [data-theme="dark"] input:focus,
+        [data-theme="dark"] textarea:focus,
+        [data-theme="dark"] select:focus { border-color: var(--accent) !important; outline-color: var(--accent) !important; }
+
+        /* Cards / panels with inline styles */
+        [data-theme="dark"] [style*="background:#ffffff"],
+        [data-theme="dark"] [style*="background: #ffffff"],
+        [data-theme="dark"] [style*="background:white"] { background: var(--bg-surface) !important; }
+        [data-theme="dark"] [style*="background:#e8ecef"],
+        [data-theme="dark"] [style*="background: #e8ecef"] { background: var(--bg-base) !important; }
+        [data-theme="dark"] [style*="color:#000"],
+        [data-theme="dark"] [style*="color: #000"],
+        [data-theme="dark"] [style*="color:#050505"] { color: var(--text-primary) !important; }
+
+        /* Shadows Ã¢â‚¬â€ soften in dark mode */
+        [data-theme="dark"] .shadow-sm  { box-shadow: 0 1px 3px rgba(0,0,0,0.5) !important; }
+        [data-theme="dark"] .shadow     { box-shadow: 0 2px 6px rgba(0,0,0,0.6) !important; }
+        [data-theme="dark"] .shadow-md  { box-shadow: 0 4px 12px rgba(0,0,0,0.6) !important; }
+        [data-theme="dark"] .shadow-lg  { box-shadow: 0 8px 24px rgba(0,0,0,0.7) !important; }
+        [data-theme="dark"] .shadow-xl  { box-shadow: 0 16px 40px rgba(0,0,0,0.8) !important; }
+
+        /* Backdrop blur surfaces */
+        [data-theme="dark"] .backdrop-blur-xl { backdrop-filter: blur(20px) !important; }
+        [data-theme="dark"] .backdrop-blur-lg { backdrop-filter: blur(16px) !important; }
+
+        /* Alert / status colors Ã¢â‚¬â€ keep readable in dark */
+        [data-theme="dark"] .bg-red-50    { background-color: rgba(127,29,29,0.25) !important; }
+        [data-theme="dark"] .bg-green-50  { background-color: rgba(20,83,45,0.25)  !important; }
+        [data-theme="dark"] .bg-blue-50   { background-color: rgba(30,58,138,0.25) !important; }
+        [data-theme="dark"] .bg-yellow-50 { background-color: rgba(120,80,0,0.25)  !important; }
+        [data-theme="dark"] .text-red-700   { color: #fca5a5 !important; }
+        [data-theme="dark"] .text-green-700 { color: #86efac !important; }
+        [data-theme="dark"] .text-blue-700  { color: #93c5fd !important; }
+        [data-theme="dark"] .border-red-200   { border-color: rgba(185,28,28,0.40) !important; }
+        [data-theme="dark"] .border-green-200 { border-color: rgba(21,128,61,0.40) !important; }
+        [data-theme="dark"] .border-blue-200  { border-color: rgba(29,78,216,0.40) !important; }
+
+        /* Prose / article content */
+        [data-theme="dark"] .prose { color: var(--text-primary) !important; }
+        [data-theme="dark"] .prose h1, [data-theme="dark"] .prose h2,
+        [data-theme="dark"] .prose h3, [data-theme="dark"] .prose h4 { color: var(--text-primary) !important; }
+        [data-theme="dark"] .prose p, [data-theme="dark"] .prose li { color: var(--text-secondary) !important; }
+        [data-theme="dark"] .prose code { background: #2a2a2a !important; color: #adc6ff !important; }
+        [data-theme="dark"] .prose pre  { background: #111111 !important; }
+        [data-theme="dark"] .prose blockquote { border-color: #2a2a2a !important; color: var(--text-muted) !important; }
+        [data-theme="dark"] .prose hr { border-color: #2a2a2a !important; }
+
+        /* Code blocks */
+        [data-theme="dark"] pre, [data-theme="dark"] code {
+            background: #111111 !important;
+            color: #adc6ff !important;
+        }
+
+        /* Tables */
+        [data-theme="dark"] table { color: var(--text-primary) !important; }
+        [data-theme="dark"] thead { background: #222222 !important; }
+        [data-theme="dark"] th { color: var(--text-secondary) !important; border-color: #2a2a2a !important; }
+        [data-theme="dark"] td { border-color: #2a2a2a !important; }
+        [data-theme="dark"] tr:hover { background: #1e1e1e !important; }
+
+        /* Buttons Ã¢â‚¬â€ black buttons flip to accent in dark */
+        [data-theme="dark"] .bg-[#adc6ff] text-[#001b3d]   { background-color: var(--accent)      !important; }
+        [data-theme="dark"] .text-white { color:            var(--accent-text)  !important; }
+        [data-theme="dark"] .hover\:bg-[#adc6ff] text-[#001b3d]\/80:hover { background-color: rgba(173,198,255,0.85) !important; }
+        [data-theme="dark"] .hover\:bg-[#adc6ff] text-[#001b3d]:hover     { background-color: var(--accent)          !important; }
+
+        /* Ring / focus */
+        [data-theme="dark"] .ring-black  { --tw-ring-color: var(--accent) !important; }
+        [data-theme="dark"] .ring-gray-200 { --tw-ring-color: #2a2a2a !important; }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen">
+
+{% block body %}
+<div class="page-wrap min-h-screen">
+
+    <!-- Glow blobs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none" style="z-index:0;">
+        <div class="glow-blob absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] blur-[100px] rounded-full opacity-80"></div>
+        <div class="glow-blob absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] blur-[100px] rounded-full opacity-80"></div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="site-nav relative z-50 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <div class="flex items-center gap-8">
+                    <a href="{% url 'home' %}" class="flex items-center gap-2.5">
+                        <div class="nav-logo-bg w-8 h-8 rounded-lg flex items-center justify-center">
+                            <span class="nav-logo-letter font-bold text-sm">N</span>
+                        </div>
+                        <span class="nav-logo-text">Nenogram<span class="nav-logo-muted"> Technologies</span></span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-6">
+                        <a href="{% url 'browse_projects' %}"     class="nav-link">Projects</a>
+
+                        <a href="{% url 'pricing' %}"             class="nav-link">Pricing</a>
+                        <a href="{% url 'ms_home' %}"             class="nav-link">Store</a>
+                        <a href="{% url 'blog_list' %}"           class="nav-link">Blog</a>
+                        <a href="{% url 'hackathons_discover' %}" class="nav-link">Hackathons</a>
+                        <a href="{% url 'hub_feed' %}"            class="nav-link">Hub</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <!-- Theme toggle -->
+                    <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme" title="Toggle theme">
+                        <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+                        </svg>
+                        <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14A7 7 0 0012 5z"/>
+                        </svg>
+                    </button>
+
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'inbox' %}" class="nav-icon-btn">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </a>
+                        <a href="{% url 'dashboard' %}" class="btn-dashboard">Dashboard</a>
+                        <a href="{% url 'logout' %}"    class="btn-signout">Sign out</a>
+                    {% else %}
+                        <a href="{% url 'login' %}"    class="btn-signin">Sign in</a>
+                        <a href="{% url 'register' %}" class="btn-getstarted">Get started</a>
+                    {% endif %}
+                </div>
             </div>
-            <div>
-              <span class="section-muted text-[10px] font-semibold block uppercase tracking-widest"
-                    style="font-family:'Josefin Sans',sans-serif;">Call Us Anytime</span>
-              <span class="section-heading font-display font-bold text-base tracking-wider">+254 700 000 000</span>
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="relative z-10 max-w-7xl mx-auto px-4 pt-4">
+        {% for message in messages %}
+        <div class="mb-2 px-4 py-3 rounded-xl text-sm font-medium
+            {% if message.tags == 'error' %}msg-error
+            {% elif message.tags == 'success' %}msg-success
+            {% else %}msg-info{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="relative z-10">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="site-footer relative z-10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="footer-logo-bg w-7 h-7 rounded-lg flex items-center justify-center">
+                            <span class="footer-logo-letter font-bold text-xs">N</span>
+                        </div>
+                        <span class="footer-logo-text">Nenogram</span>
+                    </div>
+                    <p class="footer-tagline">Connecting Talent.<br>Creating Solutions.</p>
+                </div>
+                <div>
+                    <p class="footer-heading text-xs font-bold uppercase tracking-wider mb-3">Platform</p>
+                    <div class="space-y-2">
+                        <a href="{% url 'browse_projects' %}"  class="footer-link">Browse projects</a>
+
+                        <a href="{% url 'marketplace' %}"      class="footer-link">Software store</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="footer-heading text-xs font-bold uppercase tracking-wider mb-3">Company</p>
+                    <div class="space-y-2">
+                        <a href="#"                  class="footer-link">About</a>
+                        <a href="{% url 'pricing' %}" class="footer-link">Pricing</a>
+                        <a href="#"                  class="footer-link">Blog</a>
+                    </div>
+                </div>
+                <div>
+                    <p class="footer-heading text-xs font-bold uppercase tracking-wider mb-3">Payments</p>
+                    <div class="space-y-2 footer-tagline">
+                        <p>Secured via <span class="text-green-500 font-semibold">M-Pesa</span></p>
+                        <p>International via <span class="text-blue-400 font-semibold">Stripe</span></p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EVENTS -->
-<section class="py-20 events-section" style="border-top:1px solid rgba(176,141,87,0.1);">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-    <div class="text-center mb-14">
-      <div class="deco-divider mb-5 max-w-xs mx-auto">
-        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
-              style="font-family:'Josefin Sans',sans-serif;">What Is Coming</span>
-      </div>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-widest section-heading">Upcoming Events</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6">
-      {% for event in upcoming_events %}
-      <div class="art-card flex flex-col group">
-        <div class="relative h-52 overflow-hidden">
-          {% if event.cover_image %}
-            <img src="{{ event.cover_image.url }}" alt="{{ event.title }}"
-                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80">
-          {% else %}
-            <div class="w-full h-full flex items-center justify-center"
-                 style="background:rgba(82,40,136,0.12);">
-              <i class="fa-solid fa-calendar-days text-artAccent text-5xl opacity-30"></i>
+            <div class="footer-divider pt-6">
+                <p class="footer-copy">&copy; 2025 Nenogram Technologies. All rights reserved.</p>
             </div>
-          {% endif %}
-          <div class="absolute top-4 left-4 p-3 text-center leading-tight rounded-sm"
-               style="background:rgba(82,40,136,0.85); border:1px solid rgba(176,141,87,0.3);">
-            <p class="text-[10px] font-bold uppercase tracking-widest text-artAccentL"
-               style="font-family:'Josefin Sans',sans-serif;">{{ event.start_datetime|date:"M" }}</p>
-            <p class="text-2xl font-display font-bold text-white">{{ event.start_datetime|date:"d" }}</p>
-          </div>
-          {% if event.is_outreach %}
-          <span class="absolute top-4 right-4 text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest"
-                style="background:rgba(176,141,87,0.2); border:1px solid rgba(176,141,87,0.4); color:#C9A96E; font-family:'Josefin Sans',sans-serif;">
-            Outreach
-          </span>
-          {% endif %}
         </div>
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <h3 class="font-display font-bold text-base card-heading mb-2 tracking-wider group-hover:text-artAccentL transition">
-              {{ event.title }}
-            </h3>
-            <p class="card-body text-xs" style="font-family:'Inter',sans-serif;">
-              <i class="fa-solid fa-location-dot mr-1 text-artAccent"></i>{{ event.venue }}
-            </p>
-            <p class="card-body text-xs mt-1" style="font-family:'Inter',sans-serif;">
-              <i class="fa-solid fa-clock mr-1 text-artAccent"></i>{{ event.start_datetime|date:"g:i A" }}
-            </p>
-            <p class="card-body text-sm leading-relaxed mt-3" style="font-family:'Inter',sans-serif;">
-              {{ event.description|truncatewords:18 }}
-            </p>
-          </div>
-          <a href="{% url 'events:detail' event.slug %}"
-             class="w-full btn-primary py-2.5 rounded-sm font-semibold text-xs text-center tracking-widest"
-             style="font-family:'Josefin Sans',sans-serif;">
-            View &amp; RSVP
-          </a>
-        </div>
-      </div>
-      {% empty %}
-      <div class="col-span-3 text-center py-16">
-        <i class="fa-solid fa-calendar-xmark text-5xl mb-4 block opacity-20 text-artAccent"></i>
-        <p class="section-muted text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
-          No upcoming events at the moment.
-        </p>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="text-center mt-10">
-      <a href="{% url 'events:list' %}"
-         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-artAccent transition"
-         style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
-        View All Events
-      </a>
-    </div>
-  </div>
-</section>
+    </footer>
+</div>
+{% endblock body %}
 
-<!-- SPONSOR CTA -->
-<section class="py-20 text-center relative overflow-hidden cta-section"
-         style="border-top:1px solid rgba(176,141,87,0.12); border-bottom:1px solid rgba(176,141,87,0.12);">
-  <div class="absolute inset-0 deco-sunburst pointer-events-none"></div>
-  <div class="relative z-10 max-w-3xl mx-auto px-4">
-    <div class="deco-divider mb-5 max-w-xs mx-auto">
-      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
-            style="font-family:'Josefin Sans',sans-serif;">Support Our Mission</span>
-    </div>
-    <h2 class="font-display font-bold text-2xl sm:text-3xl mb-4 tracking-widest section-heading">
-      Your Support Means A Lot.<br>Partner With Us Today.
-    </h2>
-    <p class="section-body mb-8 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
-      Help us reach more communities, donate glasses, and train future optometrists.
-    </p>
-    <a href="{% url 'sponsorship:list' %}"
-       class="btn-primary px-8 py-3 rounded-sm font-semibold text-sm tracking-widest inline-flex items-center gap-2"
-       style="font-family:'Josefin Sans',sans-serif;">
-      Become a Sponsor <i class="fa-solid fa-arrow-right text-xs"></i>
-    </a>
-  </div>
-</section>
+<script>
+    (function() {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', function() {
+            var html = document.documentElement;
+            var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('devis-theme', next);
+        });
+    })();
+</script>
 
-<!-- NEWS -->
-<section class="py-20 events-section" style="border-top:1px solid rgba(176,141,87,0.1);">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-    <div class="text-center mb-14">
-      <div class="deco-divider mb-5 max-w-xs mx-auto">
-        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
-              style="font-family:'Josefin Sans',sans-serif;">Stay Informed</span>
-      </div>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-widest section-heading">
-        Latest News &amp; Articles
-      </h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6">
-      {% for post in latest_news %}
-      <article class="news-card group">
-        <div class="h-48 overflow-hidden">
-          {% if post.cover_image %}
-            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-                 class="news-card-img group-hover:scale-105 transition-transform duration-500">
-          {% else %}
-            <div class="w-full h-48 flex items-center justify-center"
-                 style="background:rgba(82,40,136,0.12);">
-              <i class="fa-solid fa-newspaper text-artAccent text-5xl opacity-20"></i>
-            </div>
-          {% endif %}
-        </div>
-        <div class="news-card-body">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="news-card-category px-2 py-0.5 rounded-sm"
-                  style="background:rgba(82,40,136,0.25); border:1px solid rgba(176,141,87,0.2);">
-              {{ post.category }}
-            </span>
-            <span class="news-card-meta">{{ post.published_at|date:"M d, Y" }}</span>
-          </div>
-          <h3 class="news-card-title group-hover:text-artAccentL transition">{{ post.title }}</h3>
-          <p class="news-card-excerpt">{{ post.excerpt|truncatewords:20 }}</p>
-          <a href="{% url 'news:detail' post.slug %}"
-             class="text-artAccent hover:text-artAccentL font-semibold text-xs inline-flex items-center gap-1 uppercase tracking-widest transition mt-auto"
-             style="font-family:'Josefin Sans',sans-serif;">
-            Read More <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </a>
-        </div>
-      </article>
-      {% empty %}
-      <div class="col-span-3 text-center py-16">
-        <i class="fa-solid fa-newspaper text-5xl mb-4 block opacity-20 text-artAccent"></i>
-        <p class="section-muted text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
-          No news articles yet.
-        </p>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="text-center mt-10">
-      <a href="{% url 'news:list' %}"
-         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-artAccent transition"
-         style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
-        View All News
-      </a>
-    </div>
-  </div>
-</section>
-
-{% endblock %}
+{% block extra_js %}{% endblock %}
+</body>
+</html>
 

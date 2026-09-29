@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}News — KAFUOSA{% endblock %}
 {% block content %}
@@ -8,7 +8,7 @@
       <div class="deco-divider mb-5 max-w-xs mx-auto">
         <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Stay Informed</span>
       </div>
-      <h1 class="font-display font-bold text-2xl sm:text-4xl text-white tracking-widest">News &amp; Articles</h1>
+      <h1 class="font-display font-bold text-4xl sm:text-6xl text-white tracking-widest">News &amp; Articles</h1>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
       {% for post in posts %}
@@ -27,7 +27,7 @@
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-widest text-artAccentL" style="background:rgba(82,40,136,0.25);border:1px solid rgba(176,141,87,0.2);font-family:'Josefin Sans',sans-serif;">{{ post.category }}</span>
             <span class="text-white/30 text-[10px]" style="font-family:'Josefin Sans',sans-serif;">{{ post.published_at|date:"M d, Y" }}</span>
           </div>
-          <h3 class="font-display font-bold text-sm sm:text-base text-white tracking-wider group-hover:text-artAccentL transition leading-snug">{{ post.title }}</h3>
+          <h3 class="font-display font-bold text-lg sm:text-xl text-white tracking-wider group-hover:text-artAccentL transition leading-snug">{{ post.title }}</h3>
           <p class="text-white/40 text-sm leading-relaxed flex-1" style="font-family:'Inter',sans-serif;">{{ post.excerpt|truncatewords:18 }}</p>
           <a href="{% url 'news:detail' post.slug %}" class="text-artAccent hover:text-artAccentL text-xs font-semibold inline-flex items-center gap-1 uppercase tracking-widest transition mt-auto" style="font-family:'Josefin Sans',sans-serif;">
             Read More <i class="fa-solid fa-arrow-right text-[10px]"></i>

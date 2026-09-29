@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}{{ event.title }} — KAFUOSA{% endblock %}
 {% block content %}
@@ -23,7 +23,7 @@
         <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(176,141,87,0.15);border:1px solid rgba(176,141,87,0.35);color:#C9A96E;font-family:'Josefin Sans',sans-serif;">Outreach</span>
       {% endif %}
     </div>
-    <h1 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-widest leading-tight mb-5">{{ event.title }}</h1>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white tracking-widest leading-tight mb-5">{{ event.title }}</h1>
     <div class="flex flex-wrap gap-4">
       <span class="text-white/50 text-xs flex items-center gap-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-location-dot text-artAccent"></i>{{ event.venue }}</span>
       <span class="text-white/50 text-xs flex items-center gap-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-clock text-artAccent"></i>{{ event.start_datetime|date:"g:i A" }} — {{ event.end_datetime|date:"g:i A" }}</span>
