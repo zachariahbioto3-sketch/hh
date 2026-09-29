@@ -1724,11 +1724,6 @@ html.light .constitution-body p strong {
   border-width: 1px;
 }
 
-.border-y {
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-}
-
 .border-b {
   border-bottom-width: 1px;
 }
@@ -2491,6 +2486,258 @@ html.light .constitution-body p strong {
 
 .duration-500 {
   transition-duration: 500ms;
+}
+
+/* ── LIGHT MODE TEXT FIXES ──
+     Tailwind opacity variants like text-white/55 compile to
+     color:rgb(255 255 255 / 0.55) which stays white in light mode.
+     These rules force readable dark text on light backgrounds. */
+
+html.light .text-white\/55,
+  html.light .text-white\/50,
+  html.light .text-white\/45,
+  html.light .text-white\/40,
+  html.light .text-white\/35,
+  html.light .text-white\/30,
+  html.light .text-white\/60,
+  html.light .text-white\/70,
+  html.light .text-white\/75,
+  html.light .text-white\/80 {
+  color: #3D3352 !important;
+}
+
+html.light .text-white {
+  color: #1A1428 !important;
+}
+
+/* Header in light mode */
+
+html.light header,
+  html.light #mobileDrawerCard {
+  background: rgba(244,242,248,0.97) !important;
+  border-color: rgba(82,40,136,0.12) !important;
+}
+
+/* Top info strip in light mode */
+
+html.light .deco-arch {
+  background: linear-gradient(180deg, rgba(82,40,136,0.07) 0%, transparent 100%) !important;
+  border-color: rgba(82,40,136,0.1) !important;
+}
+
+/* Nav links in light mode */
+
+html.light .nav-link {
+  color: #3D3352 !important;
+}
+
+html.light .nav-link:hover {
+  color: #1A1428 !important;
+}
+
+/* Footer in light mode */
+
+html.light footer {
+  background: #EDE9F4 !important;
+  border-color: rgba(82,40,136,0.15) !important;
+}
+
+/* Stats section in light mode */
+
+html.light [style*="background:#0D0A14"],
+  html.light [style*="background: #0D0A14"] {
+  background-color: #F4F2F8 !important;
+}
+
+html.light [style*="background:#130F1E"],
+  html.light [style*="background: #130F1E"] {
+  background-color: #EDE9F4 !important;
+}
+
+html.light [style*="background:#1A1428"],
+  html.light [style*="background: #1A1428"] {
+  background-color: #E8E4F0 !important;
+}
+
+html.light [style*="background:#1F1830"] {
+  background-color: #FFFFFF !important;
+}
+
+/* Input fields in light mode */
+
+html.light input,
+  html.light textarea,
+  html.light select {
+  background: #FFFFFF !important;
+  color: #1A1428 !important;
+  border-color: rgba(82,40,136,0.25) !important;
+}
+
+html.light input::-moz-placeholder, html.light textarea::-moz-placeholder {
+  color: rgba(26,20,40,0.35) !important;
+}
+
+html.light input::placeholder,
+  html.light textarea::placeholder {
+  color: rgba(26,20,40,0.35) !important;
+}
+
+/* Mobile drawer in light mode */
+
+html.light #mobileDrawer {
+  background: rgba(244,242,248,0.92) !important;
+}
+
+/* Search modal in light mode */
+
+html.light #searchModal {
+  background: rgba(244,242,248,0.88) !important;
+}
+
+html.light #searchModalCard {
+  background: #FFFFFF !important;
+}
+
+/* Toggle button icon color in light mode */
+
+html.light #themeToggle {
+  color: #522888 !important;
+}
+
+/* Stats bar border in light */
+
+html.light .border-y {
+  border-color: rgba(82,40,136,0.15) !important;
+}
+
+/* ── SEMANTIC TEXT CLASSES (theme-aware) ── */
+
+.hero-heading   {
+  color: #EDE9F4;
+}
+
+.hero-body      {
+  color: rgba(237,233,244,0.55);
+}
+
+.hero-outline-btn {
+  color: rgba(237,233,244,0.7);
+}
+
+.hero-outline-btn:hover {
+  color: #C9A96E;
+}
+
+.section-heading {
+  color: #EDE9F4;
+}
+
+.section-body    {
+  color: rgba(237,233,244,0.52);
+}
+
+.section-muted   {
+  color: rgba(237,233,244,0.4);
+}
+
+.card-heading    {
+  color: #EDE9F4;
+}
+
+.card-body       {
+  color: rgba(237,233,244,0.45);
+}
+
+.stat-label      {
+  color: rgba(237,233,244,0.45);
+}
+
+.est-badge-label {
+  color: rgba(237,233,244,0.4);
+}
+
+/* Stats section bg */
+
+.stats-section  {
+  background: #0D0A14;
+}
+
+.about-section  {
+  background: #0D0A14;
+}
+
+.events-section {
+  background: #130F1E;
+}
+
+.cta-section    {
+  background: #0D0A14;
+}
+
+.est-badge      {
+  background: #1A1428;
+}
+
+/* Light mode semantic overrides */
+
+html.light .hero-heading    {
+  color: #FFFFFF;
+}
+
+html.light .hero-body       {
+  color: rgba(255,255,255,0.75);
+}
+
+html.light .hero-outline-btn {
+  color: rgba(255,255,255,0.85);
+}
+
+html.light .section-heading {
+  color: #1A1428;
+}
+
+html.light .section-body    {
+  color: #4A4060;
+}
+
+html.light .section-muted   {
+  color: #6B6478;
+}
+
+html.light .card-heading    {
+  color: #1A1428;
+}
+
+html.light .card-body       {
+  color: #5A5070;
+}
+
+html.light .stat-label      {
+  color: #6B6478;
+}
+
+html.light .est-badge-label {
+  color: #6B6478;
+}
+
+html.light .stats-section   {
+  background: #F4F2F8;
+}
+
+html.light .about-section   {
+  background: #F4F2F8;
+}
+
+html.light .events-section  {
+  background: #EDE9F4;
+}
+
+html.light .cta-section     {
+  background: #F4F2F8;
+}
+
+html.light .est-badge       {
+  background: #E8E4F0;
 }
 
 .group:hover .group-hover\:text-gold {

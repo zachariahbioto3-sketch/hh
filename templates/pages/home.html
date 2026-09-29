@@ -9,25 +9,25 @@
   <div class="absolute inset-0 z-0">
     <img src="{% static 'images/hero-group.jpg' %}"
          onerror="this.style.display='none'"
-         alt="KAFUOSA Outreach"
-         class="w-full h-full object-cover opacity-20">
-    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(13,10,20,0.97) 0%,rgba(26,20,40,0.88) 60%,rgba(82,40,136,0.15) 100%);"></div>
+         alt="KAFUOSA" class="w-full h-full object-cover opacity-20">
+    <div class="absolute inset-0"
+         style="background:linear-gradient(135deg,rgba(13,10,20,0.97) 0%,rgba(26,20,40,0.88) 60%,rgba(82,40,136,0.15) 100%);">
+    </div>
     <div class="absolute inset-0 pointer-events-none"
          style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px),
-                            repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px);"></div>
+                            repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px);">
+    </div>
   </div>
-
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-24 w-full">
     <div class="max-w-2xl space-y-7">
       <div class="deco-divider max-w-xs">
         <span class="text-[10px] uppercase tracking-[0.4em] text-artAccent font-semibold"
               style="font-family:'Josefin Sans',sans-serif;">KAFUOSA &bull; Eyes To The Future</span>
       </div>
-      <h1 class="font-display font-bold text-4xl sm:text-6xl text-white leading-tight tracking-widest">
+      <h1 class="font-display font-bold text-4xl sm:text-6xl leading-tight tracking-widest hero-heading">
         Advancing Eye Care<br><span class="text-aurora">For Every Community.</span>
       </h1>
-      <p class="text-white/55 text-sm sm:text-base leading-relaxed max-w-xl"
-         style="font-family:'Inter',sans-serif;">
+      <p class="hero-body text-sm sm:text-base leading-relaxed max-w-xl" style="font-family:'Inter',sans-serif;">
         KAFUOSA is a student-led optometry association dedicated to outreach, education,
         and professional development in eye health across Kenya.
       </p>
@@ -38,41 +38,40 @@
           Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
         <a href="{% url 'pages:about' %}"
-           class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-white/70 hover:text-artAccentL transition"
-           style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.2);">
+           class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest transition hero-outline-btn"
+           style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
           Learn More
         </a>
       </div>
     </div>
   </div>
-
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
     <i class="fa-solid fa-arrow-down text-artAccent text-lg opacity-60"></i>
   </div>
 </section>
 
 <!-- STATS -->
-<section class="py-14 border-y" style="background:#0D0A14; border-color:rgba(176,141,87,0.15);">
+<section class="py-14 stats-section" style="border-top:1px solid rgba(176,141,87,0.15); border-bottom:1px solid rgba(176,141,87,0.15);">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
       <div class="text-center">
         <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.members|default:"1" }}+</p>
-        <p class="text-white/45 text-xs mt-2 uppercase tracking-widest font-semibold"
+        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
            style="font-family:'Josefin Sans',sans-serif;">Active Members</p>
       </div>
       <div class="text-center">
         <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.events|default:"45" }}+</p>
-        <p class="text-white/45 text-xs mt-2 uppercase tracking-widest font-semibold"
+        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
            style="font-family:'Josefin Sans',sans-serif;">Events Held</p>
       </div>
       <div class="text-center">
         <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.screened|default:"2000" }}+</p>
-        <p class="text-white/45 text-xs mt-2 uppercase tracking-widest font-semibold"
+        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
            style="font-family:'Josefin Sans',sans-serif;">People Screened</p>
       </div>
       <div class="text-center">
         <p class="font-display font-bold text-4xl md:text-5xl tracking-widest text-gold">{{ stats.glasses|default:"300" }}+</p>
-        <p class="text-white/45 text-xs mt-2 uppercase tracking-widest font-semibold"
+        <p class="stat-label text-xs mt-2 uppercase tracking-widest font-semibold"
            style="font-family:'Josefin Sans',sans-serif;">Glasses Donated</p>
       </div>
     </div>
@@ -80,11 +79,9 @@
 </section>
 
 <!-- ABOUT STRIP -->
-<section class="py-20 md:py-28" style="background:#0D0A14;">
+<section class="py-20 md:py-28 about-section">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
     <div class="grid lg:grid-cols-2 gap-14 items-center">
-
-      <!-- Images -->
       <div class="relative flex justify-center">
         <div class="grid grid-cols-3 gap-4 w-full max-w-md">
           <div class="overflow-hidden shadow-xl"
@@ -106,38 +103,33 @@
                  class="w-full h-full object-cover" style="transform:rotate(8deg) scale(1.2);">
           </div>
         </div>
-        <!-- Est badge -->
-        <div class="absolute -bottom-4 right-0 p-4 rounded-sm shadow-xl flex items-center gap-4 deco-border"
-             style="background:#1A1428;">
+        <div class="absolute -bottom-4 right-0 p-4 rounded-sm shadow-xl flex items-center gap-4 deco-border est-badge">
           <div class="w-11 h-11 rounded-sm flex items-center justify-center"
                style="background:rgba(82,40,136,0.3); border:1px solid rgba(176,141,87,0.2);">
             <i class="fa-solid fa-award text-artAccent text-lg"></i>
           </div>
           <div>
             <div class="font-display font-bold text-gold text-xl">Est. 2018</div>
-            <div class="text-[10px] text-white/40 uppercase tracking-wider"
+            <div class="est-badge-label text-[10px] uppercase tracking-wider"
                  style="font-family:'Josefin Sans',sans-serif;">Year Founded</div>
           </div>
         </div>
       </div>
-
-      <!-- Text -->
       <div class="space-y-6">
         <div class="deco-divider max-w-xs">
           <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
                 style="font-family:'Josefin Sans',sans-serif;">Welcome to KAFUOSA</span>
         </div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white leading-tight tracking-wider">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl leading-tight tracking-wider section-heading">
           We Care For Sight,<br><span class="text-aurora">One Outreach At A Time.</span>
         </h2>
-        <p class="text-white/52 leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
+        <p class="section-body leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
           KAFUOSA is the official optometry students association at Kaimosi Friends University.
-          We bridge the gap between academic learning and real-world community eye care through
-          outreach, mentorship, and professional development.
+          We bridge the gap between academic learning and real-world community eye care.
         </p>
-        <p class="text-white/52 leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
-          Our mission is to cultivate the next generation of optometrists who are not only
-          clinically excellent but deeply committed to serving underserved communities across Kenya.
+        <p class="section-body leading-relaxed text-sm" style="font-family:'Inter',sans-serif;">
+          Our mission is to cultivate the next generation of optometrists deeply committed
+          to serving underserved communities across Kenya.
         </p>
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
           <a href="{% url 'pages:about' %}"
@@ -149,29 +141,27 @@
               <i class="fa-solid fa-phone-volume text-artAccent"></i>
             </div>
             <div>
-              <span class="text-[10px] text-white/40 font-semibold block uppercase tracking-widest"
+              <span class="section-muted text-[10px] font-semibold block uppercase tracking-widest"
                     style="font-family:'Josefin Sans',sans-serif;">Call Us Anytime</span>
-              <span class="text-white font-display font-bold text-base tracking-wider">+254 700 000 000</span>
+              <span class="section-heading font-display font-bold text-base tracking-wider">+254 700 000 000</span>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- UPCOMING EVENTS -->
-<section class="py-20" style="background:#130F1E; border-top:1px solid rgba(176,141,87,0.1);">
+<!-- EVENTS -->
+<section class="py-20 events-section" style="border-top:1px solid rgba(176,141,87,0.1);">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
     <div class="text-center mb-14">
       <div class="deco-divider mb-5 max-w-xs mx-auto">
         <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
               style="font-family:'Josefin Sans',sans-serif;">What Is Coming</span>
       </div>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">Upcoming Events</h2>
+      <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-widest section-heading">Upcoming Events</h2>
     </div>
-
     <div class="grid md:grid-cols-3 gap-6">
       {% for event in upcoming_events %}
       <div class="art-card flex flex-col group">
@@ -200,16 +190,16 @@
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
           <div>
-            <h3 class="font-display font-bold text-base text-white mb-2 tracking-wider group-hover:text-artAccentL transition">
+            <h3 class="font-display font-bold text-base card-heading mb-2 tracking-wider group-hover:text-artAccentL transition">
               {{ event.title }}
             </h3>
-            <p class="text-white/45 text-xs" style="font-family:'Inter',sans-serif;">
+            <p class="card-body text-xs" style="font-family:'Inter',sans-serif;">
               <i class="fa-solid fa-location-dot mr-1 text-artAccent"></i>{{ event.venue }}
             </p>
-            <p class="text-white/45 text-xs mt-1" style="font-family:'Inter',sans-serif;">
+            <p class="card-body text-xs mt-1" style="font-family:'Inter',sans-serif;">
               <i class="fa-solid fa-clock mr-1 text-artAccent"></i>{{ event.start_datetime|date:"g:i A" }}
             </p>
-            <p class="text-white/40 text-sm leading-relaxed mt-3" style="font-family:'Inter',sans-serif;">
+            <p class="card-body text-sm leading-relaxed mt-3" style="font-family:'Inter',sans-serif;">
               {{ event.description|truncatewords:18 }}
             </p>
           </div>
@@ -223,16 +213,15 @@
       {% empty %}
       <div class="col-span-3 text-center py-16">
         <i class="fa-solid fa-calendar-xmark text-5xl mb-4 block opacity-20 text-artAccent"></i>
-        <p class="text-white/35 text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
-          No upcoming events at the moment. Check back soon.
+        <p class="section-muted text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+          No upcoming events at the moment.
         </p>
       </div>
       {% endfor %}
     </div>
-
     <div class="text-center mt-10">
       <a href="{% url 'events:list' %}"
-         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-white transition"
+         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-artAccent transition"
          style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
         View All Events
       </a>
@@ -241,18 +230,18 @@
 </section>
 
 <!-- SPONSOR CTA -->
-<section class="py-20 text-center relative overflow-hidden"
-         style="background:#0D0A14; border-top:1px solid rgba(176,141,87,0.12); border-bottom:1px solid rgba(176,141,87,0.12);">
+<section class="py-20 text-center relative overflow-hidden cta-section"
+         style="border-top:1px solid rgba(176,141,87,0.12); border-bottom:1px solid rgba(176,141,87,0.12);">
   <div class="absolute inset-0 deco-sunburst pointer-events-none"></div>
   <div class="relative z-10 max-w-3xl mx-auto px-4">
     <div class="deco-divider mb-5 max-w-xs mx-auto">
       <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
             style="font-family:'Josefin Sans',sans-serif;">Support Our Mission</span>
     </div>
-    <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mb-4 tracking-widest">
+    <h2 class="font-display font-bold text-2xl sm:text-3xl mb-4 tracking-widest section-heading">
       Your Support Means A Lot.<br>Partner With Us Today.
     </h2>
-    <p class="text-white/45 mb-8 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
+    <p class="section-body mb-8 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
       Help us reach more communities, donate glasses, and train future optometrists.
     </p>
     <a href="{% url 'sponsorship:list' %}"
@@ -263,24 +252,25 @@
   </div>
 </section>
 
-<!-- LATEST NEWS -->
-<section class="py-20" style="background:#130F1E; border-top:1px solid rgba(176,141,87,0.1);">
+<!-- NEWS -->
+<section class="py-20 events-section" style="border-top:1px solid rgba(176,141,87,0.1);">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
     <div class="text-center mb-14">
       <div class="deco-divider mb-5 max-w-xs mx-auto">
         <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
               style="font-family:'Josefin Sans',sans-serif;">Stay Informed</span>
       </div>
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">Latest News &amp; Articles</h2>
+      <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-widest section-heading">
+        Latest News &amp; Articles
+      </h2>
     </div>
-
     <div class="grid md:grid-cols-3 gap-6">
       {% for post in latest_news %}
       <article class="news-card group">
         <div class="h-48 overflow-hidden">
           {% if post.cover_image %}
             <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-                 class="news-card-img group-hover:scale-105 transition-transform duration-500 opacity-85">
+                 class="news-card-img group-hover:scale-105 transition-transform duration-500">
           {% else %}
             <div class="w-full h-48 flex items-center justify-center"
                  style="background:rgba(82,40,136,0.12);">
@@ -308,16 +298,15 @@
       {% empty %}
       <div class="col-span-3 text-center py-16">
         <i class="fa-solid fa-newspaper text-5xl mb-4 block opacity-20 text-artAccent"></i>
-        <p class="text-white/35 text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
+        <p class="section-muted text-sm font-semibold" style="font-family:'Josefin Sans',sans-serif;">
           No news articles yet.
         </p>
       </div>
       {% endfor %}
     </div>
-
     <div class="text-center mt-10">
       <a href="{% url 'news:list' %}"
-         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-white transition"
+         class="px-8 py-3 rounded-sm font-semibold text-sm tracking-widest text-artAccentL hover:text-artAccent transition"
          style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.3);">
         View All News
       </a>
