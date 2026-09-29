@@ -1,23 +1,54 @@
-{% extends "base.html" %}
-{% block title %}News{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}News — KAFUOSA{% endblock %}
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-20 text-center">
-  <h1 class="text-2xl text-gray-500 mb-12">Checkout whats going on. <span class="font-bold text-[#1e1e1e] border-b-2 border-[#8080B8] pb-1">Latest News</span></h1>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-    {% for p in posts %}
-    <div class="bg-white">
-      <div class="pt-5 pb-4 border-b border-gray-100">
-        <h3 class="font-bold text-lg text-[#1e1e1e] mb-2">{{ p.title }}</h3>
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-3">{{ p.published_at|date:"d M Y" }} &nbsp;|&nbsp; POSTED IN: {{ p.get_category_display }}</p>
-        <p class="text-sm text-gray-500 line-clamp-3">{{ p.excerpt }}</p>
-      </div>
-      <div class="pt-4 pb-2">
-        <a href="/news/{{ p.slug }}/" class="inline-block border border-gray-300 text-gray-600 text-xs font-bold px-4 py-2 uppercase tracking-wide hover:border-[#1e1e1e] hover:text-[#1e1e1e] transition">Read More</a>
-      </div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20">
+
+  <div class="text-center mb-14">
+    <div class="deco-divider mb-5 max-w-sm mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Latest Updates</span>
     </div>
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-white tracking-widest mb-3">
+      What's Going On
+    </h1>
+    <p class="text-white/50 text-sm" style="font-family:'Josefin Sans',sans-serif;">
+      News, outreach reports, and academic updates from KAFUOSA
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for p in posts %}
+    <article class="news-card">
+      {% if p.cover_image %}
+        <img src="{{ p.cover_image.url }}" alt="{{ p.title }}" class="news-card-img">
+      {% else %}
+        <div class="w-full h-48 flex items-center justify-center" style="background:rgba(82,40,136,0.15); border-bottom:1px solid rgba(176,141,87,0.15);">
+          <i class="fa-solid fa-newspaper text-artAccent/40 text-4xl"></i>
+        </div>
+      {% endif %}
+
+      <div class="news-card-body">
+        <span class="news-card-category">{{ p.get_category_display }}</span>
+        <h3 class="news-card-title">{{ p.title }}</h3>
+        <p class="news-card-excerpt">{{ p.excerpt }}</p>
+        <div class="flex items-center justify-between mt-auto pt-4" style="border-top:1px solid rgba(176,141,87,0.12);">
+          <span class="news-card-meta">{{ p.published_at|date:"d M Y" }}</span>
+          <a href="/news/{{ p.slug }}/"
+             class="text-artAccent text-xs font-semibold uppercase tracking-widest hover:text-artAccentL transition flex items-center gap-1"
+             style="font-family:'Josefin Sans',sans-serif;">
+            Read <i class="fa-solid fa-arrow-right text-[9px]"></i>
+          </a>
+        </div>
+      </div>
+    </article>
     {% empty %}
-    <p class="text-gray-500 col-span-3 text-center py-8">No posts yet.</p>
+    <div class="col-span-3 text-center py-20">
+      <i class="fa-solid fa-newspaper text-artAccent/30 text-5xl mb-4 block"></i>
+      <p class="text-white/40 text-sm" style="font-family:'Josefin Sans',sans-serif;">No posts yet. Check back soon.</p>
+    </div>
     {% endfor %}
   </div>
+
 </div>
+
 {% endblock %}

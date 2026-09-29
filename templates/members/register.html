@@ -1,27 +1,47 @@
-{% extends "base.html" %}
-{% block title %}Register{% endblock %}
+﻿{% extends "base.html" %}
+{% block title %}Register — KAFUOSA{% endblock %}
 {% block content %}
-<div class="max-w-sm mx-auto px-4 py-24">
-  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-10 text-center">Join KAFUOSA</h1>
-  {% if form.errors %}
-  <div class="bg-red-100 text-red-800 text-sm px-4 py-3 rounded mb-6">
-    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
-    {% for field in form %}{% for error in field.errors %}<p>{{ field.label }}: {{ error }}</p>{% endfor %}{% endfor %}
+
+<div class="max-w-lg mx-auto px-4 py-20">
+
+  <div class="text-center mb-10">
+    <div class="deco-divider mb-5 max-w-xs mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Join KAFUOSA</span>
+    </div>
+    <h1 class="font-display font-bold text-3xl text-white tracking-widest">Create Account</h1>
   </div>
-  {% endif %}
-  <form method="post" class="space-y-4 bg-gray-50 border border-gray-100 p-8 shadow-sm">
+
+  <form method="post" enctype="multipart/form-data" class="art-card p-8 space-y-5">
     {% csrf_token %}
-    <input name="first_name" placeholder="First Name" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="last_name" placeholder="Last Name" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="email" type="email" placeholder="Email" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="username" placeholder="Username" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="registration_number" placeholder="Registration Number" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="phone_number" placeholder="Phone Number (optional)" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="year_of_study" type="number" placeholder="Year of Study (optional)" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="password" type="password" placeholder="Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <input name="confirm_password" type="password" placeholder="Confirm Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:outline-none transition"/>
-    <button type="submit" class="w-full bg-[#8080B8] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Register</button>
-    <p class="text-center text-xs text-gray-500 mt-4">Already a member? <a href="/members/login/" class="text-[#8080B8] font-bold">Login</a></p>
+    {% for field in form %}
+    <div>
+      <label class="block text-white/60 text-[11px] uppercase tracking-widest mb-2" style="font-family:'Josefin Sans',sans-serif;">
+        {{ field.label }}
+      </label>
+      <div class="[&>input]:w-full [&>input]:px-4 [&>input]:py-3 [&>input]:text-sm [&>input]:text-white
+                  [&>input]:placeholder-white/25 [&>input]:focus:outline-none [&>input]:rounded-sm
+                  [&>select]:w-full [&>select]:px-4 [&>select]:py-3 [&>select]:text-sm [&>select]:text-white
+                  [&>select]:focus:outline-none [&>select]:rounded-sm [&>select]:bg-artDark"
+           style="--tw-ring-color:rgba(176,141,87,0.4);">
+        {{ field }}
+      </div>
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <p class="text-red-400 text-xs mt-1" style="font-family:'Inter',sans-serif;">{{ error }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn-primary w-full py-3 rounded-sm text-sm font-semibold tracking-widest"
+            style="font-family:'Josefin Sans',sans-serif;">
+      Register
+    </button>
+    <p class="text-center text-white/40 text-xs" style="font-family:'Josefin Sans',sans-serif;">
+      Already a member?
+      <a href="{% url 'members:login' %}" class="text-artAccent hover:text-artAccentL transition">Login here</a>
+    </p>
   </form>
+
 </div>
+
 {% endblock %}

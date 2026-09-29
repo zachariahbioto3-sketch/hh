@@ -10,7 +10,6 @@ node_modules/
 package.json
 package-lock.json
 tailwind.config.js
-static/css/output.css
 static/css/input.css
 login.html
 register.html
