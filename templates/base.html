@@ -1,4 +1,4 @@
-﻿{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -10,6 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Josefin+Sans:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  <script>
+    (function(){
+      var t = localStorage.getItem('kafuosa-theme') || 'dark';
+      if (t === 'light') document.documentElement.classList.add('light');
+    })();
+  </script>
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
   <style>
     body { background-color:#0D0A14; font-family:'Inter',sans-serif; color:#EDE9F4; }
@@ -161,7 +168,7 @@
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3.5 group">
         <div class="relative w-11 h-11">
-          <img src="{% static 'images/kafuosa-logo.jpeg' %}"
+          <img src="{% static 'images/kafuosa-logo.jpg' %}"
                onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1428/B08D57?text=K';"
                alt="KAFUOSA logo"
                class="w-11 h-11 rounded-sm object-cover"
@@ -188,6 +195,12 @@
       <!-- Right Actions -->
       <div class="flex items-center gap-3">
         <button id="themeToggle" onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm" title="Toggle light/dark">
+          <i class="fa-solid fa-sun text-xs" id="themeIcon"></i>
+        </button>
+        <button id="themeToggle"
+          onclick="toggleTheme()"
+          title="Toggle light / dark mode"
+          class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm">
           <i class="fa-solid fa-sun text-xs" id="themeIcon"></i>
         </button>
         <button id="searchOpenBtn" class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm" title="Search">
@@ -400,7 +413,7 @@
 
         <div class="lg:col-span-5 space-y-6">
           <div class="flex items-center gap-3">
-            <img src="{% static 'images/kafuosa-logo.jpeg' %}"
+            <img src="{% static 'images/kafuosa-logo.jpg' %}"
                  onerror="this.onerror=null; this.src='https://placehold.co/100x100/1A1428/B08D57?text=K';"
                  alt="KAFUOSA Logo" class="w-10 h-10 rounded-sm object-cover" style="border:1px solid rgba(176,141,87,0.3);">
             <div>
