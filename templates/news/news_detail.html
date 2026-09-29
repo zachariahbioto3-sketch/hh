@@ -1,0 +1,35 @@
+﻿{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ post.title }} — KAFUOSA{% endblock %}
+{% block content %}
+
+<div class="relative w-full h-56 sm:h-72 md:h-96 overflow-hidden">
+  {% if post.cover_image %}
+    <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover opacity-60"/>
+  {% else %}
+    <div class="w-full h-full flex items-center justify-center" style="background:rgba(82,40,136,0.15);">
+      <i class="fa-solid fa-newspaper text-artAccent text-8xl opacity-10"></i>
+    </div>
+  {% endif %}
+  <div class="absolute inset-0" style="background:linear-gradient(to top,#0D0A14 0%,rgba(13,10,20,0.4) 60%,transparent 100%);"></div>
+</div>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16">
+  <div class="flex flex-wrap items-center gap-2 mb-5">
+    <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest text-artAccentL" style="background:rgba(82,40,136,0.3);border:1px solid rgba(176,141,87,0.25);font-family:'Josefin Sans',sans-serif;">{{ post.category }}</span>
+    <span class="text-white/30 text-[10px]" style="font-family:'Josefin Sans',sans-serif;">{{ post.published_at|date:"F j, Y" }}</span>
+  </div>
+  <h1 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-widest leading-tight mb-6">{{ post.title }}</h1>
+  {% if post.excerpt %}
+    <p class="text-white/50 text-base leading-relaxed mb-8 pb-8" style="font-family:'Inter',sans-serif;border-bottom:1px solid rgba(176,141,87,0.15);">{{ post.excerpt }}</p>
+  {% endif %}
+  <div class="text-white/65 leading-relaxed text-sm sm:text-base space-y-4" style="font-family:'Inter',sans-serif;">
+    {{ post.body|linebreaks }}
+  </div>
+  <div class="mt-12 pt-8" style="border-top:1px solid rgba(176,141,87,0.15);">
+    <a href="{% url 'news:list' %}" class="flex items-center gap-2 text-white/40 hover:text-artAccentL text-xs uppercase tracking-widest transition" style="font-family:'Josefin Sans',sans-serif;">
+      <i class="fa-solid fa-arrow-left text-[10px]"></i> Back to News
+    </a>
+  </div>
+</div>
+{% endblock %}

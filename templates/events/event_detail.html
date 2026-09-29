@@ -1,143 +1,87 @@
 ﻿{% extends "base.html" %}
 {% load static %}
 {% block title %}{{ event.title }} — KAFUOSA{% endblock %}
-
 {% block content %}
 
-<!-- COVER -->
-<div class="relative w-full h-72 md:h-96 overflow-hidden">
+<div class="relative w-full h-56 sm:h-72 md:h-96 overflow-hidden">
   {% if event.cover_image %}
-    <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover opacity-60" />
+    <img src="{{ event.cover_image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover opacity-60"/>
   {% else %}
     <div class="w-full h-full flex items-center justify-center" style="background:rgba(82,40,136,0.15);">
       <i class="fa-solid fa-calendar-days text-artAccent text-8xl opacity-10"></i>
     </div>
   {% endif %}
-  <div class="absolute inset-0" style="background:linear-gradient(to top,#0D0A14 0%,rgba(13,10,20,0.5) 60%,transparent 100%);"></div>
+  <div class="absolute inset-0" style="background:linear-gradient(to top,#0D0A14 0%,rgba(13,10,20,0.4) 60%,transparent 100%);"></div>
 </div>
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 py-16">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16">
 
-  <!-- META + TITLE -->
-  <div class="mb-10">
-    <div class="flex flex-wrap items-center gap-3 mb-5">
-      <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest text-artAccentL" style="background:rgba(82,40,136,0.3);border:1px solid rgba(176,141,87,0.25);font-family:'Josefin Sans',sans-serif;">
-        {{ event.start_datetime|date:"d M Y" }}
-      </span>
+  <div class="mb-8">
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest text-artAccentL" style="background:rgba(82,40,136,0.3);border:1px solid rgba(176,141,87,0.25);font-family:'Josefin Sans',sans-serif;">{{ event.start_datetime|date:"d M Y" }}</span>
       {% if event.is_outreach %}
         <span class="text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest" style="background:rgba(176,141,87,0.15);border:1px solid rgba(176,141,87,0.35);color:#C9A96E;font-family:'Josefin Sans',sans-serif;">Outreach</span>
       {% endif %}
     </div>
-    <h1 class="font-display font-bold text-3xl sm:text-4xl text-white tracking-widest leading-tight mb-6">{{ event.title }}</h1>
-    <div class="flex flex-wrap gap-6">
-      <div class="flex items-center gap-2 text-white/50 text-sm" style="font-family:'Inter',sans-serif;">
-        <i class="fa-solid fa-location-dot text-artAccent"></i>
-        {{ event.venue }}
-      </div>
-      <div class="flex items-center gap-2 text-white/50 text-sm" style="font-family:'Inter',sans-serif;">
-        <i class="fa-solid fa-clock text-artAccent"></i>
-        {{ event.start_datetime|date:"g:i A" }} — {{ event.end_datetime|date:"g:i A" }}
-      </div>
-      {% if event.capacity %}
-      <div class="flex items-center gap-2 text-white/50 text-sm" style="font-family:'Inter',sans-serif;">
-        <i class="fa-solid fa-users text-artAccent"></i>
-        Capacity: {{ event.capacity }}
-      </div>
-      {% endif %}
+    <h1 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-widest leading-tight mb-5">{{ event.title }}</h1>
+    <div class="flex flex-wrap gap-4">
+      <span class="text-white/50 text-xs flex items-center gap-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-location-dot text-artAccent"></i>{{ event.venue }}</span>
+      <span class="text-white/50 text-xs flex items-center gap-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-clock text-artAccent"></i>{{ event.start_datetime|date:"g:i A" }} — {{ event.end_datetime|date:"g:i A" }}</span>
+      {% if event.capacity %}<span class="text-white/50 text-xs flex items-center gap-2" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-users text-artAccent"></i>Capacity: {{ event.capacity }}</span>{% endif %}
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-    <!-- DESCRIPTION -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
-      <div class="deco-border p-8" style="background:#130F1E;">
+      <div class="deco-border p-6 sm:p-8" style="background:#130F1E;">
         <div class="deco-divider mb-5 max-w-xs">
           <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">About This Event</span>
         </div>
-        <p class="text-white/60 leading-relaxed" style="font-family:'Inter',sans-serif;font-size:0.95rem;">{{ event.description }}</p>
+        <p class="text-white/60 leading-relaxed text-sm sm:text-base" style="font-family:'Inter',sans-serif;">{{ event.description }}</p>
       </div>
     </div>
 
-    <!-- SIDEBAR -->
     <div class="space-y-5">
-
-      <!-- RSVP CARD -->
-      <div class="art-card p-6">
-        <h3 class="font-display font-bold text-sm text-white tracking-widest mb-4 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Your RSVP</h3>
+      <div class="art-card p-5">
+        <h3 class="font-display font-bold text-xs text-white tracking-widest mb-4 pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Your RSVP</h3>
         {% if user.is_authenticated %}
           <form method="post" action="/events/{{ event.slug }}/rsvp/">
             {% csrf_token %}
             {% if user_rsvp %}
-              <p class="text-xs text-green-400 mb-4" style="font-family:'Inter',sans-serif;">
-                <i class="fa-solid fa-circle-check mr-1"></i> You have RSVPd for this event.
-              </p>
-              <button type="submit" class="w-full py-3 rounded-sm text-xs font-bold uppercase tracking-widest transition" style="font-family:'Josefin Sans',sans-serif;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#f87171;">
-                Cancel RSVP
-              </button>
+              <p class="text-green-400 text-xs mb-3" style="font-family:'Inter',sans-serif;"><i class="fa-solid fa-circle-check mr-1"></i>You have RSVPd.</p>
+              <button type="submit" class="w-full py-3 rounded-sm text-xs font-bold uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.35);color:#f87171;">Cancel RSVP</button>
             {% else %}
-              <p class="text-white/40 text-xs mb-4" style="font-family:'Inter',sans-serif;">Secure your spot at this event.</p>
-              <button type="submit" class="btn-primary w-full py-3 rounded-sm text-xs font-bold uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif;">
-                RSVP Now
-              </button>
+              <p class="text-white/40 text-xs mb-3" style="font-family:'Inter',sans-serif;">Secure your spot.</p>
+              <button type="submit" class="btn-primary w-full py-3 rounded-sm text-xs font-bold uppercase tracking-widest" style="font-family:'Josefin Sans',sans-serif;">RSVP Now</button>
             {% endif %}
           </form>
         {% else %}
-          <p class="text-white/40 text-xs mb-4" style="font-family:'Inter',sans-serif;">Login to RSVP for this event.</p>
+          <p class="text-white/40 text-xs mb-3" style="font-family:'Inter',sans-serif;">Login to RSVP.</p>
           <a href="{% url 'members:login' %}" class="btn-primary w-full py-3 rounded-sm text-xs font-bold uppercase tracking-widest text-center block" style="font-family:'Josefin Sans',sans-serif;">Login to RSVP</a>
         {% endif %}
       </div>
 
-      <!-- EVENT DETAILS CARD -->
-      <div class="art-card p-6 space-y-4">
-        <h3 class="font-display font-bold text-sm text-white tracking-widest pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Event Details</h3>
+      <div class="art-card p-5 space-y-3">
+        <h3 class="font-display font-bold text-xs text-white tracking-widest pb-3" style="border-bottom:1px solid rgba(176,141,87,0.15);">Event Details</h3>
+        {% for icon, label, value in detail_items %}{% endfor %}
         <div class="flex items-start gap-3">
-          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);">
-            <i class="fa-solid fa-calendar text-artAccent text-xs"></i>
-          </div>
-          <div>
-            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Date</p>
-            <p class="text-white text-sm" style="font-family:'Inter',sans-serif;">{{ event.start_datetime|date:"l, F j, Y" }}</p>
-          </div>
+          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-calendar text-artAccent text-xs"></i></div>
+          <div><p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Date</p><p class="text-white text-xs" style="font-family:'Inter',sans-serif;">{{ event.start_datetime|date:"l, F j, Y" }}</p></div>
         </div>
         <div class="flex items-start gap-3">
-          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);">
-            <i class="fa-solid fa-clock text-artAccent text-xs"></i>
-          </div>
-          <div>
-            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Time</p>
-            <p class="text-white text-sm" style="font-family:'Inter',sans-serif;">{{ event.start_datetime|date:"g:i A" }} — {{ event.end_datetime|date:"g:i A" }}</p>
-          </div>
+          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-clock text-artAccent text-xs"></i></div>
+          <div><p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Time</p><p class="text-white text-xs" style="font-family:'Inter',sans-serif;">{{ event.start_datetime|date:"g:i A" }} — {{ event.end_datetime|date:"g:i A" }}</p></div>
         </div>
         <div class="flex items-start gap-3">
-          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);">
-            <i class="fa-solid fa-location-dot text-artAccent text-xs"></i>
-          </div>
-          <div>
-            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Venue</p>
-            <p class="text-white text-sm" style="font-family:'Inter',sans-serif;">{{ event.venue }}</p>
-          </div>
+          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);"><i class="fa-solid fa-location-dot text-artAccent text-xs"></i></div>
+          <div><p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Venue</p><p class="text-white text-xs" style="font-family:'Inter',sans-serif;">{{ event.venue }}</p></div>
         </div>
-        {% if event.capacity %}
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 rounded-sm flex items-center justify-center shrink-0" style="background:rgba(82,40,136,0.2);border:1px solid rgba(176,141,87,0.15);">
-            <i class="fa-solid fa-users text-artAccent text-xs"></i>
-          </div>
-          <div>
-            <p class="text-[10px] uppercase tracking-widest text-white/35 mb-0.5" style="font-family:'Josefin Sans',sans-serif;">Capacity</p>
-            <p class="text-white text-sm" style="font-family:'Inter',sans-serif;">{{ event.capacity }} spots</p>
-          </div>
-        </div>
-        {% endif %}
       </div>
 
-      <!-- BACK LINK -->
       <a href="{% url 'events:list' %}" class="flex items-center gap-2 text-white/40 hover:text-artAccentL text-xs uppercase tracking-widest transition" style="font-family:'Josefin Sans',sans-serif;">
         <i class="fa-solid fa-arrow-left text-[10px]"></i> Back to Events
       </a>
-
     </div>
   </div>
 </div>
-
 {% endblock %}
