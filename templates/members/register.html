@@ -2,6 +2,18 @@
 {% block title %}Register — KAFUOSA{% endblock %}
 {% block content %}
 
+<style>
+.reg-input {
+    width:100%; background:rgba(255,255,255,0.04);
+    border:1px solid rgba(176,141,87,0.2); color:#fff;
+    padding:0.75rem 1rem; font-size:0.875rem;
+    font-family:"Inter",sans-serif; outline:none;
+    transition:border-color .2s; border-radius:2px;
+}
+.reg-input:focus { border-color:rgba(176,141,87,0.6); }
+.reg-input::placeholder { color:rgba(255,255,255,0.25); }
+</style>
+
 <div class="max-w-lg mx-auto px-4 py-20">
 
   <div class="text-center mb-10">
@@ -11,20 +23,27 @@
     <h1 class="font-display font-bold text-3xl text-white tracking-widest">Create Account</h1>
   </div>
 
-  <form method="post" enctype="multipart/form-data" class="art-card p-8 space-y-5">
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+      <div class="mb-4 px-5 py-3 text-sm font-semibold rounded-sm" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;font-family:'Josefin Sans',sans-serif;">{{ error }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" class="art-card p-8 space-y-5">
     {% csrf_token %}
     {% for field in form %}
     <div>
       <label class="block text-white/60 text-[11px] uppercase tracking-widest mb-2" style="font-family:'Josefin Sans',sans-serif;">
-        {{ field.label }}
+        {{ field.label }}{% if field.field.required %} <span class="text-artAccent">*</span>{% endif %}
       </label>
-      <div class="[&>input]:w-full [&>input]:px-4 [&>input]:py-3 [&>input]:text-sm [&>input]:text-white
-                  [&>input]:placeholder-white/25 [&>input]:focus:outline-none [&>input]:rounded-sm
-                  [&>select]:w-full [&>select]:px-4 [&>select]:py-3 [&>select]:text-sm [&>select]:text-white
-                  [&>select]:focus:outline-none [&>select]:rounded-sm [&>select]:bg-artDark"
-           style="--tw-ring-color:rgba(176,141,87,0.4);">
-        {{ field }}
-      </div>
+      <input
+        type="{{ field.field.widget.input_type }}"
+        name="{{ field.html_name }}"
+        id="{{ field.id_for_label }}"
+        class="reg-input"
+        {% if field.value %}value="{{ field.value }}"{% endif %}
+        {% if not field.field.required %}placeholder="Optional"{% endif %}
+      />
       {% if field.errors %}
         {% for error in field.errors %}
           <p class="text-red-400 text-xs mt-1" style="font-family:'Inter',sans-serif;">{{ error }}</p>
@@ -32,11 +51,11 @@
       {% endif %}
     </div>
     {% endfor %}
-    <button type="submit" class="btn-primary w-full py-3 rounded-sm text-sm font-semibold tracking-widest"
-            style="font-family:'Josefin Sans',sans-serif;">
-      Register
+
+    <button type="submit" class="btn-primary w-full py-3 rounded-sm text-sm font-semibold tracking-widest mt-2" style="font-family:'Josefin Sans',sans-serif;">
+      Create Account
     </button>
-    <p class="text-center text-white/40 text-xs" style="font-family:'Josefin Sans',sans-serif;">
+    <p class="text-center text-white/40 text-xs pt-2" style="font-family:'Josefin Sans',sans-serif;">
       Already a member?
       <a href="{% url 'members:login' %}" class="text-artAccent hover:text-artAccentL transition">Login here</a>
     </p>
