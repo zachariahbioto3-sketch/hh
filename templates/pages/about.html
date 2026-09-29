@@ -1,45 +1,337 @@
 ﻿{% extends "base.html" %}
+{% load static %}
 {% block title %}About KAFUOSA{% endblock %}
+
 {% block content %}
 
-<div class="max-w-4xl mx-auto px-4 py-20">
-  <div class="text-center mb-16">
-    <div class="deco-divider mb-5 max-w-sm mx-auto">
-      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Who We Are</span>
+<!-- HERO -->
+<section class="relative overflow-hidden deco-sunburst py-24">
+  <div class="absolute inset-0 pointer-events-none"
+       style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px),
+                          repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.03) 60px);">
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center relative z-10">
+    <div class="deco-divider mb-6 max-w-xs mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.4em] text-artAccent font-semibold"
+            style="font-family:'Josefin Sans',sans-serif;">Who We Are</span>
     </div>
-    <h1 class="font-display font-bold text-3xl sm:text-4xl text-white mb-6 tracking-widest">About KAFUOSA</h1>
-    <p class="text-white/60 leading-relaxed max-w-2xl mx-auto text-sm" style="font-family:'Inter',sans-serif;">
-      The Kaimosi Friends University Optometry Students Association (KAFUOSA) is the official body representing
-      optometry students at Kaimosi Friends University. We are committed to fostering academic excellence,
-      professional development, and community outreach in eye care across Kenya.
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-white tracking-widest mb-5">
+      About <span class="text-gold">KAFUOSA</span>
+    </h1>
+    <p class="text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
+       style="font-family:'Inter',sans-serif;">
+      The Kaimosi Friends University Optometry Students Association — committed to academic excellence,
+      community eye health, and professional development across Kenya.
+    </p>
+  </div>
+</section>
+
+<!-- INTRO WITH IMAGE -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20">
+  <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="space-y-6">
+      <div class="deco-divider max-w-[160px]">
+        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
+              style="font-family:'Josefin Sans',sans-serif;">Our Story</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-wider leading-snug">
+        Advancing Vision Science<br><span class="text-aurora">In Kenya</span>
+      </h2>
+      <p class="text-white/60 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
+        KAFUOSA was established by optometry students at Kaimosi Friends University with a shared
+        commitment to solidarity, professional excellence, and service to the community. We operate
+        under the authority of the university's departmental regulations and the Republic of Kenya.
+      </p>
+      <p class="text-white/60 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
+        From free eye screening camps in rural communities to academic seminars and mentorship
+        programs, KAFUOSA bridges the gap between education and real-world impact in vision care.
+      </p>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a href="{% url 'events:list' %}" class="btn-primary px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest"
+           style="font-family:'Josefin Sans',sans-serif;">View Events</a>
+        <a href="{% url 'pages:constitution' %}"
+           class="px-6 py-2.5 rounded-sm text-xs font-semibold tracking-widest text-white/60 hover:text-artAccentL transition"
+           style="font-family:'Josefin Sans',sans-serif; border:1px solid rgba(176,141,87,0.2);">
+          Our Constitution
+        </a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="overflow-hidden rounded-sm" style="border:1px solid rgba(176,141,87,0.2);">
+        <img src="{% static 'images/hero-group.jpg' %}"
+             onerror="this.onerror=null;this.style.background='rgba(82,40,136,0.2)';"
+             alt="KAFUOSA members"
+             class="w-full h-80 object-cover">
+      </div>
+      <span class="absolute -top-2 -left-2 w-5 h-5 border-t-2 border-l-2" style="border-color:#B08D57;"></span>
+      <span class="absolute -bottom-2 -right-2 w-5 h-5 border-b-2 border-r-2" style="border-color:#B08D57;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- MOTTO / VISION / MISSION -->
+<section class="py-16" style="background:rgba(31,24,48,0.4); border-top:1px solid rgba(176,141,87,0.1); border-bottom:1px solid rgba(176,141,87,0.1);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    <div class="text-center mb-12">
+      <div class="deco-divider mb-5 max-w-xs mx-auto">
+        <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
+              style="font-family:'Josefin Sans',sans-serif;">Our Foundation</span>
+      </div>
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">
+        What Drives Us
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="art-card p-8 text-center">
+        <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm"
+             style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+          <i class="fa-solid fa-quote-left text-artAccent text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-artAccentL mb-2 tracking-wider text-sm uppercase">Motto</h3>
+        <p class="text-white font-display text-lg tracking-wide mb-3">Eyes To The Future</p>
+        <p class="text-white/45 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
+          Our rallying call — a commitment to forward-looking vision science and community service.
+        </p>
+      </div>
+
+      <div class="art-card p-8 text-center">
+        <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm"
+             style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+          <i class="fa-solid fa-eye text-artAccent text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-artAccentL mb-2 tracking-wider text-sm uppercase">Vision</h3>
+        <p class="text-white/75 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
+          To offer the best vision and visual environment to humanity through optometry and vision science.
+        </p>
+      </div>
+
+      <div class="art-card p-8 text-center">
+        <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm"
+             style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
+          <i class="fa-solid fa-bullseye text-artAccent text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-artAccentL mb-2 tracking-wider text-sm uppercase">Mission</h3>
+        <p class="text-white/75 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">
+          To fulfill the vision and eye care needs of the public through clinical care, research, and education.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OFFICERS GRID -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20">
+  <div class="text-center mb-14">
+    <div class="deco-divider mb-5 max-w-xs mx-auto">
+      <span class="text-[10px] uppercase tracking-[0.35em] text-artAccent font-semibold"
+            style="font-family:'Josefin Sans',sans-serif;">Leadership</span>
+    </div>
+    <h2 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">
+      Executive Council
+    </h2>
+    <p class="text-white/40 text-xs mt-3" style="font-family:'Josefin Sans',sans-serif;">
+      Click any card to learn more
     </p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="art-card p-8 text-center">
-      <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
-        <i class="fa-solid fa-graduation-cap text-artAccent text-xl"></i>
-      </div>
-      <h3 class="font-display font-bold text-white mb-3 tracking-wider">Academic Excellence</h3>
-      <p class="text-white/55 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Supporting students through resources, study groups, and peer mentorship.</p>
-    </div>
+  {% if officers %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="officersGrid">
+    {% for officer in officers %}
+    <div class="art-card cursor-pointer group officer-card"
+         data-index="{{ forloop.counter0 }}"
+         onclick="openOfficerModal({{ forloop.counter0 }})">
 
-    <div class="art-card p-8 text-center">
-      <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
-        <i class="fa-solid fa-hand-holding-medical text-artAccent text-xl"></i>
+      <!-- Photo -->
+      <div class="relative overflow-hidden" style="height:220px;">
+        {% if officer.photo %}
+          <img src="{{ officer.photo.url }}" alt="{{ officer.name }}"
+               class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center"
+               style="background:linear-gradient(135deg,rgba(82,40,136,0.3),rgba(61,31,102,0.5));">
+            <i class="fa-solid fa-user text-artAccent/30 text-5xl"></i>
+          </div>
+        {% endif %}
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center"
+             style="background:rgba(82,40,136,0.5);">
+          <span class="text-white text-xs font-semibold uppercase tracking-widest"
+                style="font-family:'Josefin Sans',sans-serif;">View Profile</span>
+        </div>
+        <!-- Gold corner deco -->
+        <span class="absolute top-2 left-2 w-4 h-4 border-t border-l opacity-60" style="border-color:#B08D57;"></span>
+        <span class="absolute bottom-2 right-2 w-4 h-4 border-b border-r opacity-60" style="border-color:#B08D57;"></span>
       </div>
-      <h3 class="font-display font-bold text-white mb-3 tracking-wider">Community Outreach</h3>
-      <p class="text-white/55 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Running free eye screening camps and donating glasses across underserved communities.</p>
-    </div>
 
-    <div class="art-card p-8 text-center">
-      <div class="w-14 h-14 flex items-center justify-center mx-auto mb-5 rounded-sm" style="background:rgba(82,40,136,0.2); border:1px solid rgba(176,141,87,0.2);">
-        <i class="fa-solid fa-people-group text-artAccent text-xl"></i>
+      <!-- Card body -->
+      <div class="p-5">
+        <p class="text-artAccent text-[10px] uppercase tracking-[0.25em] mb-1 font-semibold"
+           style="font-family:'Josefin Sans',sans-serif;">{{ officer.get_position_display }}</p>
+        <h3 class="font-display font-bold text-white tracking-wide text-sm mb-2">{{ officer.name }}</h3>
+        {% if officer.short_bio %}
+          <p class="text-white/45 text-xs leading-relaxed line-clamp-2"
+             style="font-family:'Inter',sans-serif;">{{ officer.short_bio }}</p>
+        {% endif %}
       </div>
-      <h3 class="font-display font-bold text-white mb-3 tracking-wider">Professional Network</h3>
-      <p class="text-white/55 text-sm leading-relaxed" style="font-family:'Inter',sans-serif;">Connecting students with alumni, mentors, and industry professionals.</p>
     </div>
+    {% endfor %}
+  </div>
+
+  <!-- Officer data for JS modal -->
+  <script id="officersData" type="application/json">
+  [
+    {% for officer in officers %}
+    {
+      "name":     "{{ officer.name|escapejs }}",
+      "position": "{{ officer.get_position_display|escapejs }}",
+      "photo":    "{% if officer.photo %}{{ officer.photo.url }}{% endif %}",
+      "short_bio":"{{ officer.short_bio|escapejs }}",
+      "full_bio": "{{ officer.full_bio|escapejs }}",
+      "term":     "{{ officer.term|escapejs }}",
+      "quote":    "{{ officer.quote|escapejs }}",
+      "email":    "{{ officer.email|escapejs }}",
+      "linkedin": "{{ officer.linkedin|escapejs }}",
+      "instagram":"{{ officer.instagram|escapejs }}"
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+  </script>
+
+  {% else %}
+  <!-- Empty state -->
+  <div class="text-center py-20">
+    <i class="fa-solid fa-users text-artAccent/25 text-5xl mb-5 block"></i>
+    <p class="text-white/40 text-sm mb-2" style="font-family:'Josefin Sans',sans-serif;">
+      No officers added yet.
+    </p>
+    <a href="/admin/pages/officer/add/"
+       class="text-artAccent text-xs hover:text-artAccentL transition"
+       style="font-family:'Josefin Sans',sans-serif;">
+      Add officers in the admin panel →
+    </a>
+  </div>
+  {% endif %}
+</section>
+
+<!-- OFFICER MODAL -->
+<div id="officerModal"
+     class="fixed inset-0 z-50 flex items-center justify-center px-4 opacity-0 pointer-events-none transition-opacity duration-300"
+     style="background:rgba(13,10,20,0.88); backdrop-filter:blur(12px);"
+     onclick="if(event.target===this) closeOfficerModal()">
+
+  <div class="relative w-full max-w-lg rounded-sm shadow-2xl transform scale-95 transition-transform duration-300"
+       id="modalCard"
+       style="background:#1A1428; border:1px solid rgba(176,141,87,0.25); max-height:90vh; overflow-y:auto;">
+
+    <!-- Close -->
+    <button onclick="closeOfficerModal()"
+            class="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center text-white/50 hover:text-white transition deco-border rounded-sm">
+      <i class="fa-solid fa-xmark text-sm"></i>
+    </button>
+
+    <!-- Prev / Next -->
+    <button id="modalPrev" onclick="navigateModal(-1)"
+            class="absolute top-1/2 -translate-y-1/2 -left-4 w-8 h-8 flex items-center justify-center text-white/60 hover:text-artAccentL transition rounded-sm z-10"
+            style="background:#1A1428; border:1px solid rgba(176,141,87,0.2);">
+      <i class="fa-solid fa-chevron-left text-xs"></i>
+    </button>
+    <button id="modalNext" onclick="navigateModal(1)"
+            class="absolute top-1/2 -translate-y-1/2 -right-4 w-8 h-8 flex items-center justify-center text-white/60 hover:text-artAccentL transition rounded-sm z-10"
+            style="background:#1A1428; border:1px solid rgba(176,141,87,0.2);">
+      <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+
+    <!-- Modal content (populated by JS) -->
+    <div id="modalContent"></div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const officers = JSON.parse(document.getElementById('officersData')?.textContent || '[]');
+  let currentIndex = 0;
+
+  function openOfficerModal(index) {
+    currentIndex = index;
+    renderModal();
+    const modal = document.getElementById('officerModal');
+    const card  = document.getElementById('modalCard');
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-95');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOfficerModal() {
+    const modal = document.getElementById('officerModal');
+    const card  = document.getElementById('modalCard');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    card.classList.add('scale-95');
+    document.body.style.overflow = '';
+  }
+
+  function navigateModal(dir) {
+    currentIndex = (currentIndex + dir + officers.length) % officers.length;
+    renderModal();
+  }
+
+  function renderModal() {
+    const o = officers[currentIndex];
+    if (!o) return;
+
+    const socials = [
+      o.email    ? `<a href="mailto:${o.email}" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition deco-border rounded-sm"><i class="fa-solid fa-envelope text-xs"></i></a>` : '',
+      o.linkedin ? `<a href="${o.linkedin}" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition deco-border rounded-sm"><i class="fa-brands fa-linkedin-in text-xs"></i></a>` : '',
+      o.instagram? `<a href="${o.instagram}" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center text-white/50 hover:text-artAccentL transition deco-border rounded-sm"><i class="fa-brands fa-instagram text-xs"></i></a>` : '',
+    ].filter(Boolean).join('');
+
+    document.getElementById('modalContent').innerHTML = `
+      <div class="flex flex-col sm:flex-row">
+        <!-- Photo -->
+        <div class="sm:w-48 flex-shrink-0 overflow-hidden" style="min-height:200px; background:rgba(82,40,136,0.2);">
+          ${o.photo
+            ? `<img src="${o.photo}" alt="${o.name}" class="w-full h-full object-cover" style="min-height:200px;">`
+            : `<div class="w-full h-full flex items-center justify-center" style="min-height:200px;"><i class="fa-solid fa-user text-artAccent/25 text-5xl"></i></div>`
+          }
+        </div>
+        <!-- Info -->
+        <div class="flex-1 p-6 sm:p-8">
+          <p class="text-artAccent text-[10px] uppercase tracking-[0.3em] mb-1 font-semibold"
+             style="font-family:'Josefin Sans',sans-serif;">${o.position}</p>
+          <h3 class="font-display font-bold text-white text-lg tracking-wide mb-1">${o.name}</h3>
+          ${o.term ? `<p class="text-white/35 text-[10px] uppercase tracking-widest mb-4" style="font-family:'Josefin Sans',sans-serif;">Term: ${o.term}</p>` : '<div class="mb-4"></div>'}
+          ${o.full_bio
+            ? `<p class="text-white/65 text-xs leading-relaxed mb-5" style="font-family:'Inter',sans-serif;">${o.full_bio}</p>`
+            : o.short_bio
+              ? `<p class="text-white/65 text-xs leading-relaxed mb-5" style="font-family:'Inter',sans-serif;">${o.short_bio}</p>`
+              : ''
+          }
+          ${o.quote ? `
+            <div class="p-3 mb-5 rounded-sm" style="background:rgba(176,141,87,0.08); border-left:2px solid #B08D57;">
+              <p class="text-white/55 text-xs italic leading-relaxed" style="font-family:'Inter',sans-serif;">"${o.quote}"</p>
+            </div>` : ''
+          }
+          ${socials ? `<div class="flex items-center gap-2 mt-auto">${socials}</div>` : ''}
+        </div>
+      </div>
+      <!-- Counter -->
+      <div class="px-6 py-3 text-center" style="border-top:1px solid rgba(176,141,87,0.12);">
+        <span class="text-white/25 text-[10px]" style="font-family:'Josefin Sans',sans-serif;">
+          ${currentIndex + 1} / ${officers.length}
+        </span>
+      </div>
+    `;
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    const modal = document.getElementById('officerModal');
+    if (modal.classList.contains('opacity-0')) return;
+    if (e.key === 'Escape')     closeOfficerModal();
+    if (e.key === 'ArrowLeft')  navigateModal(-1);
+    if (e.key === 'ArrowRight') navigateModal(1);
+  });
+</script>
 {% endblock %}

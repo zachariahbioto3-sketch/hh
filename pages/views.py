@@ -1,6 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import ContactMessage
+from .models import ContactMessage, Officer
 from events.models import Event
 from news.models import Post
 from members.models import Member
@@ -16,7 +16,7 @@ def home(request):
 
     stats = {
         'members': Member.objects.filter(status='approved').count(),
-        'events': Event.objects.count(),
+        'events':  Event.objects.count(),
         'screened': Event.objects.filter(is_outreach=True).aggregate(
             total=__import__('django.db.models', fromlist=['Sum']).Sum('people_screened')
         )['total'] or 0,
@@ -25,31 +25,28 @@ def home(request):
         )['total'] or 0,
     }
 
-    context = {
+    return render(request, 'pages/home.html', {
         'upcoming_events': upcoming_events,
-        'latest_news': latest_news,
-        'stats': stats,
-    }
-    return render(request, 'pages/home.html', context)
+        'latest_news':     latest_news,
+        'stats':           stats,
+    })
 
 
 def about(request):
-    return render(request, 'pages/about.html')
+    officers = Officer.objects.filter(is_active=True)
+    return render(request, 'pages/about.html', {'officers': officers})
 
 
 def contact(request):
     if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
-        email = request.POST.get('email', '').strip()
+        name    = request.POST.get('name',    '').strip()
+        email   = request.POST.get('email',   '').strip()
         subject = request.POST.get('subject', '').strip()
         message = request.POST.get('message', '').strip()
 
         if name and email and subject and message:
             ContactMessage.objects.create(
-                name=name,
-                email=email,
-                subject=subject,
-                message=message,
+                name=name, email=email, subject=subject, message=message,
             )
             messages.success(request, 'Your message has been sent. We will get back to you soon.')
             return redirect('pages:contact')
@@ -57,3 +54,7 @@ def contact(request):
             messages.error(request, 'Please fill in all fields.')
 
     return render(request, 'pages/contact.html')
+
+
+def constitution(request):
+    return render(request, 'pages/constitution.html')

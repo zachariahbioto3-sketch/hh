@@ -110,6 +110,13 @@
   </style>
 
   {% block extra_head %}{% endblock %}
+
+  <script>
+    (function(){
+      var t = localStorage.getItem('kafuosa-theme') || 'dark';
+      if(t === 'light') document.documentElement.classList.add('light');
+    })();
+  </script>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
@@ -180,6 +187,9 @@
 
       <!-- Right Actions -->
       <div class="flex items-center gap-3">
+        <button id="themeToggle" onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm" title="Toggle light/dark">
+          <i class="fa-solid fa-sun text-xs" id="themeIcon"></i>
+        </button>
         <button id="searchOpenBtn" class="w-9 h-9 flex items-center justify-center text-white/60 hover:text-artAccentL transition deco-border rounded-sm" title="Search">
           <i class="fa-solid fa-magnifying-glass text-xs"></i>
         </button>
@@ -427,7 +437,7 @@
           <h4 class="text-[10px] uppercase tracking-[0.3em] text-artAccent font-semibold" style="font-family:'Josefin Sans',sans-serif;">Portal</h4>
           <ul class="space-y-2.5 text-xs text-white/55" style="font-family:'Josefin Sans',sans-serif; letter-spacing:0.06em;">
             <li><a href="{% url 'members:login' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Member Portal</a></li>
-            <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Constitution</a></li>
+            <li><a href="{% url 'pages:constitution' %}" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Constitution</a></li>
             <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Executive Board</a></li>
             <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Research</a></li>
             <li><a href="#" class="hover:text-artAccentL transition flex items-center gap-2"><span class="text-artAccent text-[8px]">&#9670;</span> Gallery</a></li>
@@ -515,5 +525,28 @@
   </script>
 
   {% block extra_js %}{% endblock %}
+
+  <script>
+    function toggleTheme(){
+      var html = document.documentElement;
+      var icon = document.getElementById('themeIcon');
+      if(html.classList.contains('light')){
+        html.classList.remove('light');
+        localStorage.setItem('kafuosa-theme','dark');
+        icon.classList.replace('fa-moon','fa-sun');
+      } else {
+        html.classList.add('light');
+        localStorage.setItem('kafuosa-theme','light');
+        icon.classList.replace('fa-sun','fa-moon');
+      }
+    }
+    // Set correct icon on load
+    document.addEventListener('DOMContentLoaded',function(){
+      var icon = document.getElementById('themeIcon');
+      if(icon && document.documentElement.classList.contains('light')){
+        icon.classList.replace('fa-sun','fa-moon');
+      }
+    });
+  </script>
 </body>
 </html>

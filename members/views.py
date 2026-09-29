@@ -12,7 +12,7 @@ def member_login(request):
                             password=request.POST.get('password'))
         if user:
             login(request, user)
-            return redirect('member_profile')
+            return redirect('members:profile')
         messages.error(request, 'Invalid credentials.')
     return render(request, 'members/login.html')
 
@@ -45,5 +45,5 @@ def member_register(request):
             year_of_study       = d.get('year_of_study'),
         )
         messages.success(request, 'Registration submitted! Await admin approval.')
-        return redirect('member_login')
+        return redirect('members:login')
     return render(request, 'members/register.html', {'form': form})

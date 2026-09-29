@@ -1,13 +1,221 @@
-{% extends "base.html" %}
-{% block title %}Login{% endblock %}
+﻿{% extends "base.html" %}
+{% load static %}
+{% block title %}Member Login — KAFUOSA{% endblock %}
+
 {% block content %}
-<div class="max-w-sm mx-auto px-4 py-24">
-  <h1 class="font-[Playfair_Display] text-4xl font-bold text-[#1e1e1e] mb-10 text-center">Member Login</h1>
-  <form method="post" class="space-y-6 bg-gray-50 border border-gray-100 p-8 shadow-sm">
-    {% csrf_token %}
-    <input name="username" placeholder="Username" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:ring-1 focus:ring-[#8080B8] focus:outline-none transition"/>
-    <input name="password" type="password" placeholder="Password" class="w-full border border-gray-300 px-4 py-3 text-sm focus:border-[#8080B8] focus:ring-1 focus:ring-[#8080B8] focus:outline-none transition"/>
-    <button type="submit" class="w-full bg-[#8080B8] text-white text-xs font-bold px-8 py-4 uppercase tracking-widest hover:bg-[#1e1e1e] transition">Login</button>
-  </form>
+<div class="min-h-screen flex">
+
+  <!-- LEFT — image panel -->
+  <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center"
+       style="background:#0D0A14;">
+
+    <!-- Background image with overlay -->
+    <div class="absolute inset-0">
+      <img src="{% static 'images/hero-clinic.jpg' %}"
+           onerror="this.onerror=null;this.style.display='none';"
+           alt="KAFUOSA clinic outreach"
+           class="w-full h-full object-cover opacity-40">
+      <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(13,10,20,0.85) 0%,rgba(82,40,136,0.4) 100%);"></div>
+    </div>
+
+    <!-- Decorative grid lines -->
+    <div class="absolute inset-0 pointer-events-none"
+         style="background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(176,141,87,0.04) 60px),
+                            repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(176,141,87,0.04) 60px);">
+    </div>
+
+    <!-- Content over image -->
+    <div class="relative z-10 text-center px-12">
+      <!-- Logo -->
+      <div class="flex justify-center mb-8">
+        <div class="relative">
+          <img src="{% static 'images/kafuosa-logo.jpeg' %}"
+               onerror="this.onerror=null;this.src='https://placehold.co/100x100/1A1428/B08D57?text=K';"
+               alt="KAFUOSA Logo"
+               class="w-24 h-24 object-cover rounded-sm mx-auto"
+               style="border:1px solid rgba(176,141,87,0.4);">
+          <span class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2" style="border-color:#B08D57;"></span>
+          <span class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2" style="border-color:#B08D57;"></span>
+        </div>
+      </div>
+
+      <div class="deco-divider mb-6 max-w-[200px] mx-auto">
+        <span class="text-[9px] uppercase tracking-[0.4em] text-artAccent font-semibold"
+              style="font-family:'Josefin Sans',sans-serif;">KAFUOSA</span>
+      </div>
+
+      <h2 class="font-display font-bold text-3xl text-white tracking-widest mb-4 leading-tight">
+        Eyes To The<br><span class="text-gold">Future</span>
+      </h2>
+
+      <p class="text-white/50 text-sm leading-relaxed max-w-xs mx-auto"
+         style="font-family:'Inter',sans-serif;">
+        Kaimosi Friends University Optometry Students Association — advancing vision science across Kenya.
+      </p>
+
+      <!-- Three image strip -->
+      <div class="flex gap-3 mt-10 justify-center">
+        <div class="w-20 h-20 overflow-hidden rounded-sm" style="border:1px solid rgba(176,141,87,0.2);">
+          <img src="{% static 'images/hero-group.jpg' %}"
+               onerror="this.onerror=null;this.style.display='none';"
+               alt="" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300">
+        </div>
+        <div class="w-20 h-20 overflow-hidden rounded-sm" style="border:1px solid rgba(176,141,87,0.2);">
+          <img src="{% static 'images/hero-outreach.jpg' %}"
+               onerror="this.onerror=null;this.style.display='none';"
+               alt="" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300">
+        </div>
+        <div class="w-20 h-20 overflow-hidden rounded-sm" style="border:1px solid rgba(176,141,87,0.2);">
+          <img src="{% static 'images/hero-clinic.jpg' %}"
+               onerror="this.onerror=null;this.style.display='none';"
+               alt="" class="w-full h-full object-cover opacity-70 hover:opacity-100 transition duration-300">
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="mt-10 px-6 py-4 rounded-sm text-left"
+           style="background:rgba(176,141,87,0.08); border:1px solid rgba(176,141,87,0.15);">
+        <p class="text-white/60 text-xs leading-relaxed italic" style="font-family:'Inter',sans-serif;">
+          "To offer the best vision and visual environment to humanity through optometry and vision science."
+        </p>
+        <p class="text-artAccent text-[10px] uppercase tracking-widest mt-2"
+           style="font-family:'Josefin Sans',sans-serif;">— KAFUOSA Vision</p>
+      </div>
+    </div>
+
+    <!-- Bottom deco line -->
+    <div class="absolute bottom-0 left-0 right-0 h-px"
+         style="background:linear-gradient(90deg,transparent,rgba(176,141,87,0.4),transparent);"></div>
+  </div>
+
+  <!-- RIGHT — login card -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center px-6 py-20"
+       style="background:#0D0A14;">
+
+    <div class="w-full max-w-md">
+
+      <!-- Mobile logo (only shows on small screens) -->
+      <div class="flex justify-center mb-8 lg:hidden">
+        <img src="{% static 'images/kafuosa-logo.jpeg' %}"
+             onerror="this.onerror=null;this.src='https://placehold.co/80x80/1A1428/B08D57?text=K';"
+             alt="KAFUOSA Logo"
+             class="w-16 h-16 object-cover rounded-sm"
+             style="border:1px solid rgba(176,141,87,0.4);">
+      </div>
+
+      <div class="text-center mb-10">
+        <div class="deco-divider mb-4 max-w-[180px] mx-auto">
+          <span class="text-[9px] uppercase tracking-[0.4em] text-artAccent font-semibold"
+                style="font-family:'Josefin Sans',sans-serif;">Member Portal</span>
+        </div>
+        <h1 class="font-display font-bold text-2xl sm:text-3xl text-white tracking-widest">
+          Welcome Back
+        </h1>
+        <p class="text-white/40 text-xs mt-2" style="font-family:'Josefin Sans',sans-serif;">
+          Sign in to your KAFUOSA account
+        </p>
+      </div>
+
+      <!-- Messages -->
+      {% if messages %}
+        {% for message in messages %}
+        <div class="mb-5 px-4 py-3 rounded-sm flex items-center gap-3 text-sm"
+             style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3);">
+          <i class="fa-solid fa-circle-xmark text-red-400 text-xs"></i>
+          <span class="text-red-300 text-xs" style="font-family:'Inter',sans-serif;">{{ message }}</span>
+        </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Form -->
+      <form method="post" class="space-y-5">
+        {% csrf_token %}
+
+        <div>
+          <label class="block text-white/55 text-[11px] uppercase tracking-widest mb-2"
+                 style="font-family:'Josefin Sans',sans-serif;">Username</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-artAccent text-xs"></i>
+            <input name="username" type="text" placeholder="Your username" required
+                   class="w-full pl-10 pr-4 py-3 text-sm text-white placeholder-white/25 focus:outline-none transition rounded-sm"
+                   style="background:rgba(31,24,48,0.6); border:1px solid rgba(176,141,87,0.2);
+                          font-family:'Inter',sans-serif;"
+                   onfocus="this.style.borderColor='rgba(176,141,87,0.5)'"
+                   onblur="this.style.borderColor='rgba(176,141,87,0.2)'">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-white/55 text-[11px] uppercase tracking-widest mb-2"
+                 style="font-family:'Josefin Sans',sans-serif;">Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-artAccent text-xs"></i>
+            <input name="password" type="password" placeholder="Your password" required
+                   class="w-full pl-10 pr-10 py-3 text-sm text-white placeholder-white/25 focus:outline-none transition rounded-sm"
+                   style="background:rgba(31,24,48,0.6); border:1px solid rgba(176,141,87,0.2);
+                          font-family:'Inter',sans-serif;"
+                   id="passwordInput"
+                   onfocus="this.style.borderColor='rgba(176,141,87,0.5)'"
+                   onblur="this.style.borderColor='rgba(176,141,87,0.2)'">
+            <button type="button" onclick="togglePassword()"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-artAccent transition text-xs">
+              <i class="fa-solid fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit"
+                class="btn-primary w-full py-3 rounded-sm text-sm font-semibold tracking-widest mt-2"
+                style="font-family:'Josefin Sans',sans-serif;">
+          Sign In <i class="fa-solid fa-arrow-right-to-bracket ml-2 text-xs"></i>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="deco-divider my-8">
+        <span class="text-white/25 text-[10px] uppercase tracking-widest px-2"
+              style="font-family:'Josefin Sans',sans-serif;">or</span>
+      </div>
+
+      <!-- Register link -->
+      <div class="text-center space-y-3">
+        <p class="text-white/40 text-xs" style="font-family:'Josefin Sans',sans-serif;">
+          Not a member yet?
+          <a href="{% url 'members:register' %}"
+             class="text-artAccent hover:text-artAccentL transition font-semibold ml-1">
+            Register here
+          </a>
+        </p>
+        <a href="{% url 'pages:home' %}"
+           class="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition text-xs"
+           style="font-family:'Josefin Sans',sans-serif;">
+          <i class="fa-solid fa-arrow-left text-[9px]"></i> Back to home
+        </a>
+      </div>
+
+      <!-- Footer note -->
+      <p class="text-center text-white/20 text-[10px] mt-12 uppercase tracking-widest"
+         style="font-family:'Josefin Sans',sans-serif;">
+        KAFUOSA &copy; 2026 &mdash; Kaimosi Friends University
+      </p>
+    </div>
+  </div>
+
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function togglePassword() {
+    const input = document.getElementById('passwordInput');
+    const icon  = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+  }
+</script>
 {% endblock %}
