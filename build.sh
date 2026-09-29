@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 set -o errexit
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt-get install -y nodejs
-npm install
-npx tailwindcss -i static/css/input.css -o static/css/output.css --minify
 pip install -r requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate
@@ -15,7 +11,7 @@ username = os.environ.get('ADMIN_USERNAME', 'admin')
 password = os.environ.get('ADMIN_PASSWORD', '')
 email    = os.environ.get('ADMIN_EMAIL', 'admin@kafuosa.org')
 if not password:
-    print('ADMIN_PASSWORD env var not set — skipping superuser step')
+    print('ADMIN_PASSWORD env var not set - skipping superuser step')
 elif not User.objects.filter(username=username).exists():
     User.objects.create_superuser(username, email, password)
     print('Superuser created')
@@ -27,4 +23,3 @@ else:
     u.save()
     print('Admin password updated from env')
 "
-
