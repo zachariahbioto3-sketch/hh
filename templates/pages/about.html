@@ -20,7 +20,7 @@
     </h1>
     <p class="text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
        style="font-family:'Inter',sans-serif;">
-      The Kaimosi Friends University Optometry Students Association — committed to academic excellence,
+      The Kaimosi Friends University Optometry Students Association â€” committed to academic excellence,
       community eye health, and professional development across Kenya.
     </p>
   </div>
@@ -91,7 +91,7 @@
         <h3 class="font-display font-bold text-artAccentL mb-2 tracking-wider text-sm uppercase">Motto</h3>
         <p class="text-white font-display text-lg tracking-wide mb-3">Eyes To The Future</p>
         <p class="text-white/45 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
-          Our rallying call — a commitment to forward-looking vision science and community service.
+          Our rallying call â€” a commitment to forward-looking vision science and community service.
         </p>
       </div>
 
@@ -292,7 +292,7 @@
         <!-- Photo -->
         <div class="sm:w-72 flex-shrink-0 overflow-hidden" style="min-height:320px; background:rgba(82,40,136,0.2);">
           ${o.photo
-            ? `<img src="${o.photo}" alt="${o.name}" class="w-full h-full object-cover" style="min-height:320px;">`
+            ? `<img src="${o.photo}" alt="${o.name}" class="w-full h-full object-cover" style="min-height:380px; object-position:center 15%;">`
             : `<div class="w-full h-full flex items-center justify-center" style="min-height:320px;"><i class="fa-solid fa-user text-artAccent/25 text-5xl"></i></div>`
           }
         </div>
@@ -300,8 +300,8 @@
         <div class="flex-1 p-6 sm:p-8">
           <p class="text-artAccent text-[10px] uppercase tracking-[0.3em] mb-1 font-semibold"
              style="font-family:'Josefin Sans',sans-serif;">${o.position}</p>
-          <h3 class="font-display font-bold text-white text-lg tracking-wide mb-1">${o.name}</h3>
-          ${o.term ? `<p class="text-white/35 text-[10px] uppercase tracking-widest mb-4" style="font-family:'Josefin Sans',sans-serif;">Term: ${o.term}</p>` : '<div class="mb-4"></div>'}
+          <h3 class="font-display font-bold text-white text-2xl tracking-wide mb-2">${o.name}</h3>
+          ${o.term ? `<p class="text-white/60 text-[11px] uppercase tracking-widest mb-4" style="font-family:'Josefin Sans',sans-serif;">Term: ${o.term}</p>` : '<div class="mb-4"></div>'}
           ${o.full_bio
             ? `<p class="text-white/65 text-xs leading-relaxed mb-5" style="font-family:'Inter',sans-serif;">${o.full_bio}</p>`
             : o.short_bio

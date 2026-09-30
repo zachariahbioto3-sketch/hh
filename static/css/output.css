@@ -3140,3 +3140,15 @@ html.light .est-badge       {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+
+/* Officer modal: light mode fixes */
+html.light #officerModal { background: rgba(244,242,248,0.92) !important; }
+html.light #modalCard { background: #FFFFFF !important; border-color: rgba(82,40,136,0.2) !important; }
+html.light #modalCard h3, html.light #modalCard .font-display { color: #1A1428 !important; }
+html.light #modalCard p, html.light #modalCard span { color: #3D3352 !important; }
+html.light #modalCard .text-artAccent { color: #B08D57 !important; }
+html.light #modalPrev, html.light #modalNext { background: #FFFFFF !important; color: #3D3352 !important; }
+
+html.light #modalCard p, html.light #modalCard span { color: #3D3352 !important; }
+
+html.light #modalCard * { color: #3D3352 !important; } html.light #modalCard .text-artAccent { color: #B08D57 !important; }
