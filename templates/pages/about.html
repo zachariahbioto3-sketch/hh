@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}About KAFUOSA{% endblock %}
 
@@ -20,7 +20,7 @@
     </h1>
     <p class="text-white/55 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed"
        style="font-family:'Inter',sans-serif;">
-      The Kaimosi Friends University Optometry Students Association — committed to academic excellence,
+      The Kaimosi Friends University Optometry Students Association � committed to academic excellence,
       community eye health, and professional development across Kenya.
     </p>
   </div>
@@ -91,7 +91,7 @@
         <h3 class="font-display font-bold text-artAccentL mb-2 tracking-wider text-sm uppercase">Motto</h3>
         <p class="text-white font-display text-lg tracking-wide mb-3">Eyes To The Future</p>
         <p class="text-white/45 text-xs leading-relaxed" style="font-family:'Inter',sans-serif;">
-          Our rallying call — a commitment to forward-looking vision science and community service.
+          Our rallying call � a commitment to forward-looking vision science and community service.
         </p>
       </div>
 
@@ -208,7 +208,7 @@
     <a href="/admin/pages/officer/add/"
        class="text-artAccent text-xs hover:text-artAccentL transition"
        style="font-family:'Josefin Sans',sans-serif;">
-      Add officers in the admin panel →
+      Add officers in the admin panel ?
     </a>
   </div>
   {% endif %}
@@ -220,7 +220,7 @@
      style="background:rgba(13,10,20,0.88); backdrop-filter:blur(12px);"
      onclick="if(event.target===this) closeOfficerModal()">
 
-  <div class="relative w-full max-w-lg rounded-sm shadow-2xl transform scale-95 transition-transform duration-300"
+  <div class="relative w-full max-w-4xl rounded-sm shadow-2xl transform scale-95 transition-transform duration-300"
        id="modalCard"
        style="background:#1A1428; border:1px solid rgba(176,141,87,0.25); max-height:90vh; overflow-y:auto;">
 
@@ -290,10 +290,10 @@
     document.getElementById('modalContent').innerHTML = `
       <div class="flex flex-col sm:flex-row">
         <!-- Photo -->
-        <div class="sm:w-48 flex-shrink-0 overflow-hidden" style="min-height:200px; background:rgba(82,40,136,0.2);">
+        <div class="sm:w-72 flex-shrink-0 overflow-hidden" style="min-height:320px; background:rgba(82,40,136,0.2);">
           ${o.photo
-            ? `<img src="${o.photo}" alt="${o.name}" class="w-full h-full object-cover" style="min-height:200px;">`
-            : `<div class="w-full h-full flex items-center justify-center" style="min-height:200px;"><i class="fa-solid fa-user text-artAccent/25 text-5xl"></i></div>`
+            ? `<img src="${o.photo}" alt="${o.name}" class="w-full h-full object-cover" style="min-height:320px;">`
+            : `<div class="w-full h-full flex items-center justify-center" style="min-height:320px;"><i class="fa-solid fa-user text-artAccent/25 text-5xl"></i></div>`
           }
         </div>
         <!-- Info -->
@@ -335,3 +335,6 @@
   });
 </script>
 {% endblock %}
+
+
+
